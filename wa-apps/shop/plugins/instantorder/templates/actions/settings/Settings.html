@@ -1,0 +1,416 @@
+<link rel="stylesheet" href="{$wa_app_static_url}plugins/instantorder/css/gradient.css">
+<style type="text/css">  
+    table td{
+        vertical-align: top;
+    }
+    #instantorder_table{
+        margin-top: 10px;
+    }
+    #instantorder_table td{
+        padding: 5px 10px;
+    }
+    #wa .CodeMirror{
+        border: 1px solid #eee;
+    }
+    .CodeMirror-scroll {
+        height: auto;
+        overflow-y: hidden;
+        overflow-x: auto;
+    }
+    #css_gradients{
+        display: table;
+    }
+    #css_gradients div {
+        margin: 5px;
+        cursor: pointer;
+        height: 50px;
+        width: 50px;
+    }
+    #css_gradients span{
+        display: inline-block;
+    }
+    #css_gradients span.active{
+        border: 1px solid orange;
+    }
+    .colorpicker{
+        z-index: 10;
+    }
+    .templates-block{
+        display: none;
+    }
+</style>
+<h1>Быстрый заказ</h1>
+
+<select class="all-fields" style="display:none;">
+    {foreach $fields as $field}
+        <option value="{$field->getId()}">{if $field->getId()=='name'}Полное имя{else}{$field->getName()}{/if}</option>
+    {/foreach}
+    <optgroup label="Адрес">
+        {foreach from=$address_fields item=address}
+            <option value="address.{$address->getId()}">{$address->getName()}</option>
+        {/foreach}
+    </optgroup>
+</select>
+
+<div class="fields form">
+    <form action="?plugin=instantorder&action=save" method="post" id="plugins-settings-form">
+        {$wa->csrf()}
+
+
+        {literal}
+            <p>{shopInstantorderPlugin::display()} - Код хелпера вывода</p>
+        {/literal}
+        <p class="gray">
+            <i class="icon16 exclamation"></i>
+            Используя этот код Вы можете осуществить вывод "Быстрого заказа" в любом месте вашей темы оформления, это позволяет избавиться от привязки к конкретным местам вывода плагина
+        </p>
+
+        <div class="field-group">
+            <h3>Основные настройки</h3>
+            <div class="field">
+                <div class="name">
+                    Статус плагина
+                </div>
+                <div class="value">
+                    <select name="shop_instantorder[status]">
+                        <option {if $settings.status == 1} selected="selected"{/if} value="1">Включен</option>
+                        <option {if $settings.status == 0} selected="selected"{/if} value="0">Выключен</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Стандартный вывод в карточке товара
+                </div>
+                <div class="value">
+                    <select name="shop_instantorder[frontend_product]">
+                        <option {if $settings.frontend_product == 1} selected="selected"{/if} value="1">Включен</option>
+                        <option {if $settings.frontend_product == 0} selected="selected"{/if} value="0">Выключен</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Стандартный вывод в корзине
+                </div>
+                <div class="value">
+                    <select name="shop_instantorder[frontend_cart]">
+                        <option {if $settings.frontend_cart == 1} selected="selected"{/if} value="1">Включен</option>
+                        <option {if $settings.frontend_cart == 0} selected="selected"{/if} value="0">Выключен</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Заголовок
+                </div>
+                <div class="value">
+                    <input type="text" name="shop_instantorder[title]" value="{$settings.title|escape}"/>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Название ссылки
+                </div>
+                <div class="value">
+                    <input type="text" name="shop_instantorder[link_name]" value="{$settings.link_name|escape}"/>
+                </div>
+            </div>
+
+
+            <div class="field">
+                <div class="name">
+                    Минимальная сумма заказа
+                </div>
+                <div class="value">
+                    <input type="text" name="shop_instantorder[min_order_sum]" value="{$settings.min_order_sum|escape}"/>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="field-group">
+            <h3>Кастомизация</h3>
+
+            <div class="field">
+                <div class="name">
+                    Тема оформления
+                </div>
+                <div class="value">
+                    <select name="shop_instantorder[theme]">
+                        {foreach from=$themes item=theme}
+                            <option {if $settings.theme == $theme} selected="selected"{/if}  value="{$theme}">{$theme}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Простая кнопка без стиля
+                </div>
+                <div class="value">
+                    <input type="hidden" name="shop_instantorder[without_style]" value="0"/>        
+                    <input autocomplete="off" id="without-style-checkbox" type="checkbox" {if $settings.without_style}checked="checked"{/if}  name="shop_instantorder[without_style]" value="1" />
+                    <span>- Вы можете изменить стиль кнопки под дизайн своего сайта</span>   
+                </div>
+            </div>
+
+            <div id="button-style-field" class="field" style="{if $settings.without_style}display:none;{/if}">
+                <div class="name">
+                    Стиль кнопки
+                </div>
+                <div class="value">
+                    <input class="button_style" type="hidden" name="shop_instantorder[button_style]" value="{$settings.button_style|escape}"/>                 
+
+                    {include file="./EditButton.html"}
+                    <textarea style="display:none;" id="css_button_style" name="shop_instantorder[css_button_style]">{$settings.css_button_style|escape}</textarea>
+
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Ширина модального окна
+                </div>
+                <div class="value">
+                    <input type="text" name="shop_instantorder[width_modal]" value="{$settings.width_modal|escape}"/>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Высота модального окна
+                </div>
+                <div class="value">
+                    <input type="text" name="shop_instantorder[height_modal]" value="{$settings.height_modal|escape}"/>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="name">
+                    Изменение размеров модального окна
+                </div>
+                <div class="value">
+                    <select name="shop_instantorder[resizable]">
+                        <option {if $settings.resizable == 1} selected="selected"{/if} value="1">Да</option>
+                        <option {if $settings.resizable == 0} selected="selected"{/if} value="0">Нет</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
+                    Перемещение модального окна
+                </div>
+                <div class="value">
+                    <select name="shop_instantorder[draggable]">
+                        <option {if $settings.draggable == 1} selected="selected"{/if} value="1">Да</option>
+                        <option {if $settings.draggable == 0} selected="selected"{/if} value="0">Нет</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <hr/>
+
+        <div class="field">
+            <div class="name">
+                Сообщение при успешном заказе
+            </div>
+            <div class="value">
+                <textarea name="shop_instantorder[successful_order]">{$settings.successful_order|escape}</textarea>
+                <p class="hint">{ldelim}order_id{rdelim} - заменяется на номер заказа</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="name">
+                JavaScript-код, выполняемый после успешного заказа
+            </div>
+            <div class="value">
+                <textarea name="shop_instantorder[successful_order_js]">{$settings.successful_order_js|escape}</textarea>
+                <p class="hint">Этот код может быть использован для отслеживания целей в яндекс или google аналитике</p>
+            </div>
+        </div>
+
+
+        <h3>Поля формы быстрого оформления заказа:</h3>
+
+        <div class="field">
+            <div class="name">
+                Использовать капчу (CAPTCHA)
+            </div>
+            <div class="value">
+                <select name="shop_instantorder[is_captcha]">
+                    <option {if $settings.is_captcha == 1} selected="selected"{/if} value="1">Да</option>
+                    <option {if $settings.is_captcha == 0} selected="selected"{/if} value="0">Нет</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="name">
+                Выводить поле комментария заказа
+            </div>
+            <div class="value">
+                <select name="shop_instantorder[is_comment]">
+                    <option {if $settings.is_comment == 1} selected="selected"{/if} value="1">Да</option>
+                    <option {if $settings.is_comment == 0} selected="selected"{/if} value="0">Нет</option>
+                </select>
+            </div>
+        </div>
+        <br/><br/>
+
+        <div class="instantorder_container">
+            <table id="instantorder_table" border="1">
+                <tr>
+                    <td>Название</td><td>Тип</td><td>Обязательное поле</td><td>Удалить</td>
+                </tr>
+
+                {foreach from=$selected_fields key=key item=selected_field}
+                    <tr>
+                        <td><input class="long" type="text" placeholder="Название" value="{$selected_field.name|escape}" name="field_names[]"></td>
+
+                        <td>
+                            <select name="field_vals[]">
+                                {foreach from=$fields item=field}
+                                    <option {if $selected_field.type==$field->getId()}selected="selected"{/if} value="{$field->getId()}">{if $field->getId()=='name'}Полное имя{else}{$field->getName()}{/if}</option>
+                                {/foreach}
+                                <optgroup label="Адрес">
+                                    {foreach from=$address_fields item=address}
+                                        <option {if $selected_field.type=="address.`$address->getId()`"}selected="selected"{/if} value="address.{$address->getId()}">{$address->getName()}</option>
+                                    {/foreach}
+                                </optgroup>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="field_required[]">
+                                <option {if $selected_field.required}selected="selected"{/if} value="1">Да</option>
+                                <option {if !$selected_field.required}selected="selected"{/if} value="0">Нет</option>
+                            </select>
+                        </td>
+                        <td>
+                            <a class="remove-field" href="javascript:void(0)"><i class="icon16 cross"></i></a>
+                        </td>
+                    </tr>
+                {/foreach}
+            </table>
+        </div>
+
+        <div class="field">
+            <a class="add-field" href="javascript:void(0)"><i class="icon16 add"></i>Добавить поле</a>
+        </div>
+
+        <br/>    
+        <div class="field">
+            <a class="edit-templates" href="javascript:void(0)"><i class="icon16 edit"></i>Изменить шаблоны</a>
+        </div>   
+        <div class="templates-block">
+            {foreach $templates as $key => $template}
+                <div class="field">
+                    <div class="name">{$template.name}<br /><span class="hint">HTML + Smarty</span></div>
+                    <div class="value no-shift">
+                        <div id="s-editor-core-wrapper">
+                            <textarea id="sf-template-{$key}" class="body" name="templates[{$key}]">{$template.content|escape}</textarea>
+                        </div>
+                    </div>
+
+                    {if $template.change_tpl}
+                        <div class="value">
+                            <p class="gray"><i class="icon16 exclamation"></i>Внимание! Шаблон по умолчанию был изменен</p>
+                            <input type="checkbox" name="reset_tpls[{$key}]" value="1"  /> - Сбросить изменения, использовать шаблон по умолчанию
+                        </div>
+                    {/if}
+                </div>
+            {/foreach}
+        </div>
+
+
+        <div class="field">
+            <div class="value submit">
+                <input type="submit" class="button green" value="Сохранить">
+                <span id="plugins-settings-form-status" style="display:none">
+                    <i style="vertical-align:middle" class="icon16 yes"></i> [`Saved`]
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    $(function() {
+        $('#without-style-checkbox').change(function() {
+            if ($(this).prop('checked')) {
+                $('#button-style-field').hide();
+            } else {
+                $('#button-style-field').show();
+            }
+        });
+        $('.edit-templates').click(function() {
+            $('.templates-block').show();
+        });
+        $('#css_gradients div').click(function() {
+            $('#css_gradients span').removeClass('active');
+            $(this).closest('span').addClass('active');
+            $('.button_style').val($(this).attr('class'));
+        });
+        var button_style = $('.button_style').val();
+        $('#css_gradients div.' + button_style).closest('span').addClass('active');
+        function initRemove() {
+            $('.remove-field').click(function() {
+                $(this).parent().parent().remove();
+            });
+        }
+        initRemove();
+        $('.add-field').click(function() {
+            $('#instantorder_table').append('<tr>\
+                <td><input class="long" type="text" placeholder="Название" value="" name="field_names[]"></td>\
+                <td><select name="field_vals[]">' + $('.all-fields').html() + '</select></td>\
+                <td><select name="field_required[]"><option value="1">Да</option><option value="0">Нет</option></select></td>\
+                <td><a class="remove-field" href="javascript:void(0)"><i class="icon16 cross"></i></a></td>\
+            </tr>');
+            initRemove();
+        });
+    });
+    $(function() {
+        var ids = [{foreach $templates as $key => $template}"sf-template-{$key}",{/foreach}];
+                for (var i = 0; i < ids.length; i++) {
+            var mode = 'text/html';
+            if (ids[i] == 'sf-template-InstantorderScript') {
+                mode = 'javascript';
+            }
+            var c = CodeMirror.fromTextArea(document.getElementById(ids[i]), {
+                mode: mode,
+                tabMode: "indent",
+                height: "dynamic",
+                lineWrapping: true
+            });
+            $(ids[i]).change(function() {
+                c.setValue($(this).val())
+            });
+            $(ids[i]).submit(function() {
+                var f = $(this);
+                $.post(f.attr('action'), f.serialize(), function(response) {
+                    if (response.status == 'ok') {
+                        $('#wa-design-button').removeClass('red').addClass('green');
+                        $("#wa-editor-status-fail").hide()
+                        $("#wa-editor-status-ok span").html(response.data.message);
+                        $("#wa-editor-status-ok").fadeIn('slow', function() {
+                            $(this).fadeOut(1000);
+                        });
+                    } else {
+                        $('#wa-design-button').removeClass('green').addClass('red');
+                        $("#wa-editor-status-ok").hide();
+                        $("#wa-editor-status-fail span").html(response.errors.join(', '));
+                        $("#wa-editor-status-fail").fadeIn('slow');
+                    }
+                }, "json")
+                return false;
+            });
+        }
+    });
+</script>

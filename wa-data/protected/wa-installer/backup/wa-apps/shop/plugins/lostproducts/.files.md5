@@ -1,0 +1,14 @@
+90ae45081fb73b3ae88002cd670b09b4 *img/lostproducts16.png
+221c1835907c892765a47c8f5a0d3901 *js/lostproducts.js
+209634bb0238704c4874c35d615ae59e *lib/.htaccess
+e98198d94e654e8a4c11a07e195390ed *lib/actions/shopLostproductsPluginBackendSaveMenuState.controller.php
+6bd94052b1dcb43e0561003c4c8996e5 *lib/config/check.php
+f0b76fa117ba66e21d68fdbbf13ee3f5 *lib/config/install.php
+95f8cf6affbd2fb4b78e178b525bd5c8 *lib/config/plugin.php
+067e7f7d1607df3f89a00dee1ce5a4ff *lib/config/settings.php
+b7959b8142821deee4f99a81ce5719ea *lib/shopLostproductsPlugin.class.php
+a1751e1f10a3b96b05d0401c97e72008 *locale/.htaccess
+878b71ac1e544913d8fcced1a0e834be *locale/en_US/LC_MESSAGES/shop_lostproducts.mo
+d548dce7614c28c3659fd571929476b4 *locale/en_US/LC_MESSAGES/shop_lostproducts.po
+3afa9f688aa2edc22d8b77bbc89f10a0 *locale/ru_RU/LC_MESSAGES/shop_lostproducts.mo
+ae46ffd9b988941a3ac1805f4dd80dd5 *locale/ru_RU/LC_MESSAGES/shop_lostproducts.po

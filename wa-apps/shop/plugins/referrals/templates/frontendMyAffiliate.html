@@ -1,0 +1,32 @@
+<h2>[`Referral program`]</h2>
+
+<style>
+    .error a { color: red; }
+</style>
+
+{if !empty($code)}
+
+    <!-- referral -->
+    <p>[`Homepage referral URL`]: <a href="{$wa->getUrl('shop/frontend', true)}?promo_id={$code}" class="highlighted referral-url">{$wa->getUrl('shop/frontend', true)}<strong>?promo_id={$code}</strong></a></p>
+    <p>{sprintf('[`Alternatively, you may simply add your unique referral ID <span class="bold">%s</span> to any store URL, and it will be considered as your referral link. Examples:<br> %s`]',
+        '?promo_id='|cat:$code,
+        '<a href="'|cat:$product_url|cat:'" target="_blank">'|cat:$product_url|cat:'</a><br> '|cat:'<a href="'|cat:$category_url|cat:'" target="_blank">'|cat:$category_url|cat:'</a>')}</p>
+        
+    <p>{sprintf(_wp('Referral program <a href="%s" target="_blank">terms and conditions</a>.'), '?terms=1')}</p>
+
+    {include file="./report.html"}
+    
+{else}
+
+    <!-- not a referall partner yet -->
+    <form action="" method="post">
+
+        {$promo}
+        
+        <p><label{if waRequest::method() == 'post' && !$wa->post('terms')} class="error"{/if}><input type="checkbox" name="terms" value="1"> {sprintf(_wp('I have read and agree to the <a href="%s" target="_blank">Referral program terms and conditions</a>'), '?terms=1')}</label></p>
+        
+        <input type="submit" value="[`Apply for Referral program`]">
+        {$wa->csrf()}
+    </form>
+    
+{/if}

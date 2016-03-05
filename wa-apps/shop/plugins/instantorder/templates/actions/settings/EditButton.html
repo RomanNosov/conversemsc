@@ -1,0 +1,561 @@
+<link rel="stylesheet" href="{$wa_url}wa-content/css/jquery-ui/jquery-ui-1.7.2.custom.css" />
+<link href="{$wa_app_static_url}plugins/instantorder/css/edit_button.css" rel="stylesheet" type="text/css"/>
+
+
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/jquery-colorpicker/jquery.colorpicker.js"></script>
+<link rel="stylesheet" href="{$wa_url}wa-content/js/jquery-plugins/jquery-colorpicker/colorpicker.css" />
+<script type="text/javascript">
+    var link_name = 'Предпросмотр';
+
+    $('.color').ColorPicker({
+        onSubmit: function(hsb, hex, rgb, el) {
+            $(el).val(hex);
+            $(el).ColorPickerHide();
+            $(el).change();
+        },
+        onBeforeShow: function() {
+            $(this).ColorPickerSetColor(this.value);
+        }
+    }).bind('keyup', function() {
+        $(this).ColorPickerSetColor(this.value);
+    });
+</script>
+
+
+<div id="first_div">
+    <div id="css_gradients">
+        <span><div id="7089b3" title="a5b8da" class="gradient_0"></div></span>
+        <span><div id="febf04" title="ffd65e" class="gradient_1"></div></span>
+        <span><div id="3f4c6b" title="606c88" class="gradient_2"></div></span>
+        <span><div id="b7ad70" title="d5cea6" class="gradient_3"></div></span>
+        <span><div id="6d0019" title="a90329" class="gradient_4"></div></span>
+        <span><div id="008c00" title="4ba614" class="gradient_5"></div></span>
+        <span><div id="ef007c" title="ff5db1" class="gradient_6"></div></span>
+        <span><div id="0e0e0e" title="7d7e7d" class="gradient_7"></div></span>
+        <span><div id="7fe0f8" title="cef8ff" class="gradient_8"></div></span>
+        <span><div id="d6f0fd" title="f2f9fe" class="gradient_9"></div></span>
+        <span><div id="e93cec" title="fb83fa" class="gradient_10"></div></span>
+        <span><div id="1c5a85" title="3093c7" class="gradient_11"></div></span>
+        <span><div id="96c56f" title="a9db80" class="gradient_12"></div></span>
+        <span><div id="9174ed" title="b29af8" class="gradient_13"></div></span>
+        <span><div id="c8d7dc" title="f2f5f6" class="gradient_14"></div></span>
+        <span><div id="fb9d23" title="ffc579" class="gradient_15"></div></span>
+        <span><div id="707070" title="d3d3d3" class="gradient_16"></div></span>
+        <span><div id="f6f283" title="fcfac0" class="gradient_17"></div></span>
+        <span><div id="dfdddd" title="f4f5f5" class="gradient_18"></div></span>
+        <span><div id="ffd7d7" title="f7e3e3" class="gradient_19"></div></span>
+        <span><div id="ff4040" title="ff9a9a" class="gradient_20"></div></span>
+        <span><div id="8e865b" title="a9a588" class="gradient_21"></div></span>
+        <span><div id="d20202" title="f62b2b" class="gradient_22"></div></span>
+        <span><div id="845108" title="a67939" class="gradient_23"></div></span>
+        <span><div id="a6a6f2" title="d2d2f9" class="gradient_24"></div></span>
+        <span><div id="2CAFE3" title="49c0f0" class="gradient_25"></div></span>
+        <span><div id="596a72" title="CEDCE7" class="gradient_26"></div></span>
+        <span><div id="abdc28" title="b6e026" class="gradient_27"></div></span>
+        <span><div id="c79810" title="eab92d" class="gradient_28"></div></span>
+        <span><div id="000000" title="45484d" class="gradient_29"></div></span>
+        <span><div id="76bdd1" title="92cfde" class="gradient_30"></div></span>
+        <span><div id="23538a" title="a7cfdf" class="gradient_31"></div></span>
+        <span><div id="CCCCCC" title="E6E6E6" class="gradient_32"></div></span>
+        <div style="clear:both;height:1px;"></div>
+    </div>
+    <div id="edit_preview">
+        <p id="edit_bt">
+            <input type="hidden" name="shop_instantorder[personal_css]" value="0"/>                 
+            <input autocomplete="off" id="personal-css-checkbox" type="checkbox" {if $settings.personal_css}checked="checked"{/if}  name="shop_instantorder[personal_css]" value="1" /> - персональные настройки
+
+        </p>
+
+
+        <div id="result_button" class="resultbutton" style="display: none;">
+            <div id="preview_area">
+
+                <div id="result">
+                    {$settings.css_button_style}
+                    <span href="#" class="instantorder_button">Предпросмотр</span>
+                </div>
+                <div id="result_hover"></div>
+                <br /><a class="l0" href="javascript:void(0)" id="h_preview" style="display:none;font-size:80%;">Hide Hover Preview</a>
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <td>
+                    <div>
+
+                        <div id="customize_button">
+                            <input id="page_width" type="hidden" value="750" />
+                            <input id="editbutton_on_off" type="hidden" value="off" />
+                            <div id="form_00" style="border:0px solid #FFFF00;position:relative;">
+
+                                <div id="form_000">
+                                    <table width="350" style="display: none;">
+                                        <tr class="tr0">
+                                            <td width="140">Text</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" id="content" type="text" value="Быстрый заказ" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr class="tr0">
+                                            <td width="140">Text color</td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="text_color" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr class="tr0">
+                                            <td width="140">Text shadow size <a id="text_shadow_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="text_shadow_px" type="text" style="width:25px;" value="-1" /> px </td>
+                                            <td>
+                                                <div id="text_shadow_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <div style="display:none;" id="text_shadow_details">
+                                        <table width="350">
+                                            <tr class="tr0">
+                                                <td width="140" align="right">h-shadow </td>
+                                                <td width="70"><input onChange="$(this).update_css_button('update_form');" id="h_text_shadow" type="text" style="width:25px;" value="-1" /> px</td>
+                                                <td>
+                                                    <div id="h_shadow_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table width="350">
+                                            <tr class="tr0">
+                                                <td width="140" align="right">v-shadow</td>
+                                                <td width="70"><input onChange="$(this).update_css_button('update_form');" id="v_text_shadow" type="text" style="width:25px;" value="-1" /> px</td>
+                                                <td>
+                                                    <div id="v_shadow_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table width="350">
+                                            <tr class="tr0">
+                                                <td width="140" align="right">blur</td>
+                                                <td width="70"><input onChange="$(this).update_css_button('update_form');" id="text_blur_shadow" type="text" style="width:25px;" value="0" /> px</td>
+                                                <td>
+                                                    <div id="text_blur_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <table width="350">
+                                            <tr class="tr0">
+                                                <td width="140" align="right">opacity</td>
+                                                <td width="70"><input onChange="$(this).update_css_button('update_form');" id="text_opacity_shadow" type="text" style="width:25px;" value="0.3" /></td>
+                                                <td>
+                                                    <div id="text_opacity_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <table width="350">
+                                        <tr class="tr0">
+                                            <td width="140">Text shadow color</td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="text_shadow" type="text" style="width:60px;" value="000000" />
+                                                <input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="text_shadow_yes" name="text_shadow_0" /><span style="font-size:80%;">yes</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="text_shadow_no" name="text_shadow_0" /><span style="font-size:80%;">no</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr class="tr0">
+                                            <td width="140">Font Family</td>
+                                            <td>
+                                                <select onChange="$(this).update_css_button('update_form');" style="width: 140px;" id="font_family" name="font_family0">
+                                                    <option style="font-family: arial,helvetica,sans-serif;" value="arial, helvetica, sans-serif" selected="selected">Arial</option>
+                                                    <option style="font-family: arial black,sans-serif;" value="arial black, sans-serif">Arial Black</option>
+                                                    <option style="font-family: trebuchet MS,sans-serif;" value="trebuchet MS, sans-serif">Trebuchet MS</option>
+                                                    <option style="font-family: courier new,courier,monospace;" value="courier new, courier, monospace">Courier</option>
+                                                    <option style="font-family: helvetica,sans-serif;" value="helvetica, sans-serif">Helvetica</option>
+                                                    <option style="font-family: verdana,sans-serif;" value="verdana, sans-serif">Verdana</option>
+                                                    <option style="font-family: georgia,serif;" value="georgia, serif">Georgia</option>
+                                                    <option style="font-family: palatino linotype,palatino,serif;" value="palatino linotype, palatino, serif">Palatino</option>
+                                                    <option style="font-family: impact,sans-serif;" value="impact, sans-serif">Impact</option>
+                                                    <option style="font-family: comic sans,comic sans ms,cursive,verdana,arial,sans-serif;" value="comic sans, comic sans ms, cursive, verdana, arial, sans-serif">Comic Sans MS</option>
+                                                    <option style="font-family: tahoma,verdana,arial,sans-serif;" value="tahoma, verdana, arial, sans-serif">Tahoma</option>
+                                                    <option style="font-family: times new roman,times,serif;" value="times new roman, times, serif">Times New Roman</option>
+                                                    <option style="font-family: lucida sans unicode,lucida grande,sans-serif;" value="lucida sans unicode, lucida grande, sans-serif">Lucida Sans</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr class="tr0">
+                                            <td width="140">Bold text</td>
+                                            <td><input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="bold_text_yes" name="bold_text0" /><span style="font-size:80%;">yes</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="bold_text_no" name="bold_text0" /><span style="font-size:80%;">no</span></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr class="tr0">
+                                            <td width="140">Font size 
+                                                <input style="display:none" type="checkbox" id="font_size_auto" name="font_size_auto0" />
+                                            </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" onKeyUp="$(this).checked_false_input('font_size_auto');
+                                                    $(this).update_css_button('update_form');" id="font_size" type="text" style="width:25px;" value="12" /> px </td>
+                                            <td>
+                                                <div id="font_size_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <input style="display:none" type="checkbox"  checked="checked" id="width_auto" name="width_auto0" />
+                                <input type="hidden" id="width" value="150" />
+                                <table width="350">
+                                    <tr style="background-color:#ffe7cc;">
+                                        <td width="140">Padding <a id="padding_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td>
+                                        <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="padding_px" type="text" style="width:25px;" value="10" /> px 
+                                        </td>
+                                        <td>
+                                            <div id="padding_px_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="display:none;" id="padding_details">
+                                    <table width="350">
+                                        <tr style="background-color:#ffe7cc;">
+                                            <td width="140" align="right">Top</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="padding_top" type="text" style="width:25px;" value="10" /> px </td>
+                                            <td>
+                                                <div id="padding_top_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#ffe7cc;">
+                                            <td width="140" align="right">Right</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="padding_right" type="text" style="width:25px;" value="10" /> px </td>
+                                            <td>
+                                                <div id="padding_right_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#ffe7cc;">
+                                            <td width="140" align="right">Bottom</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="padding_bottom" type="text" style="width:25px;" value="10" /> px </td>
+                                            <td>
+                                                <div id="padding_bottom_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#ffe7cc;">
+                                            <td width="140" align="right">Left</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="padding_left" type="text" style="width:25px;" value="10" /> px </td>
+                                            <td>
+                                                <div id="padding_left_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table width="350">
+                                    <tr style="background-color:#ffe7cc;">
+                                        <td width="140">Shadow size <a id="shadow_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td>
+                                        <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="shadow_button" type="text" style="width:25px;" value="12" /> px </td>
+                                        <td>
+                                            <div id="shadow_button_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="display:none;" id="shadow_details">
+                                    <table width="350">
+                                        <tr style="background-color:#ffe7cc;">
+                                            <td width="140" align="right">Shadow X</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="shadow_x" type="text" style="width:25px;" value="0" /> px </td>
+                                            <td>
+                                                <div id="shadow_x_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#ffe7cc;">
+                                            <td width="140" align="right">Shadow Y</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="shadow_y" type="text" style="width:25px;" value="0" /> px </td>
+                                            <td>
+                                                <div id="shadow_y_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#ffe7cc;">
+                                            <td width="140" align="right">Shadow Blur</td>
+                                            <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="shadow_blur" type="text" style="width:25px;" value="0" /> px </td>
+                                            <td>
+                                                <div id="shadow_blur_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table width="350">
+                                    <tr style="background-color:#ffe7cc;">
+                                        <td width="140">Shadow Inset</td>
+                                        <td><input onClick="$(this).update_css_button('update_form');" type="radio" id="inset_yes" name="inset_yes0" />
+                                            <span style="font-size:80%;">yes</span><input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="inset_no" name="inset_no0" />
+                                            <span style="font-size:80%;">no</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="350">
+                                    <tr style="background-color:#ffe7cc;">
+                                        <td width="140">Shadow color</td>
+                                        <td><input onChange="$(this).update_css_button('update_form');" class="color" id="shadow_button_color" type="text" style="width:60px;" value="b4b5b5" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="form_01">
+                        <div style="position:relative;">
+                            <table width="350">
+                                <tr style="background:transparent;font-size:90%;">
+                                    <td align="right"><a class="l0" href="#" id="reset_options">Сбросить по умолчанию</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div id="form_001">
+                                <div>
+                                    <table width="350">
+                                        <tr>
+                                            <td width="140">Background Start</td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="bgcolor_start" type="text" style="width:60px;" value="FFFFFF" />
+                                                <input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="bgcolor_start_auto" name="bgcolorstart0" /><span style="font-size:80%;">auto</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="bgcolor_start_modify" name="bgcolorstart0" /><span style="font-size:80%;">modify</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr>
+                                            <td width="140">Background End</td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="bgcolor_end" type="text" style="width:60px;" value="FFFFFF" />
+                                                <input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="bgcolor_end_auto" name="bgcolorend0" /><span style="font-size:80%;">auto</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="bgcolor_end_modify" name="bgcolorend0" /><span style="font-size:80%;">modify</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr>
+                                            <td width="140">Background Start <span style="color:#2B55AB;font-weight:bold;">HOVER</span></td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="bgcolorhover_start" type="text" style="width:60px;" value="FFFFFF" />
+                                                <input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="bgcolorhover_start_auto" name="bgcolorhoverstart0" /><span style="font-size:80%;">auto</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="bgcolorhover_start_modify" name="bgcolorhoverstart0" /><span style="font-size:80%;">modify</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr>
+                                            <td width="140">Background End <span style="color:#2B55AB;font-weight:bold;">HOVER</span></td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="bgcolorhover_end" type="text" style="width:60px;" value="FFFFFF" />
+                                                <input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="bgcolorhover_end_auto" name="bgcolorhoverend0" /><span style="font-size:80%;">auto</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="bgcolorhover_end_modify" name="bgcolorhoverend0" /><span style="font-size:80%;">modify</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table width="350">
+                                    <tr style="background-color:#e6e6e6;">
+                                        <td width="140">Border Radius size <a id="border_radius_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td><td><input onChange="$(this).update_css_button('update_form');" onKeyUp="$(this).update_css_button('update_form');" id="radius" type="text" style="width:25px;" value="3" /> px </td>
+                                        <td><div id="radius_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                    </tr>
+                                </table>
+                                <div style="display:none;" id="border_radius_details">
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Top Left</td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_radius_top" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_radius_top_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Top Right</td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_radius_right" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_radius_right_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Bottom Right</td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_radius_bottom" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_radius_bottom_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Bottom Left</td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_radius_left" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_radius_left_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table width="350">
+                                    <tr style="background-color:#e6e6e6;">
+                                        <td width="140">Border <a id="bordercolor_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td><td><input onChange="$(this).update_css_button('update_form');" class="color" id="bordercolor" type="text" style="width:60px;" value="FFFFFF" />
+                                            <input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="bordercolor_auto" name="bordercolor_0" /><span style="font-size:80%;">auto</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="bordercolor_modify" name="bordercolor_0" /><span style="font-size:80%;">modify</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="display:none;" id="bordercolor_details">
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Top </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="border_color_top" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Right </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="border_color_right" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Bottom  </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="border_color_bottom" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Left </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="border_color_left" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table width="350">
+                                    <tr style="background-color:#e6e6e6;">
+                                        <td width="140">Border size <a id="border_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td>
+                                        <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="border_size" type="text" style="width:25px;" value="1" /> px </td>
+                                        <td><div id="border_size_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                    </tr>
+                                </table>
+                                <div style="display:none;" id="border_details">
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Top </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_top" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_top_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Right </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_right" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_right_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Bottom  </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_bottom" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_bottom_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Left </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="border_left" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="border_left_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table width="350">
+                                    <tr style="background-color:#e6e6e6;">
+                                        <td width="140">Border <span style="color:#2B55AB;font-weight:bold;">HOVER</span> <a id="borderhovercolor_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td>
+                                        <td><input  onChange="$(this).update_css_button('update_form');" class="color" id="bordercolorhover" type="text" style="width:60px;" value="FFFFFF" />
+                                            <input onClick="$(this).update_css_button('update_form');" checked="checked" type="radio" id="bordercolorhover_auto" name="bordercolorhover_0" /><span style="font-size:80%;">auto</span><input onClick="$(this).update_css_button('update_form');" type="radio" id="bordercolorhover_modify" name="bordercolorhover_0" /><span style="font-size:80%;">modify</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="display:none;" id="borderhovercolor_details">
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Top </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="borderhover_color_top" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Right </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="borderhover_color_right" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Bottom  </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="borderhover_color_bottom" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140" align="right">Left </td>
+                                            <td><input onChange="$(this).update_css_button('update_form');" class="color" id="borderhover_color_left" type="text" style="width:60px;" value="FFFFFF" /></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <table width="350">
+                                    <tr style="background-color:#e6e6e6;">
+                                        <td width="140">Border size <span style="color:#2B55AB;font-weight:bold;">HOVER</span> <a id="borderhover_option" class="l0" style="text-decoration:none;font-size:120%;" href="javascript:void(0);">[+]</a></td>
+                                        <td><input onKeyUp="$(this).update_css_button('update_form');" onChange="$(this).update_css_button('update_form');" id="borderhover_size" type="text" style="width:25px;" value="1" /> px </td>
+                                        <td><div id="borderhover_size_slider" style="width:70px;font-size:12px;float:left;"></div>
+                                            <input id="borderhover_size_modify" type="hidden" value="off" />
+                                        </td>
+                                    </tr>
+                                </table>
+                                <div style="display:none;" id="borderhover_details">
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140"  align="right">Top </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="borderhover_top" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="borderhover_top_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140"  align="right">Right </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="borderhover_right" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="borderhover_right_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140"  align="right">Bottom  </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="borderhover_bottom" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="borderhover_bottom_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                    <table width="350">
+                                        <tr style="background-color:#e6e6e6;">
+                                            <td width="140"  align="right">Left </td>
+                                            <td width="70"><input onChange="$(this).update_css_button('update_form');" id="borderhover_left" type="text" style="width:25px;" value="1" /> px</td>
+                                            <td><div id="borderhover_left_slider" style="width:70px;font-size:12px;float:left;"></div></td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <input id="gradient_first" type="hidden" value="" />
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+        <div class="clr"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var first_run = {if $settings.css_button_style}1{else}0{/if};
+</script>
+
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.position.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.slider.min.js"></script>
+
+
+
+<script type="text/javascript" src="{$wa_app_static_url}plugins/instantorder/js/fcts.min.js"></script>
+
+
+

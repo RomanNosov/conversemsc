@@ -1,0 +1,30 @@
+{if !empty($breadcrumbs)}
+    <div class="breadcrumbs" itemprop="breadcrumb">
+        {foreach $breadcrumbs as $breadcrumb}
+            <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a> <span class="rarr">&rarr;</span>
+        {/foreach}
+    </div>
+{/if}
+
+<h1 itemprop="name">{$page.name}</h1>
+
+{$subpages = $wa->site->pages($page.id)}
+{if $subpages}
+    <ul class="sub-links">
+        {foreach $subpages as $p}
+            <li><a href="{$p.url}">{$p.name}</a></li>
+        {/foreach}
+    </ul>
+{/if}
+
+<div id="page" role="main" itemprop="description">
+    {$page.content}
+</div>
+
+{literal}
+<!-- Put this div tag to the place, where the Comments block will be -->
+<div id="vk_comments" text-align: center></div>
+<script type="text/javascript">
+VK.Widgets.Comments("vk_comments", {limit: 10, width: "700", attach: "*"});
+</script>
+{/literal}

@@ -1,0 +1,149 @@
+{if !empty($data)}
+
+<!-- referall statistics -->
+
+<link href="{$wa_url}wa-content/js/jquery-plugins/jquery-plot/jquery.jqplot.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/jquery-plot/jquery.jqplot.min.js"></script>
+<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/jquery-plot/excanvas.min.js"></script><![endif]-->
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/jquery-plot/plugins/jqplot.highlighter.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/jquery-plot/plugins/jqplot.cursor.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-plugins/jquery-plot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<div id="referrals-report-wrapper">
+<div id="referrals-report" style="margin-bottom: 20px;"></div>
+<script type="text/javascript">
+    $(function () {
+        var tickInterval = '2 day';
+        $.jqplot('referrals-report', [{json_encode($data.amount)}{if !empty($data.visitors)}, {json_encode($data.visitors)}{/if}], {
+            seriesColors : ["#129d0e", "#3b7dc0", , "#a38717", "#ac3562", "#1ba17a", "#87469f", "#6b6b6b", "#686190", "#b2b000", "#00b1ab", "#76b300"],
+            series : [{
+                yaxis : 'yaxis',
+                shadow : false,
+                lineWidth : 3,
+                fill : true,
+                fillAlpha : 0.5,
+                fillAndStroke : true,
+                rendererOptions : {
+                    highlightMouseOver : false
+                },
+                highlighter: {
+                    formatString: '[`%s: %s points`]'
+                }
+            }, {
+                yaxis : 'y2axis',
+                shadow : false,
+                lineWidth : 1,
+                fill : true,
+                fillAlpha : 0.2,
+                fillAndStroke : false,
+                rendererOptions : {
+                    highlightMouseOver : false
+                },
+                highlighter: {
+                    formatString: '[`%s: %s clicks`]'
+                }
+            }],
+            grid : {
+                borderWidth : 0,
+                shadow : false,
+                background : '#ffffff',
+                gridLineColor : '#eeeeee'
+            },
+            axes:{
+                xaxis:{
+                    renderer: $.jqplot.DateAxisRenderer,
+                    showTickMarks: false,
+                    tickOptions:{
+                        formatString: '{$date_format}'
+                    },
+                    tickInterval: tickInterval
+                }{if $activity},
+                y2axis:{
+                    min: 0,
+                    max: {max($data.visitors_max, 1)},
+                    showTickMarks: false,
+                    tickInterval: {if $data.visitors_max > 5}{round($data.visitors_max/5)}{else}1{/if},
+                    tickOptions: {
+                        showGridline: false
+                    }
+                }{/if},
+                yaxis:{
+                    min: 0,
+                    {if !$data.total.amount}tickInterval: 1,{/if}
+                    tickOptions: {
+                        formatString: '+%s'
+                    },
+                    showTickMarks: false
+                }
+            },
+            highlighter: {
+                show: true,
+                sizeAdjust: 7.5
+            },
+            cursor: {
+                show: false
+            }
+        });
+    });
+</script>
+
+<table class="referral-channels-report not-bordered">
+    <tr>
+        <th class="align-left">[`Source`]</th>
+        {if $activity}
+            <th class="align-right">[`Clicks`]</th>
+        {/if}
+        <th class="align-right">[`Transactions`]</th>
+        {if $activity}
+            <th class="align-right">[`Conversion`]</th>        
+        {/if}
+        <th class="align-left">[`Income`]</th>
+    </tr>
+    
+    {foreach $data.referer as $k => $r}
+    <tr>
+        <td>{if $k}{$k}{else}[`(direct)`]{/if}</td>
+        {if $activity}
+            <td class="align-right">
+                {$r.visitors}
+            </td>
+        {/if}
+        <td class="align-right">
+            {$r.transactions}
+        </td>
+        {if $activity}
+            <td class="align-right">{round($r.conversion, 2)|wa_format:false}%</td>
+        {/if}        
+        <td>
+            <div style="display: inline-block; height: 20px; overflow: hidden; white-space: nowrap; {if $activity}width: {$r.visitors_w}px; background: #d8e5f2{/if}">
+                {if $r.amount}
+                <div style="height: 16px; padding: 4px 2px 0; font-size: 11px; line-height: 11px; width: {$r.w}px; background: green; color: #fff; display: inline-block; vertical-align: top; overflow: hidden; white-space: nowrap;">
+                    +{round($r.amount, 1)|wa_format:false}
+                </div>
+                {/if}
+                <div style="height: 16px; padding: 4px 2px 2px; font-size: 11px; line-height: 11px; display: inline-block; color: #3b7dc0; vertical-align: top;">{if $activity}{sprintf( _wp('+%s per click'), waLocale::format(round($r.amount/ifempty($r.visitors, 1), 1), false))}{/if}</div>
+            </div>
+        </td>
+    </tr>
+    {/foreach}
+    
+    <tr>
+        <td class="gray">[`Last 30 days total`]</td>
+        {if $activity}
+            <td class="align-right large"><strong class="bonus large" style="background: #d8e5f2;">{$data.total.visitors}</strong></td>
+        {/if}
+        <td class="align-right bold">{$data.total.transactions}</td>
+        {if $activity}
+            <td class="align-right bold">{round($data.total.conversion, 2)|wa_format:false}%</td>
+        {/if}        
+        <td>
+            <strong class="bonus large">+{round($data.total.amount, 1)|wa_format:false}</strong>
+            {if $activity}<span class="hint">{sprintf( _wp('+%s per click'), waLocale::format(round($data.total.amount/ifempty($data.total.visitors, 1), 1), false))}</span>{/if}
+        </td>
+    </tr>
+</table>
+</div>
+{elseif empty($all)}
+
+<p><em>[`There is no activity for your referral ID yet.`]</em></p>
+
+{/if}

@@ -1,0 +1,8 @@
+{include file=$customers_template}
+<div class="block double-padded">
+    {include file='../../report.html' data=$refferals_reports_data all=true}
+</div>
+
+<script type="text/javascript">
+    $('#referrals-report-wrapper').insertAfter($('#customers-list-wrapper h1'));
+</script>

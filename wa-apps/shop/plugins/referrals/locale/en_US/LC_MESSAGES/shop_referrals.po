@@ -1,0 +1,246 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: shop/plugins/referrals\n"
+"POT-Creation-Date: 2014-05-26 08:00+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator:  shop/plugins/referrals\n"
+"Language-Team:  shop/plugins/referrals\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: en_US\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:1
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:8
+#: /wa-apps/shop/plugins/referrals/templates/actions/settings/Settings.html:1
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:1
+msgid "Referral program"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:2
+msgid "Referral program allows you to stimulate word of mouth marketing by encouraging your customers and contacts to talk about your online store, to recommend it to friends, and to promote your online store on the web. Referral partners receive bonuses for every friend they refer to make a purchase in your store."
+msgstr "The referral program will help you to stimulate word-of-mouth marketing by encouraging your clients to talk about your online store, to recommend it to their friends, and to promote your online store on the Internet. Referral partners receive bonuses for every friend they refer to make a purchase in your store."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:11
+msgid "Disabled"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:15
+msgid "Enabled"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:23
+msgid "Credit rate"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:25
+msgid "+1 point per"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:26
+msgid "worth of orders paid by referrals"
+msgstr "paid by referred customers"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:31
+msgid "Cookie"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:34
+msgid "Save referral cookie for %s days"
+msgstr "Keep referral cookie valid during %s days"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:38
+msgid "Set cookie on top-level domain name (*.domain.com)"
+msgstr "Set cookie for your main domain name (e.g., *.domain.com or *.domain.co.uk)"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:40
+msgid "Enable this if you have multiple storefronts on subdomains (e.g. store1.domain.com, store2.domain.com), and would like to automatically apply referral cookie for all subdomains. Otherwise simply ignore this option."
+msgstr "Enable this option if you have multiple storefronts on subdomains (e.g., store1.domain.com, store2.domain.com) and would like one common referral cookie to be automatically applied to all its subdomains. Otherwise simply ignore this option."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:45
+msgid "Activity"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:49
+msgid "Track referral visits (recommended)"
+msgstr "Track referred visits (recommended)"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:51
+msgid "Increases server load, but allows your referral partners to track per visit value and conversions for customers they refer to your online store."
+msgstr "This option will slightly increase the server load but will enable your referral partners to track various useful statistics."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:56
+msgid "Referral program promo"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:60
+msgid "A brief text advertising your referral program benefits. This promo text will be published in <em>My account &rarr; Affiliate program</em> screen for all your customers who did not sign up for your referral program yet."
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:65
+msgid "Referral program terms and conditions"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:69
+msgid "Opens in a new window."
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:6
+msgid "Homepage referral URL"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:7
+msgid "Alternatively, you may simply add your unique referral ID <span class=\"bold\">%s</span> to any store URL, and it will be considered as your referral link. Examples:<br> %s"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:91
+msgid "Source"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:94
+msgid "Average per visitor earning"
+msgstr "Average earning per visitor"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:95
+msgid "Conversion"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:100
+msgid "(direct)"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:121
+msgid "Last 30 days total"
+msgstr "Total for last 30 days"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:141
+msgid "There is no activity for your referral ID yet."
+msgstr "There has been no activity for your referral ID yet."
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:154
+msgid "Apply for Referral program"
+msgstr "Apply for referral program"
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:55
+msgid "Referrals"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:67
+msgid "Referred by"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:255
+msgid "Bonus for referred customer’s order %s %s"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:2
+msgid "Your customers and referral partners receive bonuses for every friend they refer to make a purchase in your store. Referring is performed via a unique referral link every customer and partner can get in his personal account. Referral program is an effective promotional tool which allows you to increase sales, number of links to your website (which is good for search engine optimization), and to gather a community of partners motivated to promote your website on the Internet."
+msgstr "Your registered clients can receive bonuses for every friend they refer to make a purchase in your store. Referring is performed via a unique referral link which every registered client can receive in his or her personal account. The teferral program is an effective promotional tool, which will help you to increase sales, number of links pointing to your website (which is good for search engine optimization), and to create a community of partners motivated to promote your website on the Internet."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/settings/Settings.html:3
+msgid "Referral program plugin is installed."
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/settings/Settings.html:6
+msgid "Customize Referral program settings in <a href=\"%s\">Affiliate program settings</a> screen."
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:98
+msgid "%d visitors"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:115
+msgid "%d transactions by %d visitors"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:117
+msgid "%d transactions"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/lib/config/plugin.php:5
+msgid "Credits affiliate bonuses for all orders paid by referred customers"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:76
+msgid "Save"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/lib/config/plugin.php:5
+msgid "Credits affiliate bonuses for all orders paid by referred customers and friends"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:11
+msgid "Referral program <a href=\"%s\" target=\"_blank\">terms and conditions</a>."
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:22
+msgid "I have read and agree to the <a href=\"%s\" target=\"_blank\">Referral program terms and conditions</a>"
+msgstr "I have read and agree to the <a href=\"%s\" target=\"_blank\">referral program terms and conditions</a>"
+
+#: /wa-apps/shop/plugins/referrals/lib/config/plugin.php:5
+msgid "Credits affiliate bonuses for orders paid by referred customers and friends"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:88
+msgid "Clicks"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:90
+msgid "Transactions"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:94
+msgid "Income"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:118
+#: /wa-apps/shop/plugins/referrals/templates/report.html:135
+msgid "+%s per click"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:28
+msgid "%s: %s points"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:41
+msgid "%s: %s clicks"
+msgstr ""
+
+msgid "Cancel bonus for referred customer’s order %s"
+msgstr "Canceled bonus for order %s"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:56
+msgid "Notifications"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:60
+msgid "Notify referral partners on new bonus credits (on paid orders placed by referred customers)"
+msgstr "Notify referral partners on new bonus credits added for paid orders placed by referred customers"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:62
+msgid "Enable to automatically notify your affiliate partners on bonus credits by email. Emails will be sent when a referred customer pays for an order."
+msgstr "Enable to automatically notify your affiliate partners on bonus credits by email. Emails will be sent when a referred customer pays for an order."
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:363
+msgid "+%s to your referral bonus"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/notification.html:1
+msgid "Hi %s,"
+msgstr ""
+
+#: /wa-apps/shop/plugins/referrals/templates/notification.html:3
+msgid "+%s points have been credited to your affiliate bonus for the order %s paid by a customer you referred!"
+msgstr "+%s points have been credited to your affiliate bonus for order %s paid by a customer you referred!"
+
+#: /wa-apps/shop/plugins/referrals/templates/notification.html:5
+msgid "Your current bonus: <strong>%s</strong>"
+msgstr "Your current bonus: <strong>%s</strong>."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:27
+msgid "of order total"
+msgstr ""

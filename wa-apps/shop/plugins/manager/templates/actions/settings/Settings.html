@@ -1,0 +1,62 @@
+<h1>Менеджер заказа</h1>
+<div class="fields form">
+    <form action="?module=plugins&id=manager&action=save" method="post" id="plugins-settings-form">
+        {$wa->csrf()}
+
+        <div class="field-group">
+            <div class="field">
+                <div class="name">
+                    Видимость настроек
+                </div>
+                <div class="value">
+                    <label>
+                        <input type="checkbox" name="shop_manager[admin_only]" value="1" {if !empty($settings.admin_only)}checked{/if}>
+                        Показывать настройки только администраторам магазина
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="name">
+                Бюджет премий<br>
+                <span class="hint">Процент от оборота или прибыли</span>
+            </div>
+            <div class="value">
+                <input type="text" class="short" name="shop_manager[bonus_total]" value="{ifset($settings.bonus_total, '')}">%
+                от
+                <select name="shop_manager[bonus_type]">
+                    <option {if $settings.bonus_type=='sales'}selected{/if} value="sales">продаж</option>
+                    <option {if $settings.bonus_type=='profit'}selected{/if} value="profit">прибыли</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="name">
+                Распределение премий по менеджерам<br>
+                <span class="hint">Укажите эффективность менеджера (укажите 0, если не нужно начислять премию)</span>
+            </div>
+            <div class="value">
+                <table class="zebra padded">
+                {foreach shopManagerPlugin::getUsers() as $id => $name}
+                    <tr>
+                        <td>{$name|escape}</td>
+                        <td><input placeholder="100" name="shop_manager[bonus][{$id}]" class="short" type="text" value="{ifset($settings.bonus[$id], '')}">%</td>
+                    </tr>
+                {/foreach}
+                </table>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="value submit">
+                <input type="submit" class="button green" value="Сохранить">
+            <span id="plugins-settings-form-status" style="display:none">
+                <i style="vertical-align:middle" class="icon16 yes"></i> [`Saved`]
+            </span>
+            </div>
+        </div>
+
+    </form>
+</div>

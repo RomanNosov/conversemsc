@@ -1,0 +1,73 @@
+<style>
+    {include file="../css/reviews.css" inline}
+</style>
+
+<div class="block s-reviews-widget">
+
+    {if !count($reviews)}
+
+        <h5 class="align-center hint sr-no-reviews">[`There are no reviews in your shop yet.`]</h5>
+
+    {else}
+
+        <h6 class="heading">[`Latest reviews`]</h6>
+
+        {foreach $reviews as $review}
+            <div class="sr-review">
+
+                <header class="sr-header">
+                    {$_author_uri = "javascript:void(0);"}
+                    {if !empty($review.author.site)}
+                        {$_author_uri = $review.author.site|escape}
+                    {/if}
+
+                    {* UserPic *}
+                    {if !empty($review.author.photo_url_50)}
+                        <div class="left-column">
+                            <a class="sr-author-image" href="{$_author_uri}"><img class="userpic" src="{$review.author.photo_url_50}" alt=""></a>
+                        </div>
+                    {/if}
+
+                    <div class="main-column">
+                        {* Name *}
+                        <span class="sr-author-name bold">
+                            {if !empty($review.author.name)}
+                                <a href="{$_author_uri}">{$review.author.name}</a>
+                            {else}
+                                {if empty($review.author.id) && !empty($review.author.email)}
+                                    <span class="hint">{$review.author.email|escape}</span>
+                                {/if}
+                            {/if}
+                        </span>
+
+                        {* Date *}
+                        <span class="sr-review-date hint">{$review.datetime|wa_datetime:"humandatetime"}{if $review.ip}, {$review.ip|long2ip}{/if}</span>
+                    </div>
+                </header>
+
+                <p class="sr-review-text">
+                    <span{if !empty($review.is_new)} class="highlighted"{/if}>{$review.text|escape|nl2br}</span>
+                </p>
+
+                {if !empty($review.product_name)}
+                    <p class="sr-review-subtext hint">
+                        {sprintf(
+                        '[`on <a href="%s">%s</a>`]',
+                        "{$wa_backend_url}shop/?action=products#/product/{$review.product_id}/",
+                        {$review.product_name|escape}
+                        )}
+                    </p>
+                {/if}
+            </div>
+        {/foreach}
+
+        <div class="sr-link-to-all-reviews">
+            <div class="block">
+                <a href="{$wa_backend_url}shop/?action=products#/reviews/">
+                    [`Show all reviews`]
+                </a>
+            </div>
+        </div>
+
+    {/if}
+</div>

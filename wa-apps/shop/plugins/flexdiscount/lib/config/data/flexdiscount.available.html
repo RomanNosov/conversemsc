@@ -1,0 +1,114 @@
+<style>
+{* Рекомендуется перенести эти правила в один из ваших .css файлов темы дизайна, чтобы избежать дублирования стилей *}
+.flexdiscount-alldiscounts { clear: both; -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); background-color: #FFFFFF; border: 1px solid #000; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px; margin: 10px 0; border-color: #DDDDDD; }
+.flexdiscount-alldiscounts-heading { background: rgb(240,173,78); background: -moz-linear-gradient(top, rgba(240,173,78,1) 0%, rgba(236,151,31,1) 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(240,173,78,1)), color-stop(100%,rgba(236,151,31,1))); background: -webkit-linear-gradient(top, rgba(240,173,78,1) 0%,rgba(236,151,31,1) 100%); background: -o-linear-gradient(top, rgba(240,173,78,1) 0%,rgba(236,151,31,1) 100%); background: -ms-linear-gradient(top, rgba(240,173,78,1) 0%,rgba(236,151,31,1) 100%); background: linear-gradient(to bottom, rgba(240,173,78,1) 0%,rgba(236,151,31,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0ad4e', endColorstr='#ec971f',GradientType=0 ); background-color: #F5F5F5; border-color: #DDDDDD; color: #333333; -webkit-border-top-left-radius: 3px; -moz-border-top-left-radius: 3px; border-top-left-radius: 3px; -webkit-border-top-right-radius: 3px; -moz-border-top-right-radius: 3px; border-top-right-radius: 3px; padding: 10px 15px;}
+.flexdiscount-alldiscounts-heading h3 { font-size: 16px; margin: 0; padding: 0; color: #fff;}
+.flexdiscount-alldiscounts-body { padding: 15px; }
+.flexdiscount-table { border-left: 1px solid #000; border-top: 1px solid #000; width: 100%; }
+.flexdiscount-table td, .flexdiscount-table th { border-right: 1px solid #000; border-bottom: 1px solid #000; padding: 5px; }
+.discount-skus { margin-bottom: 10px; }
+tr.discount-skus td { padding: 10px 0; }
+</style>
+
+{if $discounts}
+    {if !$view_type || $view_type == '1' || $view_type == '2' || $view_type == '3'}
+        <div class='flexdiscount-alldiscounts'>
+            <div class="flexdiscount-alldiscounts-heading">
+                <h3>Доступные скидки</h3>
+            </div>
+            <div class="flexdiscount-alldiscounts-body"> 
+                <div class="align-center flexdiscount-loader">
+                    <i class='flexdiscount-big-loading'></i>
+                </div>
+                <div class='flexdiscount-interactive'>
+                    {if !$view_type}
+                    <ul>
+                     {foreach $discounts as $sku_id => $discount}
+                            {foreach $discount as $d}
+                                {if $d.name}
+                                    <li data-sku-id='{$sku_id}' class='discount-skus'>
+                                    {$d.name|escape}
+                                    </li>
+                                {/if}
+                            {/foreach}
+                     {/foreach}
+                    </ul>
+                    {elseif $view_type == '1'}
+                    <ul>
+                     {foreach $discounts as $sku_id => $discount}
+                            {foreach $discount as $d}
+                                <li data-sku-id='{$sku_id}' class='discount-skus'>
+                                {if $d.name}{$d.name|escape} - {/if} {$d.discount}
+                                </li>
+                            {/foreach}
+                     {/foreach}
+                    </ul>
+                {elseif $view_type == '2'}
+                    <table class="align-center">
+                        <thead>
+                            <tr>
+                                <th>Название скидки</th>
+                                <th>Размер скидки</th>
+                                <th>Размер скидки, %</th>
+                                <th>Цена со скидкой</th>
+                                <th>Бонусные баллы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach $discounts as $sku_id => $discount}
+                                {foreach $discount as $d}
+                                <tr data-sku-id='{$sku_id}' class='discount-skus'>
+                                    <td>{$d.name|escape}</td>
+                                    <td>{$d.discount}</td>
+                                    <td>{$d.params.discount_percentage}</td>
+                                    <td>{$d.price}</td>
+                                    <td>{$d.params.affiliate}</td>
+                                </tr>
+                                {/foreach}
+                            {/foreach}
+                        </tbody>
+                    </table>
+                {elseif $view_type == '3'}
+                    {$head = '<th>Название</th>'}
+                    {$body = '<td>Скидка</td>'}
+                    {foreach from=$discounts key=sku_id item=discount name=parent_loop}
+                        {foreach $discount as $d}
+                            {if $smarty.foreach.parent_loop.first}
+                                {$head = "`$head`<th>{$d.name|escape}</th>"}
+                            {/if}
+                            {$body = "`$body`<td data-sku-id='{$sku_id}' class='discount-skus'>{$d.discount}</td>"}
+                        {/foreach}
+                    {/foreach}
+                    <table class="align-center flexdiscount-table" cellspacing="0" cellpadding="0">
+                        <thead>
+                            <tr>
+                                {$head}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                {$body}
+                            </tr>
+                        </tbody>
+                    </table>
+                {/if}
+                </div>
+            </div>
+        </div>
+    {elseif $view_type == '4'}
+        <table class="flexdiscount-table flexdiscount-alldiscounts align-center">
+            {foreach $discounts as $sku_id => $discount}
+                {foreach $discount as $d}
+                    <tr data-sku-id='{$sku_id}' {if $d.params.code == 'mydiscount'}style='background: #ff0000'{/if} class='discount-skus'>
+                        <td>{$d.name|escape}</td>
+                        <td>{$d.price}</td>
+                    </tr>
+                {/foreach}
+            {/foreach}
+        </table>
+    {elseif $view_type == '5'}
+        // ВАШ ТИП ОТОБРАЖЕНИЯ
+    {elseif $view_type == '6'}
+        // ВАШ ТИП ОТОБРАЖЕНИЯ
+    {/if}
+{/if}

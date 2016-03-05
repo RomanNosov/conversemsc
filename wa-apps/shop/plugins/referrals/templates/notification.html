@@ -1,0 +1,10 @@
+<p>{sprintf('[`Hi %s,`]', $referral.firstname)}</p>
+
+<p>{sprintf('[`+%s points have been credited to your affiliate bonus for the order %s paid by a customer you referred!`]', '+'|cat:round($amount, 2)|wa_format:false, $order_id)}</p>
+
+<p>{sprintf('[`Your current bonus: <strong>%s</strong>`]', round($balance, 2)|wa_format:false)}</strong></p>
+
+<p>--<br>
+{$wa->shop->settings("name")}<br>
+<a href="mailto:{$wa->shop->settings("email")}">{$wa->shop->settings("email")}</a><br>
+{$wa->shop->settings("phone")}<br></p>

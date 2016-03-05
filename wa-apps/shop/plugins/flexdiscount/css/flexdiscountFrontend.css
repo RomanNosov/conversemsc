@@ -1,0 +1,7 @@
+i.icon16-flexdiscount { background-repeat:no-repeat; height:16px; width:16px; display:inline-block; text-indent:-9999px; text-decoration:none!important; vertical-align:top; margin: -0.1em 0.25em 0 0; }
+i.icon16-flexdiscount.loading { background-image: url("../img/loading16.gif"); }
+i.flexdiscount-big-loading { background: url("../img/loading.gif") no-repeat; display:inline-block; width: 32px; height: 32px; }
+.flexdiscount-empty-field { background-color: #ffcccc; }
+.flexdiscount-loader { display: none; }
+.align-center { text-align: center; }
+.flexdiscount-price-block { margin: 10px 0; }

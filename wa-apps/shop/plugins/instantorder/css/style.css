@@ -1,0 +1,24 @@
+#instantorder_dialog{
+    display: none;
+}
+#instantorder_table{
+    margin: 0 auto;
+}
+.select_countries{
+    width: 180px;
+}
+#instantorder_table input[type=text]{
+    width: 200px;
+}
+#instantorder_table textarea{
+    width: 200px;
+}
+input.wa-captcha-input{
+    width: 140px !important;
+}
+#instantorder_table select{
+    width: 200px;
+}
+.instantorder_button{
+    cursor: pointer;
+}

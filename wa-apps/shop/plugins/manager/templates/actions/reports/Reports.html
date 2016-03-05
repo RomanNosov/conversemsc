@@ -1,0 +1,116 @@
+<div class="content">
+    <div class="block double-padded" style="min-height: 300px">
+
+        <div class="fields">
+            <div class="field-group large">
+                <div class="field">
+                    <div class="name"><span class="large">Общие продажи</span></div>
+                    <div class="value">
+                        <span class="bold large">{shop_currency($total.sales, true)}</span>
+                    </div>
+
+                    <div class="value">
+                        {_w('%d order', '%d orders', $total.count_all)}<br>
+                        <b>{$total.count} выполнено{if $total.count_all} ({round(100.0*$total.count/$total.count_all, 2)}%){/if}</b><br>
+                        {$total.count_deleted} отменено{if $total.count_all} ({round(100.0*$total.count_deleted/$total.count_all, 2)}%){/if}<br>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="name">Средняя стоимость заказа</div>
+                    <div class="value bold">{shop_currency(round($total.sales / ifempty($total.count,1), 2), true)}</div>
+                </div>
+                <div class="field">
+                    <div class="name">Общая прибыль</div>
+                    <div class="value bold">{shop_currency($total.profit, true)}</div>
+                </div>
+                <div class="field">
+                    <div class="name">Оплата доставки</div>
+                    <div class="value bold">{shop_currency($total.shipping, true)}</div>
+                </div>
+
+            </div>
+        </div>
+        {if $is_bonus}
+        <div class="fields" style="margin-left: 50px">
+            <div class="field-group large">
+                <div class="field">
+                    <div class="name"><span class="large">Сумма премий</span></div>
+                    <div class="value bold">{shop_currency($total.bonus, true)}</div>
+                </div>
+                {if $total.profit}
+                <div class="field">
+                    <div class="name">Прибыль за вычетом премий</div>
+                    <div class="value bold">{shop_currency($total.profit - $total.bonus, true)}</div>
+                </div>
+                <div class="field">
+                    <div class="name">Доля премий относительно прибыли</div>
+                    <div class="value bold">{round($total.bonus * 100/$total.profit, 2)}%</div>
+                </div>
+                {/if}
+            </div>
+        </div>
+        {/if}
+
+        {if $payments}
+        <div class="fields" style="margin-left: 50px">
+            <div class="field-group large">
+                <div class="field">
+                    <div class="name"><span class="large">Способы оплаты</span></div>
+                    <div class="value">{_w('%d order', '%d orders', $total.count)} - {shop_currency($total.sales, true)}</div>
+                </div>
+                {foreach $payments as $p}
+                <div class="field">
+                    <div class="name">{$p.name}</div>
+                    <div class="value"><b>{$p.count}</b> - <b>{shop_currency($p.total, true)}{if $total.sales} ({round(100.0*$p.total/$total.sales, 2)}%){/if}</b></div>
+                </div>
+                {/foreach}
+            </div>
+        </div>
+        {/if}
+
+        <table class="zebra">
+            <tr>
+                <th>Менеджер</th>
+                <th>Продажи</th>
+                <th>Прибыль</th>
+                <th>Доставка</th>
+                <th>Выполненных заказов ({$total.count})</th>
+                <th>Отменённых заказов ({$total.count_deleted})</th>
+                <th>Средняя стоимость заказа</th>
+                {*<th>Популярные товары</th>
+                <th>Популярные типы товаров</th>*}
+                {if $is_bonus}
+                <th>Эффективность</th>
+                <th>Премия</th>
+                {/if}
+            </tr>
+            {foreach $data as $row}
+            <tr>
+                <td>
+                    {if $row.manager_id}
+                        {if isset($users[$row.manager_id])}
+                        {$users[$row.manager_id]|escape}
+                        {else}
+                        пользователь не найден (удалён)
+                        {/if}
+                    {else}
+                    не указан
+                    {/if}
+                </td>
+                <td>{shop_currency($row.sales, true)}</td>
+                <td>{shop_currency($row.profit, true)}</td>
+                <td>{shop_currency($row.shipping, true)}</td>
+                <td>{$row.count}{if $total.count} ({round(100.0*$row.count/$total.count, 2)}%){/if}</td>
+                <td>{$row.count_deleted}{if $total.count_deleted} ({round(100.0*$row.count_deleted/$total.count_deleted, 2)}%){/if}</td>
+                <td>{shop_currency($row.sales/ifempty($row.count, 1), true)}</td>
+                {*<td></td>
+                <td></td>*}
+                {if $is_bonus}
+                <td>{if isset($row.efficiency)}{round($row.efficiency_real * 100, 2)}% <span class="hint">({round($row.efficiency, 2)}%)</span> {/if}</td>
+                <td>{if isset($row.bonus)}{shop_currency($row.bonus, true)}{/if}</td>
+                {/if}
+            </tr>
+            {/foreach}
+        </table>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+{if isset($file)}
+    <div class="file_menu">
+        {if ifset($rights.change_settings, $admin)}
+            <i class="icon16 settings" title="[`Settings`]"></i>
+        {/if}
+        {if ifset($rights.view_phpinfo, $admin)}
+            <a href="?action=phpinfo" title="[`View PHP info`]" target="_blank"><i class="icon16 script-php"></i></a>
+        {/if}
+        <a href="?action=download&amp;path={$file.path}" title="[`Download`]"><i class="icon16 download"></i></a>
+        {if ifset($rights.delete_files, $admin)}
+            <span class="delete" title="[`Delete`]">
+                <input type="hidden" value="{$file.path}" class="path-value">
+                <input type="hidden" value="{$file.return_url}" class="return-url-value">
+                <i class="icon16 cross-bw"></i>
+            </span>
+        {/if}
+    </div>
+{else}
+    {if isset($total_size) && $total_size}
+        <div class="total-size" title="[`Total logs size`]">
+            {$total_size}
+        </div>
+    {/if}
+
+    <div class="settings-block">
+        {if ifset($rights.change_settings, $admin)}
+            <i class="icon16 settings" title="[`Settings`]"></i>
+        {/if}
+        {if ifset($rights.view_phpinfo, $admin)}
+            <a href="?action=phpinfo" title="[`View PHP info`]" target="_blank"><i class="icon16 script-php"></i></a>
+        {/if}
+    </div>
+
+    {if isset($view_modes)}
+        <ul class="dropdown">
+            {foreach $view_modes as $view_mode}
+                {if $view_mode.selected}
+                    <li class="selected">
+                        <i class="icon16logs {$view_mode.icon}"></i><a>{$view_mode.title}</a><i class="icon10 yes"></i>
+                    </li>
+                {else}
+                    <li>
+                        <i class="icon16logs {$view_mode.icon}"></i><a href="{$wa_backend_url}{$view_mode.url}">{$view_mode.title}</a><i class="icon10 yes"></i>
+                    </li>
+                {/if}
+            {/foreach}
+        </ul>
+    {/if}
+{/if}
+
+{if ifset($breadcrumbs)}
+    <div class="breadcrumbs{if isset($file)} file{/if}">
+        {if ifset($back)}
+            <a href="{$back_url}" class="back-link" title="[`back`]">&larr;</a>
+        {/if}
+        {foreach $breadcrumbs as $item}
+            <span class="item">
+               {if !$item@last}
+                   <a href="{if $item@first}{$wa_backend_url}logs/{else}?path={$item.path}{/if}">{$item.name}</a>
+               {else}
+                   {$item.name}
+               {/if}
+            </span>
+            {if !$item@last}<span class="separator">/</span>{/if}
+        {/foreach}
+    </div>
+{/if}

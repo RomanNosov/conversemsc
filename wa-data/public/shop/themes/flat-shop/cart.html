@@ -1,0 +1,524 @@
+<div>
+    <script type="text/javascript" src="{$wa_theme_url}cart.js"></script>
+    
+
+    {if !$cart.count}
+        
+        <div class="cart your-cart-is-empty">
+            <h1>[`Shopping cart`]</h1>
+            <p>[`Your shopping cart is empty.`]</p>
+        </div>
+
+    {else}
+
+        <form method="post" id="cartForm">
+
+            <h1>
+                [`Shopping cart`]
+                <div class="additional-title-info">
+                    <small>шаг 1 из 2</small>
+                    <span>Подсчет итоговой стоимости заказа</span>
+                </div>
+            </h1>
+
+        
+            <!-- sixteen-column cart layout -->
+            <div class="cart cart-summary-page">
+                
+                {foreach $cart.items as $item}
+                
+                    <!-- cart item -->
+                    <div class="row" data-id="{$item.id}">                  
+                        <div class="col w1 item-thumb"><a href="{$wa->shop->productUrl($item.product)}" title="{$item.product.name|escape}">{$wa->shop->productImgHtml($item.product, '96x96', ['default' => "`$wa_theme_url`img/dummy48.png"])}</a>&nbsp;</div><div class="col w9 item-name">
+                            <a href="{$wa->shop->productUrl($item.product)}" class="bold">{$item.product.name|escape}</a>
+                            {if $item.sku_name && $item.sku_name != $item.product.name}{$item.sku_name|escape}{/if}
+                        </div><div class="col w2 item-qty align-center nowrap"><span class="gray">&times;</span> <input type="text" name="quantity[{$item.id}]" value="{$item.quantity}" class="qty{if !empty($item.error)} error{/if}"></div><div class="col w1 item-remove"><a class="delete" href="#" title="[`Remove from cart`]"><div class="rm">x</div></a></div><div class="col w3 item-total nowrap">{$item.full_price} руб.</div>
+
+                        {if !empty($item.services)}
+                        <!-- services -->
+                        <div class="clear-both">
+                            <div class="col w1 item-thumb">&nbsp;</div>
+                            <div class="col w15 services">
+                                {foreach $item.services as $service_id => $s}
+                                <!-- one option -->
+                                <div {if !empty($s.id)}data-id="{$s.id}"{/if}>
+                                <label>
+                                    <input {if !empty($s.id)}checked{/if} type="checkbox" name="services[{$item.id}][]" value="{$service_id}"> {$s.name|escape} {if $s.price && !isset($s.variants)}(<span>+{shop_currency_html($s.price, $s.currency)}</span>){/if}
+                                </label>
+                                {if isset($s.variants)}
+                                <select name="service_variant[{$item.id}][{$service_id}]" {if empty($s.id)}disabled{/if}>
+                                    {foreach $s.variants as $variant_id => $v}
+                                    <option {if $s.variant_id == $variant_id}selected{/if} value="{$variant_id}">{$v.name|escape} (+{shop_currency($v.price, $s.currency)})</option>
+                                    {/foreach}
+                                </select>
+                                {/if}
+                                </div>
+                                {/foreach}
+                            </div>
+                        </div>
+                        {/if}
+
+                        {if $theme_settings.cart_crossselling == 'many'}
+                            {if $item@index < 3}
+                                {$related = $wa->shop->crossSelling($item.product.id)}
+                                {if $related}
+                                    <!-- cross-selling -->
+                                    <div class="clear-both" data-id="{$item.id}">
+                                        <div class="col w1 item-thumb">&nbsp;</div>
+                                        <div class="col w15 small related">
+                                            <h4><strong>[`Recommended!`]</strong> {sprintf('[`Customers who bought %s also bought`]', $item.product.name|escape)}:</h4>
+                                            {include file="list-thumbs-mini.html" products=$related without_form=true}
+                                        </div>
+                                    </div>
+                                {/if}
+                            {/if}
+                        {/if}
+                        
+                    </div>
+                    {if !empty($item.error)}<script>alert({json_encode($item.error)});</script>{/if}
+                {/foreach}
+                <hr>
+                {if $theme_settings.cart_img}
+                <a href="{$theme_settings.cart_link}">
+                   <img style="width: 540px" src="{$wa_active_theme_url}{$theme_settings.cart_img}">
+                </a>
+                {/if}
+
+                <!-- discount -->
+                <div class="row no-border" {if !shopDiscounts::isEnabled('coupons') && !$discount}style="display:none"{/if} id="discount-row" style="display:none">
+                    <div class="col w10 cart-coupon no-border">
+
+                        {if shopDiscounts::isEnabled('coupons')}
+                            <div {if !$coupon_code}style="display: none;"{/if} id="apply-coupon-code">
+                                [`Coupon code`]:
+                                <input type="text" name="coupon_code" value="{$coupon_code|escape}"> <button class="sqr-btn coupon">[`Apply`]</button>
+                            </div>
+                        {/if}
+                        
+                    </div>
+                    <div class="col w2 align-center">[`Discount`]</div>
+                    <div class="col w3 align-center cart-discount nowrap">&minus; {$discount} руб.</div>
+                    <div class="col w1"></div>
+                </div>
+
+                {if shopAffiliate::isEnabled() && $affiliate_bonus > 0}
+                <!-- affiliate bonus -->
+                <div class="row no-border">
+                    <div class="col w12 no-border">
+                        {sprintf('[`Your current affiliate bonus of %s points allows you to get an additonal discount of up to %s`]', $affiliate_bonus, shop_currency_html(shopAffiliate::convertBonus($affiliate_bonus)))}
+                        {if $use_affiliate}
+                        <a id="cancel-affiliate" href="#">[`Don’t use bonus discount`]</a>
+                        {else}
+                        <input type="submit" name="use_affiliate" class="small gray" value="[`Use bonus`]">
+                        {/if}
+                    </div>
+                    <div class="col w3 align-center affiliate-discount">&minus; {if $use_affiliate}{shop_currency_html(shopAffiliate::convertBonus($used_affiliate_bonus))}{else}0{/if}</div>
+                    <div class="col w1">&nbsp;</div>
+                </div>
+                {/if}
+                
+                <!-- TOTAL -->
+                <div class="row large no-border" style="display:none">
+                    <div class="col w12 no-border">
+                        [`Total`]
+                        {if shopDiscounts::isEnabled('coupons') && !$coupon_code}<a href="#" class="small inline-link not-visited" id="use-coupon"><b><i>[`I have a coupon!`]</i></b></a>{/if}
+                    </div>
+                    <div class="col w3 cart-total align-center total bold nowrap">{$cart.total} руб.</div>
+                    <div class="col w1">&nbsp;</div>
+                </div>
+                
+                {if shopAffiliate::isEnabled() && !empty($add_affiliate_bonus)}
+                <div class="row no-border">
+                    <div class="col w16 no-border">
+                        <p class="affiliate"><i class="icon16 like"></i> {sprintf("[`This order will add <strong>+%s bonuses</strong> to  your account, which you will be able to spend on getting additional discounts later.`]", $add_affiliate_bonus)}</p>
+                    </div>
+                </div>
+                {/if}
+
+                <div class="checkout checkout-content" data-step-id="payment">
+
+                    <table class="total-block">
+                        <tr><td>[`Discount`]</td><td>&minus;{$discount} руб.</td></tr>
+                        <tr><td>[`Total`]</td><td>{$cart.total} руб.</td></tr>
+                    </table>
+
+                    <h2 class="" style="border-top: none;">
+                        Способ оплаты:
+                    </h2>
+
+                    <ul class="checkout-options payment">
+                        {foreach $checkout_payment_methods as $m}
+                            <li {if !empty($m.error)}class="gray"{/if}>
+                                <h3>
+                                    <label>
+                                        <input {if !empty($m.error)}disabled="disabled"{/if} type="radio" name="payment_id" value="{$m.id}" {if $m.id == $payment_id}checked{/if}>
+                                        {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
+                                        {if !empty($m.url)}
+                                            <a href="{$m.url}" target="_blank">{$m.name|escape}</a>
+                                        {else}
+                                            {$m.name|escape}
+                                        {/if}
+                                    </label>
+                        
+                                </h3>
+                                {if $m.description}<p>{$m.description}</p>{/if}
+                                {if !empty($m.error)}<p class="error"><em>{$m.error}</em></p>{/if}
+                                {if !empty($m.custom_html)}<div class="wa-form" {if $m.id != $payment_id}style="display:none"{/if}>{$m.custom_html}</div>{/if}
+                                {if !empty($m.bimg)}<img class="bimg" style="display: none" src="{$m.bimg}">{/if}
+                                <script>
+                                    if (parseInt($(".cart .cart-total.total").data("orig-price")) >= 5000 && localStorage["price" + $(".cart .cart-total.total").data("orig-price")] > 0) {
+                                        $(".payment img.bimg").show();
+                                    }
+                                </script>
+                            </li>
+                        {foreachelse}
+                            <li>
+                                <em class="error">[`Oops! We are sorry, but <strong>we can not offer any payment option for your order</strong>. Checkout can not be completed.`]</em>
+                            </li>
+                        {/foreach}
+                    </ul>
+                    <script type="text/javascript">
+                        $(".checkout-options.payment input:radio").change(function () {
+                            if ($(this).is(':checked')) {
+                                $(".checkout-options.payment .wa-form").hide();
+                                $(this).closest('li').find('.wa-form').show();
+                            }
+                        });
+                    </script>
+
+                    <!-- plugin hook: 'frontend_checkout' -->
+                    {* @event frontend_checkout.%plugin_id% *}
+                    {foreach $frontend_checkout as $_}{$_}{/foreach}
+                    
+                </div>
+                
+                <div class="checkout checkout-content" data-step-id="shipping">
+                    <h2 class="" style="border-top: none; padding-top: 0">
+                        Способ доставки:
+                    </h2>
+
+                    <ul class="checkout-options">
+                        {$external_methods = []}
+                        {foreach $checkout_shipping_methods as $m}
+                            <li class="shipping-{$m.id}">
+                                {$external_methods[] = $m.id}
+                                {if empty($m.error)}
+                                <!--div class="rate">
+                                    <span class="price nowrap">
+                                        {if $m.rate !== null}
+                                        {shop_currency_html($m.rate, $m.currency)}
+                                        {elseif $m.external}
+                                        [`Loading...`] <i class="icon16 loading"></i>
+                                        {/if}
+                                    </span>
+                                    <em class="hint error comment" {if empty($m.comment)}style="display:none"{/if}>
+                                        <br>{if !empty($m.comment)}{$m.comment}{/if}
+                                    </em>
+                                    <span class="hint" {if empty($m.est_delivery)}style="display:none"{/if}>
+                                    <br>
+                                    [`Estimated delivery`]:<br>
+                                    <strong class="est_delivery">{if !empty($m.est_delivery)}{$m.est_delivery}{/if}</strong>
+                                    </span>
+                                </div-->
+                                {else}
+                                <div class="rate error">
+                                    <span class="price nowrap" style="display:none"></span>
+                                    <em class="hint error comment" style="display:none"></em>
+                                    <span class="hint" style="display:none">
+                                        <br>
+                                        [`Estimated delivery`]:<br>
+                                        <strong class="est_delivery"></strong>
+                                    </span>
+                                    <em class="shipping-error">{$m.error}</em>
+                                </div>
+                                {/if}
+                                <h3>
+                                    <label style="display: none">
+                                        {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
+                                        <input type="radio" name="shipping_id" value="{$m.id}" {if $m.external || !empty($m.error)}disabled{/if} {if $m.id == $shipping.id}checked{/if}>
+                                        {$m.name|escape}
+                                    </label> 
+                                        
+                                    {if empty($m.error) && !empty($m.rates)}
+                                        {if count($m.rates) > 1}
+                                            <select class="shipping-rates" name="rate_id[{$m.id}]">
+                                                {foreach $m.rates as $rate_id => $r}
+                                                    <option data-rate="{shop_currency($r.rate, $r.currency)}" {if !empty($r.est_delivery)}data-est_delivery="{$r.est_delivery}"{/if} {if !empty($r.comment)}data-comment="{$r.comment}"{/if} value="{$rate_id}"{if $rate_id == $shipping.rate_id} selected{/if}>{$r.name} ({$r.rate_orig})</option>
+                                                {/foreach}
+                                            </select>
+                                        {else}
+                                            <input type="hidden" name="rate_id[{$m.id}]" value="{key($m.rates)}">
+                                        {/if}
+                                    {/if}
+                                </h3>
+                                {if $m.description}<p>{$m.description}</p>{/if}
+                                {*if !empty($m.form)}<div class="wa-form wa-address" {if $m.id != $shipping.id || true}style="display:none"{/if}>{$m.form->html()}</div>{/if*}
+                                {if !empty($m.custom_html)}
+                                    <div class="clear-both"></div>
+                                    <div class="wa-form" {if $m.id != $shipping.id}style="display:none"{/if}>{$m.custom_html}</div>
+                                {/if}
+                            </li>
+                        {foreachelse}
+                            <li>
+                                <em class="error">[`Oops! We are sorry, but <strong>we can not ship this order to your selected destination</strong>. Checkout can not be completed.`]</em>
+                            </li>
+                        {/foreach}
+                    </ul>
+                    <script type="text/javascript">
+                        $(function () {
+                                    var tgPrice;
+
+                                    tgPrice = $(".cart .cart-total.total").html().match(/\d+/);
+                                    tgPrice = tgPrice ? tgPrice[0]*1 : 0;
+                                    $(".cart .cart-total.total").data("price", tgPrice);
+
+                                    $("[name=payment_id]").change(function() {
+                                        var params = { shipping_id: [{implode(',', $external_methods)}] };
+                                        
+                                        if ($("[name=payment_id]:checked").val() == 2) {
+                                            params.cl = true;
+                                        }
+
+                                        $.get("{$wa->getUrl('/frontend/shipping')}", params, function (response) {
+                                            for (var shipping_id in response.data) {
+                                                responseCallback(shipping_id, response.data[shipping_id]);
+                                            }
+                                        }, "json");
+
+                                    }).change();
+
+                                    function responseCallback(shipping_id, data) {
+                                        var name = 'rate_id[' + shipping_id + ']';
+                                        if (typeof(data) != 'string') {
+                                            $(".shipping-" + shipping_id + ' input:radio').removeAttr('disabled');
+                                        }
+                                        if (typeof(data) == 'string') {
+                                            $(".shipping-" + shipping_id + ' input[name="' + name + '"]').remove();
+                                            $(".shipping-" + shipping_id + ' select[name="' + name + '"]').remove();
+                                            var el = $(".shipping-" + shipping_id).find('.rate');
+                                            if (el.hasClass('error')) {
+                                                el.find('em').html(data);
+                                            } else {
+                                                el.find('.price, .hint').hide();
+                                                el.addClass('error').append($('<em class="shipping-error"></em>').html(data));
+                                            }
+                                        } else if (data.length > 1) {
+                                            $(".shipping-" + shipping_id + ' input[name="' + name + '"]').remove();
+                                            var select = $(".shipping-" + shipping_id + ' select[name="' + name + '"]');
+                                            var html = '<select class="shipping-rates" name="' + name + '">';
+                                            for (var i = 0; i < data.length; i++) {
+                                                var r = data[i];
+                                                html += '<option data-rate="' + r.rate + '" data-comment="' + (r.comment || '') + '" data-est_delivery="' + (r.est_delivery || '') + '" value="' + r.id + '">' + r.name + ' (' + r.rate_orig + ')</option>';
+                                            }
+                                            html += '</select>';
+                                            if (select.length) {
+                                                var selected = select.val();
+                                                select.remove();
+                                            } else {
+                                                var selected = false;
+                                            }
+                                            select = $(html);
+                                            $(".shipping-" + shipping_id + " h3").append(select);
+                                            if (selected) {
+                                                select.val(selected);
+                                            }
+                                            select.trigger('change', 1);
+                                            $(".shipping-" + shipping_id).find('.rate').removeClass('error').find('.price').show();
+                                            $(".shipping-" + shipping_id).find('.rate em.shipping-error').remove();
+                                        } else {
+                                            $(".shipping-" + shipping_id + ' select[name="' + name + '"]').remove();
+                                            var input = $(".shipping-" + shipping_id + ' input[name="' + name + '"]');
+                                            if (input.length) {
+                                                input.val(data[0].id);
+                                            } else {
+                                                $(".shipping-" + shipping_id + " h3").append('<input type="hidden" name="' + name + '" value="' + data[0].id + '">');
+                                            }
+                                            $(".shipping-" + shipping_id + " .price").html(data[0].rate);
+                                            $(".shipping-" + shipping_id + " .est_delivery").html(data[0].est_delivery);
+                                            $(".shipping-" + shipping_id).find('.rate').removeClass('error').find('.price').show();
+                                            if (data[0].est_delivery) {
+                                                $(".shipping-" + shipping_id + " .est_delivery").parent().show();
+                                            } else {
+                                                $(".shipping-" + shipping_id + " .est_delivery").parent().hide();
+                                            }
+                                            if (data[0].comment) {
+                                                $(".shipping-" + shipping_id + " .comment").html('<br>' + data[0].comment).show();
+                                            } else {
+                                                $(".shipping-" + shipping_id + " .comment").hide();
+                                            }
+                                            $(".shipping-" + shipping_id).find('.rate em.shipping-error').remove();
+                                        }
+                                    }
+
+                                    $(".checkout-options").on('change', "select.shipping-rates", function (e, not_check) {
+                                        var opt = $(this).children('option:selected');
+                                        var li = $(this).closest('li');
+                                        li.find('.price').html(opt.data('rate'));
+                                        var tgDelPrice = opt.data('rate').replace(" руб.", "")*1;
+                                        tgDelPrice = !isNaN(tgDelPrice) ? tgDelPrice : 0;
+                                        $(".cart .cart-total.total").html((tgDelPrice + tgPrice) + " руб.");
+                                        localStorage.tgDeliveryType = $(this).val();
+
+                                        if (!not_check) {
+                                            li.find('input:radio').attr('checked', 'checked');
+                                        }
+                                        li.find('.est_delivery').html(opt.data('est_delivery'));
+                                        if (opt.data('est_delivery')) {
+                                            li.find('.est_delivery').parent().show();
+                                        } else {
+                                            li.find('.est_delivery').parent().hide();
+                                        }
+                                        if (opt.data('comment')) {
+                                            li.find('.comment').html('<br>' + opt.data('comment')).show();
+                                        } else {
+                                            li.find('.comment').empty().hide();
+                                        }
+                                    }).change();
+                                    $(".checkout-options input:radio").change(function () {
+                                        if ($(this).is(':checked') && !$(this).data('ignore')) {
+                                            $(".checkout-options .wa-form").hide();
+                                            $(this).closest('li').find('.wa-form').show();
+                                            if ($(this).data('changed')) {
+                                                $(this).closest('li').find('.wa-form').find('input,select').data('ignore', 1).change().removeData('ignore');
+                                                $(this).removeData('changed');
+                                            }
+                                        }
+                                    });
+                                    $(".wa-address").find('input,select').change(function () {
+                                        if ($(this).data('ignore')) {
+                                            return true;
+                                        }
+                                        var shipping_id = $("input[name=shipping_id]:checked").val();
+                                        var loaded_flag = false;
+                                        setTimeout(function () {
+                                            if (!loaded_flag && !$(".shipping-" + shipping_id + " .price .loading").length) {
+                                                $(".shipping-" + shipping_id + " .price").append(' <i class="icon16 loading"></i>');
+                                            }
+                                        }, 300);
+                                        var v = $(this).val();
+                                        var name = $(this).attr('name').replace(/customer_\d+/, '');
+                                        $(".checkout-options input:radio").each(function () {
+                                            if ($(this).val() != shipping_id) {
+                                                var el = $(this).closest('li').find('[name="customer_' + $(this).val() + name + '"]');
+                                                if (el.attr('type') != 'hidden') {
+                                                    el.val(v);
+                                                    $(this).data('changed', 1);
+                                                }
+                                            }
+                                        });
+
+                                        $.post("{$wa->getUrl('/frontend/shipping')}", $("form").serialize(), function (response) {
+                                            loaded_flag = true;
+                                            responseCallback(shipping_id, response.data);
+                                        }, "json");
+                                    });
+                                });
+
+                    </script>
+
+                    <!-- plugin hook: 'frontend_checkout' -->
+                    {* @event frontend_checkout.%plugin_id% *}
+                    {foreach $frontend_checkout as $_}{$_}{/foreach}
+
+                </div>
+                
+                <!--div class="checkout checkout-content">
+                    <h2 class="" style="border-top: none;">
+                        Проверка скидок:
+                    </h2>
+
+                    {if shopDiscounts::isEnabled('coupons')}
+                        <div style="width:373px;position:relative">
+                            <input type="text" placeholder="Введите промокод" name="coupon_code" value="{$coupon_code|escape}">
+                            <button class="coupon"><i class="fa fa-refresh"></i></button>
+                        </div>
+                    {/if}
+
+                    <script>
+                    $("button.coupon").click(function(e) {
+                        
+                        $.post("/cart", { coupon_code: $("[name=coupon_code][placeholder]").val() }, function(data) {
+                            location.reload();
+                        });
+
+                        e.preventDefault();
+                        return false;
+                    });
+                    </script>
+                </div-->
+                <!-- CHECKOUT -->
+                <div class="row no-border">
+                    <!-- div class="col w10 no-border featured-shipping-and-payment">
+                        {*
+                            display up to 8 logos of available payment options;
+                            replave $wa->shop->payment() with $wa->shop->shipping() if you prefer shipping options logos
+                        *}
+                        {$availabe_options = $wa->shop->payment()}
+                        {$_cnt = 0}
+                        {foreach $availabe_options as $option name=options}
+                            {if $_cnt == 8}{break}{/if}
+                            {if $option.logo}
+                                <img src="{$option.logo}" alt="{$option.name}">
+                                {$_cnt = $_cnt + 1}
+                            {/if}
+                        {/foreach}
+                    </div-->
+                    <div class="col w6 bold cart-checkout">
+                        <button class="sqr-btn checkout" name="checkout" type="submit" value="[`Proceed to checkout`] &rarr;">Далее &rarr;</button>
+                    </div>
+                </div>
+                
+                {$related = $wa->shop->crossSelling($cart.items, 'product_id')}
+                {if $theme_settings.cart_crossselling == 'common' && $related}
+                    <div class="row no-border">
+                        <div class="col w16 related">
+
+                            <h4><strong>[`Recommended!`]</strong> {sprintf('[`Customers who bought %s also bought`]', $item.product.name|escape)}:</h4>
+                            {include file="list-thumbs-mini.html" products=$related without_form=true}
+                            <div class="clear-both"></div>
+                        </div>
+                    </div>
+                {/if}
+                
+            </div>
+
+            <!-- plugin hook: 'frontend_cart' -->
+            {* @event frontend_cart.%plugin_id% *}
+            {foreach $frontend_cart as $_}{$_}{/foreach}                    
+
+        </form>
+        <script>
+        var tg_f = false;
+        $("#cartForm").submit(function(e) {
+
+            if (tg_f) {
+                return true;
+            }
+
+            tg_f = true;
+
+            var shippingData = {
+                step: "shipping",
+                shipping_id: $("[name=shipping_id]:checked").val()
+            };
+
+            shippingData["rate_id[" + $("[name=shipping_id]:checked").val() + "]"] = $("select.shipping-rates option:selected").val();
+
+            var paymentData = {
+                step: "payment",
+                payment_id: $("[name=payment_id]:checked").val()
+            };
+
+            $.post("/checkout/", paymentData, function() {
+                $.post("/checkout/", shippingData, function() {
+                    $(".checkout[name=checkout]").click();
+                });
+            });
+
+            e.preventDefault();
+            return false;        
+        });
+        </script>
+    {/if}
+</div>
+<script type="text/javascript">(window.Image ? (new Image()) : document.createElement('img')).src = location.protocol + '//vk.com/rtrg?r=Pvc7Zscv53rTS31dhvlKA88dTlKvPzGOXVi3YnShftQcwl9FxdfH2PzMZVpvvdod4B6udsDEn/mfCHdcZeNAo0Lhjbzmo2Nru8vtmS1x1pXnVceH03CZmEP86Pg5GsU1hGXMudLMRHn6oh30vUboE*eINcKbdWNjW8C5m4s6LMM-';</script>

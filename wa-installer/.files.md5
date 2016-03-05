@@ -1,0 +1,17 @@
+a1751e1f10a3b96b05d0401c97e72008 *.htaccess
+6819c0cf5021b7108e869823f4ffb50e *css/wa-installer.css
+2b9ce511c1cb06319160f74b22ead2c0 *install.php
+60ec3bc8380a07943ab0e3d1e2b1c8bc *js/wa-installer.js
+a285da79a1cf95556e4eb1fd40059097 *lib/.htaccess
+33d9a1659c3d962e0783e05c5743ff2a *lib/classes/wainstaller.class.php
+9f774aeeee1b25d3167ed7e3fd16f85c *lib/classes/wainstallerapps.class.php
+6c24ac7d40348c077f97040180c5834f *lib/classes/wainstallerfile.class.php
+a3d51f4567e6e1abc47cfff7f2d1630c *lib/classes/wainstallerlocale.class.php
+0932dad59491f22608d0704d3a911f09 *lib/classes/wainstallerrequirements.class.php
+a8cdc778aaa3c86b901520ebed27bceb *lib/config/requirements.php
+44d5a2948716d436b2000ceb1c3407d2 *lib/init.php
+bf27798e756992d3bcc86b5c26dddc29 *lib/transport/durabletar.class.php
+3c7bcba7cc9e86473380ce8eb60d1409 *lib/vendors/PEAR/PEAR.php
+8c30fc1d36182161ddf5c723c60f53be *lib/vendors/PEAR/Tar.php
+5782fd54a978e514b38f0617ca53be73 *locale/en_US.php
+2f955a4aaf472b242aadefcc813c9624 *locale/ru_RU.php

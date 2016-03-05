@@ -1,0 +1,107 @@
+<div class="block">
+	<nav>
+		<div class="btn-group">
+			<button class="btn btn-default" ng-click="setCurrentTab(0)" ng-class="{active:currentTab == 0}">Новые <span class="badge">{{myTasksCount}}</span></button>
+			<button class="btn btn-default" ng-click="setCurrentTab(1)" ng-class="{active:currentTab == 1}">В процессе</button>
+			<button class="btn btn-default" ng-click="setCurrentTab(2)" ng-class="{active:currentTab == 2}">Выполненые</button>
+			<button class="btn btn-default" ng-click="setCurrentTab(3)" ng-class="{active:currentTab == 3}">Назначенные</button>
+		</div>
+		<a class="glyphicon glyphicon-pencil" ng-click="appoint()">Назначить</a>
+	</nav>
+	<main>
+		<div class="row" ng-show="currentTab == 0">
+			<div ng-repeat="task in newTasks track by $index" class="col-sm-4 col-md-3 col-lg-2">
+				<div class="thumbnail">
+					<div class="caption">
+						<h2 ng-bind-html="trustAsHtml(task.title)"></h2>
+						<small>от: {{task.author_name}}</small><br>
+						<small ng-if="task.deadline">сделать до: {{task.deadline}}</small>
+						<p class="description" ng-bind-html="trustAsHtml(task.text)"></p>
+					</div>
+					<p class="actions">
+						<button ng-click="setTaskStatus('processing', task, newTasks)" type="button" class="btn btn-info btn-xs">в процессе</button>
+						<button ng-click="setTaskStatus('done', task, newTasks)" type="button" class="btn btn-success btn-xs">выполнено</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row" ng-show="currentTab == 1">
+			<div ng-repeat="task in processingTasks track by $index" class="col-sm-4 col-md-3 col-lg-2">
+				<div class="thumbnail">
+					<div class="caption">
+						<h2 ng-bind-html="trustAsHtml(task.title)"></h2>
+						<small>от: {{task.author_name}}</small><br>
+						<small ng-if="task.deadline">сделать до: {{task.deadline}}</small>
+						<p class="description" ng-bind-html="trustAsHtml(task.text)"></p>
+					</div>
+					<p class="actions">
+						<button ng-click="setTaskStatus('new', task, processingTasks)" type="button" class="btn btn-primary btn-xs">новая</button>
+						<button ng-click="setTaskStatus('done', task, processingTasks)" type="button" class="btn btn-info btn-xs">выполнено</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row" ng-show="currentTab == 2">
+			<div ng-repeat="task in doneTasks track by $index" class="col-sm-4 col-md-3 col-lg-2">
+				<div class="thumbnail">
+					<div class="caption">
+						<h2 ng-bind-html="trustAsHtml(task.title)"></h2>
+						<small>от: {{task.author_name}}</small><br>
+						<small ng-if="task.deadline">сделать до: {{task.deadline}}</small>
+						<p class="description" ng-bind-html="trustAsHtml(task.text)"></p>
+					</div>
+					<p class="actions">
+						<button ng-click="setTaskStatus('new', task, doneTasks)" type="button" class="btn btn-info btn-xs">новая</button>
+						<button ng-click="setTaskStatus('processing', task, doneTasks)" type="button" class="btn btn-success btn-xs">в процессе</button>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row" ng-show="currentTab == 3">
+			<div ng-repeat="task in myTasks track by $index" class="col-sm-4 col-md-3 col-lg-2">
+				<div class="thumbnail">
+					<div class="caption">
+						<h2 ng-bind-html="trustAsHtml(task.title)"></h2>
+						<small>кому: {{task.performer_name}}</small><br>
+						<small ng-if="task.deadline">сделать до: {{task.deadline}}</small>
+						<p class="description" ng-bind-html="trustAsHtml(task.text)"></p>
+					</div>
+					<p class="actions">
+						<button ng-if="task.status == 'new'" type="button" class="btn btn-info btn-xs">новая</button>
+						<button ng-if="task.status == 'processing'" type="button" class="btn btn-info btn-xs">в процессе</button>
+						<button ng-if="task.status == 'done'" type="button" class="btn btn-success btn-xs">выполнено</button>
+					</p>
+				</div>
+			</div>
+		</div>
+	</main>
+</div>
+<script type="text/ng-template" id="appoint.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Назначить задачу</h3>
+    </div>
+    <div class="modal-body">
+    	<div class="form-group">
+	    	<label for="title">Заголовок:</label>
+	    	<input id="title" type="text" ng-model="title">
+	    </div>
+    	<div class="form-group">
+	    	<label for="to">Кому:</label>
+	    	<select id="to" ng-model="to">
+	    		<option ng-repeat="user in users track by $index" value="{{user.id}}">{{user.name}}</option>
+	    	</select>
+	    </div>
+	    <div class="form-group">
+	    	<label for="deadline">Сделать до:</label>
+	    	<input id="deadline" type="text" is-open="opened" datepicker-popup="dd.MM.yyyy" ng-model="deadline" ng-focus="opened = true" min-date="minDate" datepicker-options="dateOptions" close-text="Закрыть" clear-text="Отчистить" current-text="Сегодня"/><button type="button" class="datepicker-caller" ng-click="opened = true"><i class="glyphicon glyphicon-calendar"></i></button>
+	    </div>
+	    <div class="form-group">
+	    	<label>Задача:</label>
+	        <textarea ng-model="text"></textarea>
+	    </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Назначить</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Отмена</button>
+    </div>
+</script>

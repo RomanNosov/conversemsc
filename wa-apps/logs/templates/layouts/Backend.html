@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{$wa->appName()} &mdash; {$wa->accountName()}</title>
+
+{wa_js}
+    {$wa_url}wa-content/js/jquery/jquery-1.8.2.min.js
+    {$wa_url}wa-content/js/jquery-ui/jquery.ui.core.min.js
+    {$wa_url}wa-content/js/jquery-ui/jquery.ui.widget.min.js
+    {$wa_url}wa-content/js/jquery-ui/jquery.ui.mouse.min.js
+    {$wa_url}wa-content/js/jquery-ui/jquery.ui.sortable.min.js
+    {$wa_url}wa-content/js/jquery-wa/wa.core.js
+    {$wa_url}wa-content/js/jquery-wa/wa.dialog.js
+    {$wa_url}wa-content/js/prettify/prettify.js
+    {$wa_app_static_url}js/logs.js
+{/wa_js}
+        
+        {$wa->css()}
+        <link href="{$wa_url}wa-content/js/prettify/prettify.css" type="text/css" rel="stylesheet">
+        <link href="{$wa_app_static_url}css/logs.css?v{$wa->version()}" type="text/css" rel="stylesheet">
+        
+        <script type="text/javascript">
+          $.loc = {};
+          {foreach $loc as $key => $value}
+          $.loc['{$key}'] = '{$value|escape:"javascript"}';
+          {/foreach}
+        </script>
+    </head>
+    <body>
+        <div id="wa" class="{$action}">
+            {$wa->header()}
+            <div id="wa-app">
+                {$navigation}
+                <div class="content">
+                    {$content}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

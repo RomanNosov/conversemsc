@@ -1,0 +1,8 @@
+<div id="page" role="main">
+    <h1>[`Login`]</h1>
+    {$wa->authAdapters()}
+    {$wa->loginForm($error, empty($without_form))}
+    <script>
+    	$(".wa-value.wa-submit [type=submit]").addClass("sqr-btn");
+    </script>
+</div>

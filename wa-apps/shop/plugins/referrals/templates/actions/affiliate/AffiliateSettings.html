@@ -1,0 +1,166 @@
+<h1 style="margin-bottom: 0.75em;">[`Referral program`]</h1>
+<p>[`Your customers and referral partners receive bonuses for every friend they refer to make a purchase in your store. Referring is performed via a unique referral link every customer and partner can get in his personal account. Referral program is an effective promotional tool which allows you to increase sales, number of links to your website (which is good for search engine optimization), and to gather a community of partners motivated to promote your website on the Internet.`]</p>
+<form id="s-settings-affiliate-referrals-form" action="?plugin=referrals&module=affiliate&action=save">
+    <div class="fields form">
+
+        <div class="field-group">
+            <div class="field">
+                <div class="name">[`Referral program`]</div>
+                <div class="value no-shift s-ibutton-checkbox">
+                    <ul class="menu-h">
+                        <li><span class="gray" id="s-toggle-disabled-label">[`Disabled`]</span></li>
+                        <li>
+                            <input type="checkbox" id="s-toggle-status" name="enabled" value="1"{if $enabled} checked{/if}>
+                        </li>
+                        <li><span id="s-toggle-enabled-label">[`Enabled`]</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group" {if !$enabled}style="display:none"{/if}>
+            <div class="field">
+                <div class="name">[`Credit rate`]</div>
+                <div class="value">
+                    <div id="referrals-rate-slider" style="margin-top: 10px;" class="weight" title=""></div>
+                    <div class="s-search-weight-value bold">
+                        <strong style="margin-left: 10px" class="weight-value"></strong>[`of order total`]
+                    </div><br>
+                    = [`+1 point per`]
+                    <input id="referrals-rate" type="text" class="short numerical" name="rate" value="{$settings.rate}" placeholder="100">{$currency} [`worth of orders paid by referrals`]
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
+                    [`Cookie`]
+                </div>
+                <div class="value">
+                    <label>{sprintf('[`Save referral cookie for %s days`]', '<input type="text" class="short numerical" name="cookie_expire" value="'|cat:$settings.cookie_expire|cat:'" placeholder="30">')}</label>
+                </div>
+                <div class="value no-shift">
+                    <label>
+                        <input type="checkbox" name="cookie_main_domain" {if !empty($settings.cookie_main_domain)}checked="checked"{/if}> [`Set cookie on top-level domain name (*.domain.com)`]
+                    </label>
+                    <p class="hint">[`Enable this if you have multiple storefronts on subdomains (e.g. store1.domain.com, store2.domain.com), and would like to automatically apply referral cookie for all subdomains. Otherwise simply ignore this option.`]</p>
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
+                    [`Activity`]
+                </div>
+                <div class="value no-shift">
+                    <label>
+                        <input type="checkbox" name="activity" {if !empty($settings.activity)}checked="checked"{/if}> [`Track referral visits (recommended)`]
+                    </label>
+                    <p class="hint">[`Increases server load, but allows your referral partners to track per visit value and conversions for customers they refer to your online store.`]</p>
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
+                    [`Notifications`]
+                </div>
+                <div class="value no-shift">
+                    <label>
+                        <input type="checkbox" name="notifications" {if !empty($settings.notifications)}checked="checked"{/if}> [`Notify referral partners on new bonus credits (on paid orders placed by referred customers)`]
+                    </label>
+                    <p class="hint">[`Enable to automatically notify your affiliate partners on bonus credits by email. Emails will be sent when a referred customer pays for an order.`]</p>
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
+                    [`Referral program promo`]
+                </div>
+                <div class="value">
+                    <textarea name="promo" style="min-height: 150px;">{$settings.promo|escape}</textarea>
+                    <p class="hint">[`A brief text advertising your referral program benefits. This promo text will be published in <em>My account &rarr; Affiliate program</em> screen for all your customers who did not sign up for your referral program yet.`]</p>
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
+                    [`Referral program terms and conditions`]
+                </div>
+                <div class="value">
+                    <textarea name="terms" style="min-height: 250px;">{$settings.terms|escape}</textarea>
+                    <p class="hint">[`Opens in a new window.`]</p>
+                </div>
+            </div>
+        </div>
+        <div class="field-group"{if !$enabled} style="display:none"{/if}>
+            <div class="field">
+                <div class="value submit">
+                    <input type="submit" class="button green" value="[`Save`]">
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.slider.min.js"></script>
+<script type="text/javascript">
+    $('#s-settings-affiliate-referrals-form').submit(function () {
+        var f = $(this);
+        $.post(f.attr('action'), f.serialize(), function (response) {
+            f.find(':submit').after(
+                $('<span class="s-msg-after-button"><i class="icon16 yes"></i>{_w("Saved")}</span>').animate({ opacity: 0 }, 1500, function() {
+                    $(this).remove();
+                })
+            );
+        }, 'json');
+        return false;
+    });
+
+    var ibutton = $('#s-toggle-status').iButton( { labelOn : "", labelOff : "", className: 'mini' } ).change(function() {
+        var self = $(this);
+        var enabled = self.is(':checked');
+        if (enabled) {
+            self.closest('.field-group').siblings().show(200);
+        } else {
+            self.closest('.field-group').siblings().hide(200);
+        }
+        $.post('?plugin=referrals&module=affiliate&action=enable', { enable: enabled ? '1' : '0' });
+    });
+
+    $(function () {
+        var formatValue = function (n) {
+            var n = parseFloat(n) > 0 ? 100 / parseFloat(n) : 0;
+            return Math.round(100000 * n) / 100000;
+        }
+        $.fn.onKeyFinish = function (defer, callback) {
+            return this.each(function () {
+                var that = $(this);
+                that.currentValue = that.val();
+                that.interval = null;
+                $(this).off('keyup.referrals');
+                $(this).on('keyup.referrals', function (e) {
+                    clearInterval(that.interval);
+                    if (that.currentValue != that.val()) {
+                        that.interval = setInterval(function () {
+                            clearInterval(that.interval);
+                            callback.call(that);
+                            that.currentValue = that.val();
+                        }, defer);
+                    }
+                });
+            });
+        };
+        var item = $('#referrals-rate');
+        var slider = $('#referrals-rate-slider');
+        var span = item.parent().find('.weight-value').html(formatValue(item.val()) + '%');
+        slider.slider({
+            min: 0,
+            max: 100,
+            slide: function(event, ui) {
+                $(this).attr('title', ui.value);
+                span.html(ui.value + '%');
+                $(item).val(formatValue(ui.value));
+            },
+            value: formatValue(item.val())
+        });
+        item.onKeyFinish(300, function () {
+            var v = formatValue($(this).val());
+            slider.slider('value', v);
+            span.html(v + '%');
+        });
+    });
+
+</script>

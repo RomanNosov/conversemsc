@@ -1,0 +1,9 @@
+User-agent: *
+Host: conversemsc.ru
+
+# wa mailer mailer/*
+Disallow: /mailer/unsubscribe/
+# wa mailer
+
+
+Sitemap: http://conversemsc.ru/sitemap.xml

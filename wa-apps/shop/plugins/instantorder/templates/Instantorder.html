@@ -1,0 +1,104 @@
+<link rel="stylesheet" href="{$wa_url}wa-content/css/jquery-ui/jquery-ui-1.7.2.custom.css" />
+<link rel="stylesheet" href="{$wa_app_static_url}plugins/instantorder/css/themes/{$settings.theme}/jquery.ui.theme.css">
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.core.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.widget.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.mouse.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.position.min.js"></script>
+{if $settings.draggable}
+    <script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.draggable.min.js"></script>
+{/if}
+{if $settings.resizable}
+    <script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.resizable.min.js"></script>
+{/if}
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.button.min.js"></script>
+<script type="text/javascript" src="{$wa_url}wa-content/js/jquery-ui/jquery.ui.dialog.min.js"></script>
+
+<link rel="stylesheet" href="{$wa_app_static_url}plugins/instantorder/css/style.css" />
+{if $settings.personal_css && $settings.css_button_style}
+    {$settings.css_button_style}
+{else}
+    <link rel="stylesheet" href="{$wa_app_static_url}plugins/instantorder/css/gradient.css" />
+{/if}
+
+<div class="instantorder_block">
+    {if !isset($product) || count($product.skus) > 1}
+        {$product_available = true}
+    {else}
+        {$sku = $product.skus[$product.sku_id]}
+        {$product_available = $product.status && $sku.available && ($wa->shop->settings('ignore_stock_count') || $sku.count === null || $sku.count > 0)}
+    {/if}
+    {if $product_available}
+        {if $settings.without_style}
+            <button class="instantorder_button">{$settings.link_name|escape}</button>
+        {elseif $settings.personal_css}
+            <span class="instantorder_button">{$settings.link_name|escape}</span>
+        {else}
+            <span class="instantorder_button{if isset($settings.button_style)} gradient {$settings.button_style}{/if}">{$settings.link_name|escape}</span>
+        {/if}
+    {/if}
+    <div id="instantorder_dialog">
+        <table  id="instantorder_table">
+            {foreach from=$selected_fields item=selected_field}
+                <tr>
+                    <td>{$selected_field.name}{if $selected_field.required}<span class="required">*</span>{/if}:&nbsp;</td>
+                    <td>
+                        {if $selected_field.type=='address.country'}
+                            <select class="select_countries{if $selected_field.required} required_field{/if}" name="fields[{$selected_field.type}]" >
+                                <option value="">Выберите страну</option>
+                                {foreach from=$countries key=key item=country}
+                                    <option value="{$key}"  {if isset($selected_field.def_value) && $selected_field.def_value==$key}selected="selected"{/if}>{$country.name}</option>
+                                {/foreach}
+                            </select>
+                        {elseif $selected_field.type=='address.region'}
+                            <div class="region_block">
+                                <input {if $selected_field.required}class="required_field"{/if} type="text" name="fields[{$selected_field.type}]" value="{if isset($selected_field.def_value)}{$selected_field.def_value}{/if}" />
+                                <select style="display:none;" disabled="disabled" class="select_region{if $selected_field.required} required_field{/if}" name="fields[{$selected_field.type}]" >
+                                    <option value="">Выберите регион</option>
+                                </select>
+                            </div>
+                        {else}
+                            <input {if $selected_field.required}class="required_field"{/if} type="text" name="fields[{$selected_field.type}]" value="{if isset($selected_field.def_value)}{$selected_field.def_value}{/if}" />
+                        {/if}
+                    </td>
+                </tr>
+            {/foreach}
+
+            {if $settings.is_comment}
+                <tr>
+                    <td>Комментарий к заказу:</td>
+                    <td>
+                        <textarea name="comment"></textarea>                        
+                    </td>
+                </tr>
+            {/if}
+            {if $settings.is_captcha}
+                <tr>
+                    <td colspan="2">
+                        {$wa->captcha(!empty($errors.captcha))}
+                    </td>
+                </tr>
+            {/if}
+            <tr>
+                <td colspan="2" align="center" >
+                    <input type="submit" value="Оформить заказ"/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center" class="response" >
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script type='text/javascript'>
+    $(function() {
+        $.instantorder.init({
+            $wa_app_url: '{$wa_app_url}',
+            instantorder_draggable: {if $settings.draggable}true{else}false{/if},
+            instantorder_resizable: {if $settings.resizable}true{else}false{/if},
+            instantorder_title: '{$settings.title|escape}',
+            instantorder_width: parseInt('{$settings.width_modal|escape}'),
+            instantorder_height: parseInt('{$settings.height_modal|escape}')
+        });
+    });
+</script>

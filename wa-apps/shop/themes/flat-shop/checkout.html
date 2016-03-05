@@ -1,0 +1,50 @@
+
+<div class="checkout">
+    <h1>
+        Оформление заказа
+        <div class="additional-title-info">
+            <small>шаг 2 из 2</small>
+        </div>
+    </h1>
+    {if isset($checkout_steps)}
+    <!-- checkout step content -->
+    {foreach $checkout_steps as $step_id => $s}
+        <div class="checkout-step step-{$step_id}">
+            <form class="checkout-form {if $s@first}first{/if} {if $s@last}last{/if}" method="post" action="">
+                <div class="history-nav">
+                    {if $s@first}
+                        <a href="{$wa->getUrl('/frontend/cart')}" class="hint float-right">[`Back to the store`]</a>
+                    {/if}
+                </div>
+
+                <div class="checkout-step-content" style="{if $wa->isAuthEnabled() && $s@first}margin-top: {if $step_id == 'contactinfo'}-40px;{else}0;{/if}{/if}{if $checkout_current_step != $step_id || $wa->post('wa_auth_login')} display:none;{/if}">
+                    {if $checkout_current_step == $step_id}
+                        {if in_array($step_id,['contactinfo', 'shipping', 'payment', 'confirmation'])}
+                            {include file="checkout.`$step_id`.html"}
+                        {else}
+                            {$s.content}
+                        {/if}
+                    {else}
+                        <div class="checkout-content" data-step-id="{$step_id}"></div>
+                    {/if}
+                    <div class="clear-both"></div>
+                    <input type="hidden" name="step" value="{$step_id}">
+                    {if $s@last}
+                    <div>
+                        <button type="submit" class="sqr-btn" value="[`Place order`]">Далее &rarr;</button>
+                    </div>
+                    {else}
+                    <button type="submit" class="sqr-btn" value="[`Next &rarr;`]">[`Next &rarr;`]</button>
+                    {/if}
+                    <div class="clear-both"></div>
+                </div>
+            </form>
+        </div>
+    {/foreach}
+    {else}
+        <div class="checkout-step">
+            {include file="checkout.`$checkout_current_step`.html"}
+        </div>
+    {/if}
+
+</div>

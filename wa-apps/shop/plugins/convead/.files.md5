@@ -1,0 +1,14 @@
+f46430488b58fc02503533790123f451 *img/logo.png
+209634bb0238704c4874c35d615ae59e *lib/.htaccess
+ed40c900b1bdffd1e0c64441ac55886f *lib/actions/shopConveadPluginSettings.action.php
+b98f204a5ce1bd5b0f6b99ef3bc638cb *lib/config/SystemConfig.class.php
+4721cc9b05e079916c4a3a568d7bfdde *lib/config/install.php
+5ee5c35d1626c1ac51170e05b4453c06 *lib/config/plugin.php
+a3c33502890991f2ab99416b6ab42931 *lib/shopConvead.plugin.php
+11691cfba3868cb58017a57f3268e3e8 *lib/vendors/Browser.php
+ee9918a5ab73d7f86e254c776ef58fa4 *lib/vendors/ConveadTracker.php
+f20db94e9cb9a4b225f91a3ed43c451d *locale/en_US/LC_MESSAGES/shop_convead.mo
+f466da14727b03c7792e7ff1d079f580 *locale/en_US/LC_MESSAGES/shop_convead.po
+d692e7ec3f4f4e5c6e8beb65e4097f2f *locale/ru_RU/LC_MESSAGES/shop_convead.mo
+495486d89e90ddd285884fe87ef0ebaf *locale/ru_RU/LC_MESSAGES/shop_convead.po
+e6a547c30daf8209ee5bee7f61764a85 *templates/actions/settings/Settings.html

@@ -1,0 +1,119 @@
+{if !empty($messages)}
+    {foreach $messages as $message}
+        <div class="block double-padded i-message-{$message.result}">
+            {if $message.result == 'success'}<i class="icon16 yes"></i>
+            {elseif $message.result == 'fail'}
+            <i class="icon16 no"></i>
+            {/if}
+            {$message.text|escape}
+        </div>
+    {/foreach}
+{/if}
+
+{if !empty($slug)}
+    {$sort = 1000}{$_widgets=[]}
+    {foreach $slug as $key}
+        {if !empty( $apps[$key]) && !empty($apps[$key]['widgets'])}
+        {foreach $apps[$key]['widgets'] as $widget_id => $widget}
+        {if !isset($widget.sort)}{$sort = $sort+1}{$widget.sort=$sort}{/if}
+        {$_sort=$widget.sort}
+
+        {capture assign="_widget"}
+        <li{if !empty($widget.installed)} class="i-installed"{/if} data-sort="{$_sort}">
+            {$app = $apps[$key]}
+
+            <div class="profile image96px">
+                <div class="image">
+                    <a href="#/widgets/{$app['slug']}/{$widget_id}/" data-href="#/widgets%s/{$app['slug']}/{$widget_id}/" class="js-item-link">
+                        <div class="i-image-wrapper">
+                            <img src="{$widget.icon|default:"`$wa_url`wa-apps/installer/img/dummy-widget.png"}" alt="{$widget.name|truncate:15|escape}">
+                            {if !empty($widget.publish_datetime) && strtotime($widget.publish_datetime) > $smarty.now - 86400*14}
+                                <!-- NEW -->
+                                <div class="i-badge new"><span>New</span></div>
+                            {elseif !empty($widget.tags)}
+                                {if in_array('featured', $widget.tags)}
+                                    <!-- FEATURED -->
+                                    <div class="i-badge featured"><i class="thumb-up"></i></div>
+                                {elseif in_array('updated', $widget.tags)}
+                                    <!-- UPDATED -->
+                                    <div class="i-badge updated two-lines"><span>[`New version!`]</span></div>
+                                {/if}
+                            {/if}
+                        </div>
+                    </a>
+                </div>
+                <div class="details">
+                    <h5><a href="#/widgets/{$app['slug']}/{$widget_id}/" data-href="#/widgets%s/{$app['slug']}/{$widget_id}/" class="js-item-link">{$widget.name|truncate:32|escape}</a></h5>
+                    {if $widget.description}<p>{$widget.description}</p>{/if}
+                    {if empty($widget.installed)}
+
+                        {* NOT INSTALLED *}
+
+                        {if empty($widget.price)}
+                            <strong>[`Free`]</strong>
+                        {else}
+                            {if ifempty($widget.lease_price) == 'free'}
+                                {* free to install on this particular installation (cloud) *}
+                                <strong>[`Free`]</strong>
+                            {else}
+                                {if !empty($widget.compare_price)}<strike class="bold gray">{$widget.compare_price}</strike>&nbsp; {/if}
+                                <strong{if !empty($widget.compare_price)} class="highlighted"{/if}>{$widget.price}</strong>
+                                {if !empty($widget.lease_price)}
+                                    [`or`] <strong>{sprintf('[`%s/mo`]',$widget.lease_price)}</strong>
+                                {/if}
+                            {/if}
+                        {/if}
+
+                    {else}
+
+                        {* INSTALLED *}
+
+                        {if $widget.commercial}
+                            {* PAID *}
+                            {if empty($widget.purchased)}
+                                {* NOT LICENSED *}
+                                <em class="i-installed-label not-licensed{if installerHelper::overdue()} overdue{/if}"><i class="icon10 {if installerHelper::overdue()}no{else}no-bw{/if}"></i> [`Not licensed`]</em>
+                            {else}
+                                {* VALID LICENSE *}
+                                {if !empty($widget.license_expire)}
+                                    {if (strtotime($widget.license_expire) < $smarty.now)}{$_overdue = 1}{else}{$_overdue = 0}{/if}
+                                    <em class="i-installed-label{if $_overdue} overdue{/if}"><i class="icon10 {if $_overdue}no{else}yes{/if}"></i> {sprintf('[`Paid until %s`]', $widget.license_expire|wa_datetime:'humandate')}</em>
+                                {else}
+                                    <em class="i-installed-label licensed"><i class="icon10 yes"></i> [`Licensed`]</em>
+                                {/if}
+                            {/if}
+                        {else}
+                            {* FREE *}
+                            <em class="i-installed-label"><i class="icon10 yes"></i> [`Installed`]</em>
+                        {/if}
+
+                    {/if}
+                </div>
+            </div>
+
+        </li>
+            {/capture}
+            {$_widgets[$_sort]=$_widget}
+      {/foreach}
+        {/if}
+    {/foreach}
+{/if}
+{if !empty($_widgets)}
+    <br>
+    <ul class="thumbs">
+
+        <!-- {ksort($_widgets)} -->
+
+        {implode("",$_widgets)}
+
+     </ul>
+{else}
+    <p class="align-center gray"><br>[`No widgets were found.`]</p>
+{/if}
+<div class="clear"></div>
+
+<script type="text/javascript">
+<!--
+    $.layout.window.setTitle('{"[`Widgets`]"|cat:" — ":{$wa->accountName(false)}|escape:'javascript'}');
+//-->
+</script>

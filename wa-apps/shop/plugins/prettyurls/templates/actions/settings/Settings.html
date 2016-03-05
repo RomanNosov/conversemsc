@@ -1,0 +1,104 @@
+<h1>ЧПУ при импорте +</h1>
+
+<div class="fields form">
+    <form action="?plugin=prettyurls&action=save" method="post" id="plugins-settings-form">
+        {$wa->csrf()}
+        
+        <div class="field-group">
+            <h3>Обновить ссылки существующих товаров</h3>
+        </div>
+        <div class="field-group">
+            <div class="field">
+                <div class="name">
+                    Обновить ссылки товаров
+                </div>
+                <div class="value">
+                    <select id="update_mode">
+                        <option value="none">–</option>
+                        <option value="digits">Состоящие только из цифр</option>
+                        <option value="all">Пересоздать все ссылки</option>
+                    </select>
+                    &nbsp;&nbsp;&nbsp;
+                    <input type="button" id="do-update" value="Обновить ссылки сейчас" style="display: none;" />
+                    <span id="prettyurls-please-wait" style="display: inline-block; height: 20px; width: 0; vertical-align: bottom;
+                        background: url({$settings.plugin_url}/img/loading.gif) center center no-repeat; background-size: contain;">
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="name">
+                    Подсказка
+                </div>
+                <div id="prettyurls-hints" class="value">
+                    <p id="update-digits" style="display: none">
+                        Созданы заново будут ссылки, состоящие только из цифр <span style="color:#888;">(обычно такие ссылки генерируются при импорте новых товаров через CSV)</span>.
+                        <br /><br />
+                        Ссылки с буквами <span style="color:#888;">(как правило, это ссылки на товары, добавленные или отредактированные вручную)</span> затронуты не будут.
+                        <br /><br />
+                        <span style="color:#888;font-size:90%;">Перед обновлением ссылок рекомендуется сделать резервную копию базы данных.</span>
+                    </p>
+                    <p id="update-all" style="display: none">Будут заново созданы ссылки на ВСЕ товары.
+                        <br /><br />
+                        <span style="color:#888;font-size:90%;">Перед обновлением ссылок рекомендуется сделать резервную копию базы данных.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <hr />
+
+        <div class="field-group">
+            <div class="field">
+                <div class="name">
+                    Автоматически генерировать ЧПУ при импорте товаров
+                </div>
+                <div class="value">
+                    <select id="settings_enabled" name="settings[enabled]">
+                        <option {if $settings.enabled == 1} selected="selected"{/if} value="1">Да</option>
+                        <option {if $settings.enabled == 0} selected="selected"{/if} value="0">Нет</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="value submit">
+                <input type="submit" class="button green" value="Сохранить">
+                <span id="plugins-settings-form-status" style="display:none">
+                    <i style="vertical-align:middle" class="icon16 yes"></i> [`Saved`]
+                </span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $('#update_mode').change(function () {
+        $('#prettyurls-hints p').hide();
+        $('#update-'+$(this).val()).show();
+        if ($(this).val()!='none') {
+            $('#do-update').show();
+        } else {
+            $('#do-update').hide();
+        }
+    });
+    $('#do-update').click(function () {
+        $(this).hide();
+        $('#prettyurls-please-wait').width(20);
+        $.post(
+        "?plugin=prettyurls&action=updateurls",
+        {
+            _csrf: $('input[name="_csrf"]').val(),
+             mode: $('#update_mode').val(),
+        })
+        .done(function( data ) {
+            $('#prettyurls-please-wait').width(0);
+            alert('Обновление ссылок прошло успешно.');
+            window.location.reload();
+        })
+        .fail(function() {
+            alert('При обновлении ссылок возникла неустранимая ошибка');
+            $('#prettyurls-please-wait').width(0);
+        });
+    });
+</script>

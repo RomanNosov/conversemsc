@@ -1,0 +1,31 @@
+{* HINT: for the rest of footer links, please see index.html <!-- FOOTER --> section *}
+
+{if count($currencies) > 1}
+    <aside class="currency-toggle">
+        <select id="currency">
+            {$currency = $wa->shop->currency()}
+            {foreach $currencies as $c_code => $c}
+                <option value="{$c_code}" {if $c_code == $currency} selected{/if}>{$c.title}</option>
+            {/foreach}
+        </select>
+        <script>
+            $("#currency").change(function () {
+                var url = location.href;
+                if (url.indexOf('?') == -1) {
+                    url += '?';
+                } else {
+                    url += '&';
+                }
+                location.href = url + 'currency=' + $(this).val();
+            });
+        </script>
+    </aside>
+{/if}
+
+<!-- plugin hook: 'frontend_footer' -->
+{* @event frontend_footer.%plugin_id% *}
+{foreach $frontend_footer as $_}{$_}{/foreach}
+
+<div{if count($currencies) == 1} class="poweredby"{/if} role="complementary">
+    [`<a href="http://www.shop-script.com/">Ecommerce software</a> by Webasyst`]
+</div>

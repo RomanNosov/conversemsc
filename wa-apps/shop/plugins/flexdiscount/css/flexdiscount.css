@@ -1,0 +1,73 @@
+form { overflow: inherit; }
+.mask-description { display: none; }
+.tooltip { width: 135px; max-width: 135px; left: 20px; top: -108px; line-height: 1.3; }
+table.zebra select { width: 100%; }
+table.zebra select.s-domains { width: inherit; }
+table.zebra select.mask { min-width: 90px; }
+table.zebra tr.deny td { background-color: #ffcccc; }
+table.zebra tr.highlighted td { background: #fff843 !important; }
+i.icon16 { margin-right: 0; }
+i.icon16-custom { background-repeat:no-repeat; background-image: url("../img/coupon-icons.png"); height:16px; width:16px; display:inline-block; text-indent:-9999px; text-decoration:none!important; }
+* i.icon16-custom { text-decoration:none!important; vertical-align:top; margin: -0.1em 0.25em 0 0; }
+.icon16-custom.coupon { background-position: 0 0; }
+.icon16-custom.coupon-off { background-position: -16px 0; }
+.icon16-custom.coupon-edit { background-position: 0 -16px; }
+.icon16-custom.coupon-add { background-position: -16px -16px; }
+.icon16-custom.coupon-delete { background-position: 0 -32px; }
+.icon16-custom.lightbulb { background-position: -16px -32px; }
+.icon16-custom.lightbulb-off { background-position: 0 -48px; }
+.icon16-custom.close { background-position: -16px -48px; }
+.icon16-custom.exclamation { background-position: 0 -64px; }
+.icon16-custom.top-left { position: absolute; left: -20px; top: 0; }
+table.zebra td .icon16-custom.coupon-hameleon { background-position: -32px 0; }
+table.zebra tr:nth-child(2n+1) td .icon16-custom.coupon-hameleon { background-position: -32px -16px; }
+table.zebra tr:hover td .icon16-custom.coupon-hameleon { background-position: -32px -32px; }
+table.zebra tr.deny td .icon16-custom.coupon-hameleon { background-position: -32px -48px; }
+table.zebra td.no-padded { padding: 0; }
+
+.clearfix:after{content:"";display:block;clear:both}
+.clearfix{zoom:1}
+
+.table-inside { display: none;  }
+.table-inside > td > div { display: none; background-color: #fff; }
+.table-inside > td > div { position: relative; }
+.table-inside > td > div:before { content: ""; position: absolute; top: -1px;  left: 0; width: 100%;  height: 6px; background: url("../img/shadow-top.png") repeat-x; z-index: 100; }
+.table-inside > td > div:after { content: ""; position: absolute;  bottom: -1px; left: 0; width: 100%; height: 6px; background: url("../img/shadow-bottom.png") repeat-x; z-index: 100; }
+
+.empty-field { background: #ffcccc; }
+.dialog-content-indent { padding-bottom: 0; }
+.link-delete { position: absolute; right: 30px; top: 25px; }
+.coupon-desk { position: absolute; z-index: 999; display: none; top: -100px; right: -180px; width: 200px; height: 100px;  -webkit-box-shadow: 0 0 10px 2px #999999; -moz-box-shadow: 0 0 10px 2px #999999; box-shadow: 0 0 10px 2px #999999; background: rgb(255,255,255); background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(252,253,253,1) 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(252,253,253,1))); background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(252,253,253,1) 100%); background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(252,253,253,1) 100%); background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(252,253,253,1) 100%); background: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(252,253,253,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#fcfdfd',GradientType=0 ); border: 3px solid #bad1d2; padding: 5px; }
+.coupon-desk .code { font-weight: 600; color: #666; height: 14px; border-bottom: 1px solid #666; padding-bottom: 3px;  }
+.coupon-desk .close-desk { position: absolute; top: 2px; right: 0; }
+table.zebra select.coupon-discount { width: 170px; display: none; }
+
+#s-discounts-content .calendar { margin: 3px 0 0 2px; }
+#coupon-table textarea { width: 100%; height: 50px; }
+#s-discounts-content { overflow: hidden; }
+#fixed-save-panel { background: none repeat scroll 0 0 #FFFFFF; bottom: 0;  -webkit-box-shadow: 0 -6px 10px -10px #AAAAAA; -moz-box-shadow: 0 -6px 10px -10px #AAAAAA; box-shadow: 0 -6px 10px -10px #AAAAAA; left: 0; padding: 0 10px; position: fixed; right: 0; z-index: 200; text-align: center; }
+
+table.zebra input.width70px, .field .value input[type="text"].width70px { width: 70px !important; min-width: 70px !important; }
+table.zebra input.width30px, .field .value input[type="text"].width30px { width: 30px !important; min-width: 30px !important; }
+table.zebra input.width100px { width: 100px !important; }
+table.zebra input.width50px { width: 50px !important; }
+table.zebra input.width400px, .field .value input.width400px[type="text"] { width: 400px !important; }
+
+.affiliate-field { font-weight: 600; color: #25C0BA; }
+
+.f-instruction { margin: 10px 0; }
+#flexdiscount-instruction { line-height: 1.5; border: 2px solid #ccc; margin-top: 10px; }
+#flexdiscount-instruction ol li { margin-bottom: 10px; }
+#flexdiscount-instruction p { line-height: 1.5; }
+.f-mask-desc { border-left: 1px solid #ddd; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;   padding: 0 20px 20px; margin: 0 30px 30px; }
+.f-mask-desc li { margin-bottom: 10px; }
+.print-code { background: none repeat scroll 0 0 #F9F9F9; border: 1px solid #CCCCCC; padding: 20px; text-align: left; display: inline-block; }
+.indent25px { text-indent: 25px; }
+.flexdiscount-question { font-weight: bold; margin-bottom: 10px; }
+.flexdiscount-question i { position: relative; top: 3px; }
+.flexdiscount-question a { color: #000; }
+.flexdiscount-answer { display: none; }
+
+.inline-block { display: inline-block; }
+.adaptive-img { max-width: 100%; height: auto; }
+.colorpicker { z-index: 999; }

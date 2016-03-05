@@ -1,0 +1,307 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: shop/plugins/lostproducts\n"
+"POT-Creation-Date: 2014-06-09 23:44+0400\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: shop/plugins/lostproducts\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Poedit-Language: ru_RU\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/shopLostproductsPlugin.class.php:25
+msgid "Lost products"
+msgstr "Незаполненные товары"
+
+msgid "Helps you find products with incomplete information."
+msgstr "Быстрый поиск товаров с незаполненной информацией."
+
+msgid "no category"
+msgstr "без категории"
+
+msgid "Products without categories"
+msgstr "Товары, не добавленные ни в одну статическую категорию"
+
+msgid "no description"
+msgstr "без описания"
+
+msgid "Products with no description or summary"
+msgstr "Товары, для которых не введено краткое или полное описание"
+
+msgid "no images"
+msgstr "без изображений"
+
+msgid "Products without images"
+msgstr "Товары, для которых не загружены изображения"
+
+msgid "no tags"
+msgstr "без тегов"
+
+msgid "Products without tags"
+msgstr "Товары, которым не присвоен ни один тег"
+
+msgid "no META data"
+msgstr "без META-данных"
+
+msgid "Products with incomplete META data"
+msgstr "Товары, для которых не указаны META-теги или TITLE"
+
+msgid "no stock info"
+msgstr "без остатков на складе"
+
+msgid "Products without stock information"
+msgstr "Товары, для которых не указано количество на складе"
+
+msgid "no type"
+msgstr "без типа"
+
+msgid "Products without type"
+msgstr "Товары, для которых не выбран тип"
+
+msgid "no weight"
+msgstr "без веса"
+
+msgid "Products without weight"
+msgstr "Товары, для которых не указан вес"
+
+msgid "no features"
+msgstr "без характеристик"
+
+msgid "Products without features"
+msgstr "Товары, для которых не указаны значения характеристик (кроме веса)"
+
+msgid "no price"
+msgstr "без цены"
+
+msgid "Products without price"
+msgstr "Товары, для артикулов которых не указана цена"
+
+msgid "no SKU data"
+msgstr "без артикула"
+
+msgid "Products without SKU code or name"
+msgstr "Товары, для артикулов которых не указан код или наименование"
+
+msgid "unavailable"
+msgstr "недоступные для заказа"
+
+msgid "Products with SKUs not marked as “%s”"
+msgstr "Товары, артикулы которых не помечены как «%s»"
+
+msgid "hidden products"
+msgstr "скрытые"
+
+msgid "Products with status “%s”"
+msgstr "Товары со статусом «%s»"
+
+msgid "no related products"
+msgstr "без рекомендуемых товаров"
+
+msgid "Products without related items"
+msgstr "Товары, для которых не настроены рекомендуемые товары"
+
+msgid "no reviews"
+msgstr "без отзывов"
+
+msgid "Products without customer reviews"
+msgstr "Товары, о которых покупатели не оставляли отзывы"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:15
+msgid "Descriptions"
+msgstr "Описания"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:16
+msgid "Select parts of product description which must be checked"
+msgstr "Укажите, какие описания товара необходимо проверять"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:21
+msgid "Product summary"
+msgstr "Краткое описание"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:25
+msgid "Product description"
+msgstr "Полное описание"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:30
+msgid "META data"
+msgstr "МЕТА-данные"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:31
+msgid "Select parts of product META data which must be checked"
+msgstr "Укажите, какие МЕТА-данные необходимо проверять"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:36
+msgid "TITLE"
+msgstr ""
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:40
+msgid "META keywords"
+msgstr ""
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:44
+msgid "META description"
+msgstr ""
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:49
+msgid "Skipped product features"
+msgstr "Пропускать характеристики"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:50
+msgid "Select product features which must not be checked"
+msgstr "Выберите характеристики, наличие значений которых <strong>не нужно</strong> проверять.<br>Характеристика с кодом <code>weight</code> (вес) пропускается всегда, т. к. для неё есть отдельный фильтр «%s»."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:6
+msgid "Select product properties listed below which you need to control."
+msgstr "Выберите свойства товаров, которые вы хотите контролировать:"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:44
+msgid "SKUs"
+msgstr "Артикулы"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:45
+msgid "Select SKU data which you need to control"
+msgstr "Укажите, какую информацию об артикулах необходимо проверять"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:50
+msgid "SKU code and name"
+msgstr "код и наименование артикула"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:54
+msgid "only SKU code"
+msgstr "только код артикула"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:58
+msgid "only SKU name"
+msgstr "только наименование артикула"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:63
+msgid "Consider zero or negative stock count as missing stock value"
+msgstr "Считать нулевые и отрицательные складские остатки как незаполненное количество на складе"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:65
+msgid "For option “%s”"
+msgstr "Для фильтра «%s»"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:75
+msgid "Minimum dimension limit for original product images"
+msgstr "Поиск изображений товаров с низким разрешением"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:76
+msgid "If at least one of product’s <strong>original</strong> images’ dimensions is below this value (in pixels), the product will be displayed by filter “%s”."
+msgstr "Если ширина или высота любого <strong>оригинального</strong> изображения товара ниже указанного значения, такой товар будет показан фильтром «%s»."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:78
+msgid "If no positive integer or a non-integer value is specified, then only <strong>products without any images will be found</strong>."
+msgstr "Если не указано положительное значение, то по умолчанию будут найдены только <strong>товары, для которых не загружено ни одно изображение</strong>."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:80
+msgid "This option is useful for finding products with uploaded low resolution images, which can be replaced by high quality photos."
+msgstr "Эта настройка помогает находить товары с небольшими оригинальными изображениями, вместо которых можно загрузить высококачественные фотографии."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:82
+msgid "e.g., 1000"
+msgstr "например, 1000"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:78
+msgid "Select type of related items which you need to control for your products"
+msgstr "Выберите тип рекомендуемых товаров, которые нужно проверять"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:91
+msgid "Any related products"
+msgstr "Все типы рекомендуемых товаров"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:97
+msgid "Find products without info pages"
+msgstr "Поиск товаров без информационных страниц"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:98
+msgid "Find products with disabled info pages using filter “%s”"
+msgstr "Найти товары с отключенными информационными страницами с помощью фильтра «%s»"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:99
+msgid "no pages"
+msgstr "без инф. страниц"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:77
+msgid "Find missing product image files"
+msgstr "Искать отсутствующие файлы изображений товаров"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:79
+msgid "This option may slow down the product search."
+msgstr "Эта настройка может замедлить поиск товаров без изображений."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:80
+msgid "If disabled, filter \"%s\" will find only products with information about images missing in the database, which is faster and is sufficient in most cases."
+msgstr "Оставьте эту эту настройку отключенной, если фильтр «%s» должен искать товары, основываясь только на информации из базы данных — такой поиск работает быстрее и достаточен в большинстве случаев."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:69
+msgid "Find products with all SKUs having zero price"
+msgstr "Искать товары с незаполненной ценой для всех артикулов"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:71
+msgid "Enable this option if you want to use filter “%s” to find products where <strong>absolutely no SKU has a price value</strong>."
+msgstr "Включите, если с помощью фильтра «%s» необходимо находить товары, в которых <strong>абсолютно все артикулы не содержат значение цены</strong>."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:72
+msgid "If it’s disabled, all products with at least one empty (zero) SKU price value will be found."
+msgstr "Если эта настройка выключена, то будут найдены все товары, у которых цена не заполнена хотя бы для одного артикула."
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:114
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:74
+msgid "Products with duplicate URLs"
+msgstr "Товары с совпадающими URL"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:119
+msgid "Search across all product types"
+msgstr "Искать товары всех типов"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/settings.php:123
+msgid "Find products with duplicate URLs of the same type only"
+msgstr "Искать только товары того же типа"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:69
+msgid "duplicate names"
+msgstr "совпадающие названия"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:70
+msgid "Products with duplicate names"
+msgstr "Товары с совпадающими названиями"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:73
+msgid "duplicate URLs"
+msgstr "совпадающие URL"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:77
+msgid "duplicate SKUs"
+msgstr "совпадающие артикулы"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:78
+msgid "Products with duplicate SKUs"
+msgstr "Товары с совпадающими артикулами"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:34
+msgid "Products without info pages"
+msgstr "Товары без информационных страниц"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:57
+msgid "no purchase price"
+msgstr "без закупочной цены"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:58
+msgid "Products without purchase price"
+msgstr "Товары, для артикулов которых не указана закупочная цена"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:61
+msgid "no compare price"
+msgstr "без зачеркнутой цены"
+
+#: /wa-apps/shop/plugins/lostproducts/lib/config/check.php:62
+msgid "Products without compare price"
+msgstr "Товары, для артикулов которых не указана зачеркнутая цена"
+

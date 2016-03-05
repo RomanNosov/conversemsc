@@ -1,0 +1,148 @@
+{*
+    get products from predefined product set 'promo' and 'bestsellers';
+    feel free to replace these with any other product set IDs
+*}
+{$promos = $wa->shop->productSet('promo')}
+
+<!-- plugin hook: 'frontend_homepage' -->
+{* @event frontend_homepage.%plugin_id% *}
+{foreach $frontend_homepage as $_}{$_}{/foreach}
+
+{if isset($category)}{$selected_category=$category.id}{else}{$selected_category=null}{/if}
+{$categories = $wa->shop->categories(0, null, true)}
+
+{*<div class="deals">
+    <div class="title-label">Предложение дня</div>
+    <div class="slider-pagination">
+        <button class="filled-btn prev"><i class="fa fa-angle-left"></i></button>&nbsp;<button class="filled-btn next"><i class="fa fa-angle-right"></i></button>
+    </div>
+    <div class="owl-carousel owl-theme">
+        {$products = $wa->shop->productSet("promo")}
+        {foreach $products as $product}
+            <div>
+                <a href="{$product.frontend_url}" class="img"><img src="{$wa->shop->productImgUrl($product, "0x320")}"></a>
+                <a href="{$product.frontend_url}" class="title">{$product.name|truncate:50}</a>
+                {if $product.compare_price}<span class="price-old-label">{$product.compare_price} руб.</span>{/if}<span class="price-label">{$product.price} руб.</span>
+                {if $product.compare_price}
+                    {$disc = $product.compare_price - $product.price}    
+                    <p>Скидка {round(100 / $product.compare_price * $disc)}%. Вы экономите {$disc} руб.</p>
+                {/if}
+                <div class="counter">
+                    <div>
+                        <p>0</p>Дни
+                    </div><div>
+                        <p class="h">00</p>Часы
+                    </div><div>
+                        <p class="m">00</p>Мин.
+                    </div><div>
+                        <p class="s">00</p>Сек.
+                    </div>
+                </div>
+                <a style="text-decoration: none" href="{$product.frontend_url}"><button class="sqr-btn">Подробнее</button></a>
+            </div>
+        {/foreach}
+    </div>
+    <a href="{$theme_settings.home_baner_link}" class="bimg-block">
+        <img src="{$wa_active_theme_url}{$theme_settings.home_baner}">
+    </a>
+</div>*}
+<style>
+    
+	.main .main-blocks .thumbs-container .title-label {
+		font-size: 150%;
+		text-transform: uppercase;
+		box-sizing: border-box;
+		display: block;
+		background: #E4735C;
+		position: absolute;
+		top: 0;
+		left: -7px;
+		padding: 0px 20px;
+		color: #fff;
+		height: 54px;
+		line-height: 54px;
+		white-space: nowrap;
+		z-index: 2;
+	}
+	
+		.main .main-blocks .thumbs-container .title-label::before, .main .main-blocks .thumbs-container .title-label::after {
+			box-sizing: border-box;
+		}
+
+		.main .main-blocks .thumbs-container .title-label::before {
+			width: 0;
+			height: 0;
+			border-style: solid;
+			content: '';
+			display: block;
+			position: absolute;
+			top: 100%;
+			border-color: transparent #BA381E transparent transparent;
+			border-width: 0 7px 10px 0;
+			left: 0;
+		}
+
+		.main .main-blocks .thumbs-container .title-label::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 99.99%;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 27px 0 27px 27px;
+			border-color: transparent transparent transparent #E4735C;
+		}
+</style>
+<div class="thumbs-container desktop tablet" style="overflow: visible; padding-top: 65px">
+    <div class="title-label">Новинки месяца</div>
+    <div style="overflow: hidden; position: relative">
+        <button class="slider-pagination filled-btn prev"><i class="fa fa-angle-left"></i></button>
+        <button class="slider-pagination filled-btn next"><i class="fa fa-angle-right"></i></button>
+        <div class="owl-carousel owl-theme">
+            {$products = $wa->shop->productSet("new_2")}
+            {foreach $products as $_}<a href="{$_.frontend_url}" class="product-thumb">
+                {$badge_html = $wa->shop->badgeHtml($_.badge)}
+                {if $_.compare_price && $badge_html}<div class="promo-label discount-label">{$badge_html}</div>{else if $badge_html}<div class="promo-label new-label">{$badge_html}</div>{/if}
+                <img src="{$wa->shop->productImgUrl($_, "0x320")}">
+                <hr>
+                <h3>{$_.name|truncate:70}</h3>
+                {if $_.compare_price}<span class="price-old-label">{$_.compare_price} руб.</span>{/if}<span class="price-label">{$_.price} руб.</span>
+                <button class="sqr-btn">Подробнее</button>
+            </a>{/foreach}
+        </div>
+    </div>
+</div>
+<div class="thumbs-container mobile">
+    <h1>Новинки месяца</h1>
+    <button class="slider-pagination filled-btn prev"><i class="fa fa-angle-left"></i></button>
+    <button class="slider-pagination filled-btn next"><i class="fa fa-angle-right"></i></button>
+    <div class="owl-carousel owl-theme">
+        {$products = $wa->shop->productSet("new_2")}
+        {foreach $products as $_}<a href="{$_.frontend_url}" class="product-thumb">
+            {$badge_html = $wa->shop->badgeHtml($_.badge)}
+            {if $_.compare_price && $badge_html}<div class="promo-label discount-label">{$badge_html}</div>{else if $badge_html}<div class="promo-label new-label">{$badge_html}</div>{/if}
+            <img src="{$wa->shop->productImgUrl($_, "0x320")}">
+            <hr>
+            <h3>{$_.name|truncate:70}</h3>
+            {if $_.compare_price}<span class="price-old-label">{$_.compare_price} руб.</span>{/if}<span class="price-label">{$_.price} руб.</span>
+            <button class="sqr-btn">Подробнее</button>
+        </a>{/foreach}
+    </div>
+</div>
+<a href="{$theme_settings.home_baner_link2}" class="bimg-block2">
+   <img src="{$wa_active_theme_url}{$theme_settings.home_baner2}">
+</a>
+<div class="thumbs-container desktop tablet" style="overflow: visible; padding-top: 15px">
+    {if $wa->shop}
+    {$products = $wa->shop->productSet("catalog")}
+    {include file="list-thumbs.html" products=$products}
+    {/if}
+</div>
+<div class="thumbs-container mobile">
+    {if $wa->shop}
+    {$products = $wa->shop->productSet("catalog")}
+    {include file="list-thumbs.html" products=$products}
+    {/if}    
+</div>

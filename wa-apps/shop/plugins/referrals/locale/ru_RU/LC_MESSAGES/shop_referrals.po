@@ -1,0 +1,303 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: shop/plugins/referrals\n"
+"POT-Creation-Date: 2014-05-23 13:20+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: shop/plugins/referrals\n"
+"Language-Team: shop/plugins/referrals\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=((((n%10)==1)&&((n%100)!=11))?(0):(((((n"
+"%10)>=2)&&((n%10)<=4))&&(((n%100)<10)||((n%100)>=20)))?(1):2));\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Basepath: .\n"
+"Language: ru_RU\n"
+"X-Generator: Poedit 1.6.10\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:1
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:8
+#: /wa-apps/shop/plugins/referrals/templates/actions/settings/Settings.html:1
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:1
+msgid "Referral program"
+msgstr "Реферальная программа"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:2
+msgid ""
+"Your customers and referral partners receive bonuses for every friend they "
+"refer to make a purchase in your store. Referring is performed via a unique "
+"referral link every customer and partner can get in his personal account. "
+"Referral program is an effective promotional tool which allows you to "
+"increase sales, number of links to your website (which is good for search "
+"engine optimization), and to gather a community of partners motivated to "
+"promote your website on the Internet."
+msgstr ""
+"Покупатели и партнеры вашего интернет-магазина получают бонусы за оплаченные "
+"заказы привлеченных ими друзей и покупателей. Привлечение осуществляется по "
+"специальной ссылке, которую партнер может получить в личном кабинете. "
+"Реферальная программа является эффективным инструментом раскрутки и "
+"позволяет увеличить продажи и ссылочную базу вашего сайта, сформировать "
+"сообщество партнеров, которые будут заинтересованы в распространении "
+"информации о вашем интернет-магазине."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:11
+msgid "Disabled"
+msgstr "Отключен"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:15
+msgid "Enabled"
+msgstr "Включен"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:23
+msgid "Credit rate"
+msgstr "Курс начисления"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:25
+msgid "+1 point per"
+msgstr "+1 балл за"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:26
+msgid "worth of orders paid by referrals"
+msgstr "заказов привлеченных покупателей"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:31
+msgid "Cookie"
+msgstr "Cookie"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:34
+msgid "Save referral cookie for %s days"
+msgstr "Хранить cookie в течение %s дней"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:38
+msgid "Set cookie on top-level domain name (*.domain.com)"
+msgstr ""
+"Устанавливать cookie на ваш основной домен (например, *.domain.ru или *."
+"domain.com.ua)"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:40
+msgid ""
+"Enable this if you have multiple storefronts on subdomains (e.g. store1."
+"domain.com, store2.domain.com), and would like to automatically apply "
+"referral cookie for all subdomains. Otherwise simply ignore this option."
+msgstr ""
+"Включите эту настройку, если у вашего интернет-магазина несколько витрин на "
+"поддоменах основного домена (например, store1.domain.ru, store2.domain.ru) и "
+"вы хотите, чтобы реферальная ссылка применялась сразу ко всем витринам в "
+"рамках этого основного домена. Если у вашего магазина только одна витрина на "
+"одном домене, то эта настройка не будет применена."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:45
+msgid "Activity"
+msgstr "Переходы"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:49
+msgid "Track referral visits (recommended)"
+msgstr "Трассировать переходы по реферальным ссылкам (рекомендуется)"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:51
+msgid ""
+"Increases server load, but allows your referral partners to track per visit "
+"value and conversions for customers they refer to your online store."
+msgstr ""
+"Хранение информации о переходах увеличивает нагрузку на сервер, но позволяет "
+"вам и вашим реферал-партнерам следить за потоком привлеченных покупателей и "
+"автоматически рассчитывает конверсию."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:56
+msgid "Referral program promo"
+msgstr "Приглашение в реферальную программу"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:60
+msgid ""
+"A brief text advertising your referral program benefits. This promo text "
+"will be published in <em>My account &rarr; Affiliate program</em> screen for "
+"all your customers who did not sign up for your referral program yet."
+msgstr ""
+"Краткое описание преимуществ регистрации в реферальной программе. Этот промо-"
+"текст будет опубликован в разделе <em>Личный кабинет &rarr; Партнерская "
+"программа</em> для всех ваших клиентов, которые еще не подписались на "
+"участие в программе."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:65
+msgid "Referral program terms and conditions"
+msgstr "Условия участия в реферальной программе"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:69
+msgid "Opens in a new window."
+msgstr "Будут показаны в новом окне."
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:6
+msgid "Homepage referral URL"
+msgstr "Основная реферальная ссылка"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:7
+msgid ""
+"Alternatively, you may simply add your unique referral ID <span class=\"bold"
+"\">%s</span> to any store URL, and it will be considered as your referral "
+"link. Examples:<br> %s"
+msgstr ""
+"Вы можете добавить <span class=\"bold\">%s</span> к адресу любой страницы "
+"интернет-магазина, и переход по такой ссылке также будет связан с вашим "
+"реферальным профилем. Например:<br> %s"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:87
+msgid "Source"
+msgstr "Источник"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:89
+msgid "Average per visitor earning"
+msgstr "Среднее начисление за пользователя"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:90
+msgid "Conversion"
+msgstr "Конверсия"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:94
+msgid "(direct)"
+msgstr "(прямой переход)"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:111
+msgid "Last 30 days total"
+msgstr "Всего за последние 30 дней"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:123
+msgid "There is no activity for your referral ID yet."
+msgstr "По вашей реферальной ссылке еще не было переходов."
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:136
+msgid "Apply for Referral program"
+msgstr "Участвовать в реферальной программе"
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:35
+msgid "Referrals"
+msgstr "Рефералы"
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:195
+msgid "Bonus for referred customer’s order %s %s"
+msgstr "Бонус за заказ %s, оформленный привлеченным покупателем %s"
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:67
+msgid "Referred by"
+msgstr "Привлечен"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/settings/Settings.html:3
+msgid "Referral program plugin is installed."
+msgstr "Плагин «Реферальная программа» установлен и работает."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/settings/Settings.html:6
+msgid ""
+"Customize Referral program settings in <a href=\"%s\">Affiliate program "
+"settings</a> screen."
+msgstr ""
+"Настройте условия реферальной программы в разделе «<a href=\"%s"
+"\">Партнерская программа</a>»"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:98
+msgid "%d visitors"
+msgstr "%d посетителей"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:115
+msgid "%d transactions by %d visitors"
+msgstr "%d транзакций от %d посетителей"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:117
+msgid "%d transactions"
+msgstr "%d транзакций"
+
+#: /wa-apps/shop/plugins/referrals/lib/config/plugin.php:5
+msgid ""
+"Credits affiliate bonuses for orders paid by referred customers and friends"
+msgstr "Бонусы за оплаченные заказы привлеченных покупателей и друзей"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:76
+msgid "Save"
+msgstr "Сохранить"
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:11
+msgid ""
+"Referral program <a href=\"%s\" target=\"_blank\">terms and conditions</a>."
+msgstr ""
+"<a href=\"%s\" target=\"_blank\">Условия участия</a> в реферальной программе."
+
+#: /wa-apps/shop/plugins/referrals/templates/frontendMyAffiliate.html:22
+msgid ""
+"I have read and agree to the <a href=\"%s\" target=\"_blank\">Referral "
+"program terms and conditions</a>"
+msgstr ""
+"Я ознакомился и согласен с <a href=\"%s\" target=\"_blank\">Условиями "
+"участия в реферальной программе</a>"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:88
+msgid "Clicks"
+msgstr "Переходы"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:90
+msgid "Transactions"
+msgstr "Транзакции"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:94
+msgid "Income"
+msgstr "Доход"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:118
+#: /wa-apps/shop/plugins/referrals/templates/report.html:135
+msgid "+%s per click"
+msgstr "+%s за переход"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:28
+msgid "%s: %s points"
+msgstr "%s: %s баллов"
+
+#: /wa-apps/shop/plugins/referrals/templates/report.html:41
+msgid "%s: %s clicks"
+msgstr "%s: %s переходов"
+
+msgid "Cancel bonus for referred customer’s order %s"
+msgstr "Отмена бонуса за заказ %s"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:56
+msgid "Notifications"
+msgstr "Уведомления"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:60
+msgid ""
+"Notify referral partners on new bonus credits (on paid orders placed by "
+"referred customers)"
+msgstr ""
+"Уведомлять партнеров о новых начислениях (об оплаченных заказах привлеченных "
+"покупателей)"
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:62
+msgid ""
+"Enable to automatically notify your affiliate partners on bonus credits by "
+"email. Emails will be sent when a referred customer pays for an order."
+msgstr ""
+"Включите эту настройку, чтобы автоматически уведомлять реферал-партнеров о "
+"новых начислениях. Уведомление будет отправлено по электронной почте, когда "
+"привлеченный покупатель оплатил заказ."
+
+#: /wa-apps/shop/plugins/referrals/lib/shopReferrals.plugin.php:363
+msgid "+%s to your referral bonus"
+msgstr "+%s к вашему партнерскому бонусу"
+
+#: /wa-apps/shop/plugins/referrals/templates/notification.html:1
+msgid "Hi %s,"
+msgstr "Здравствуйте, %s."
+
+#: /wa-apps/shop/plugins/referrals/templates/notification.html:3
+msgid ""
+"+%s points have been credited to your affiliate bonus for the order %s paid "
+"by a customer you referred!"
+msgstr ""
+"+%s баллов было начислено на ваш бонусный счет за заказ %s привлеченного "
+"вами клиента!"
+
+#: /wa-apps/shop/plugins/referrals/templates/notification.html:5
+msgid "Your current bonus: <strong>%s</strong>"
+msgstr "Ваш текущий партнерский бонус: <strong>%s</strong>."
+
+#: /wa-apps/shop/plugins/referrals/templates/actions/affiliate/AffiliateSettings.html:27
+msgid "of order total"
+msgstr "от суммы заказа"

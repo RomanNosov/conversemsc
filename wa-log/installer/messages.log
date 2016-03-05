@@ -1,0 +1,289 @@
+
+2015-10-07 12:28:08:
+array (
+  57239 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444210088,
+  ),
+)
+2015-10-07 14:14:55:
+array (
+  43111 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444216495,
+  ),
+)
+2015-10-07 15:16:53:
+array (
+  60331 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444220213,
+  ),
+)
+2015-10-07 15:28:27:
+array (
+  91710 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444220907,
+  ),
+)
+2015-10-07 15:46:25:
+array (
+  95542 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444221985,
+  ),
+)
+2015-10-07 15:59:48:
+array (
+  83150 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444222788,
+  ),
+)
+2015-10-07 16:12:08:
+array (
+  56076 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444223528,
+  ),
+)
+2015-10-09 12:52:44:
+array (
+  16812 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444384364,
+  ),
+)
+2015-10-12 11:42:14:
+array (
+  71569 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444639334,
+  ),
+)
+2015-10-14 09:30:30:
+array (
+  11893 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444804230,
+  ),
+)
+2015-10-14 09:31:00:
+array (
+  41542 => 
+  array (
+    'text' => 'Плагин «Watermark (Магазин)» удален',
+    'result' => 'success',
+    't' => 1444804260,
+  ),
+)
+2015-10-14 09:31:55:
+array (
+  98023 => 
+  array (
+    'text' => 'Обновление уже запущено и еще не завершено. Пожалуйста, дождитесь окончания предыдущего сеанса обновления, прежде чем запускать его заново.',
+    'result' => 'fail',
+    't' => 1444804315,
+  ),
+)
+2015-10-14 09:35:57:
+array (
+  57389 => 
+  array (
+    'text' => 'Обновление уже запущено и еще не завершено. Пожалуйста, дождитесь окончания предыдущего сеанса обновления, прежде чем запускать его заново.',
+    'result' => 'fail',
+    't' => 1444804557,
+  ),
+)
+2015-10-14 09:36:18:
+array (
+  77195 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444804578,
+  ),
+)
+2015-10-14 09:36:29:
+array (
+  89681 => 
+  array (
+    'text' => 'Обновление уже запущено и еще не завершено. Пожалуйста, дождитесь окончания предыдущего сеанса обновления, прежде чем запускать его заново.',
+    'result' => 'fail',
+    't' => 1444804589,
+  ),
+)
+2015-10-14 10:15:03:
+array (
+  15712 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444806903,
+  ),
+)
+2015-10-14 10:15:51:
+array (
+  35053 => 
+  array (
+    'text' => 'Плагин «Watermark (Магазин)» удален',
+    'result' => 'success',
+    't' => 1444806951,
+  ),
+)
+2015-10-14 11:35:27:
+array (
+  37629 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444811727,
+  ),
+)
+2015-10-14 12:32:57:
+array (
+  43541 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444815177,
+  ),
+)
+2015-10-14 12:33:24:
+array (
+  21183 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444815204,
+  ),
+)
+2015-10-14 14:08:43:
+array (
+  15780 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1444820923,
+  ),
+)
+2015-10-16 11:51:39:
+array (
+  44746 => 
+  array (
+    'text' => 'Выберите продукты для обновления',
+    'result' => 'fail',
+    't' => 1444985499,
+  ),
+)
+2015-10-22 11:36:41:
+array (
+  35629 => 
+  array (
+    'text' => 'Плагин «Quick price editing (Магазин)» удален',
+    'result' => 'success',
+    't' => 1445503001,
+  ),
+)
+2015-11-01 10:18:18:
+array (
+  80656 => 
+  array (
+    'text' => 'Плагин «Customer`s notes (Магазин)» удален',
+    'result' => 'success',
+    't' => 1446362298,
+  ),
+)
+2015-11-05 18:15:42:
+array (
+  84588 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1446736542,
+  ),
+)
+2015-11-05 18:50:10:
+array (
+  77234 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1446738610,
+  ),
+)
+2015-11-05 19:13:52:
+array (
+  67637 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1446740032,
+  ),
+)
+2015-11-07 06:33:33:
+array (
+  13346 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1446867213,
+  ),
+)
+2015-11-07 09:12:01:
+array (
+  10988 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1446876721,
+  ),
+)
+2015-11-07 09:19:23:
+array (
+  67844 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1446877163,
+  ),
+)
+2015-11-07 10:04:24:
+array (
+  94443 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1446879864,
+  ),
+)
+2016-02-13 21:45:25:
+array (
+  51639 => 
+  array (
+    'text' => '[`Settings saved`]',
+    'result' => 'success',
+    't' => 1455389125,
+  ),
+)

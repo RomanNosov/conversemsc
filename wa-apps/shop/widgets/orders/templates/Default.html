@@ -1,0 +1,39 @@
+<style>
+    .s-orders-widget { font-size: 14px; }
+    .s-orders-widget ul.menu-v { margin-top: 0; font-size: 1em; }
+    .s-orders-widget ul.menu-v li { padding: 0; }
+    .s-orders-widget ul.menu-v li a { margin: 0; padding: .35em .75em; }
+    .s-orders-widget ul.menu-v li a:hover span { color: red !important; }
+    .s-orders-widget ul.menu-v li.s-processing a { background: #eafada !important; padding: .75em; margin-bottom: .25em; }
+    .s-count { display: none; }
+
+    .widget-1x1 .s-amount { display: none; }
+    .widget-1x1 .s-count { display: inline; }
+
+    .tv .s-orders-widget,
+    .mobile .s-orders-widget { font-size: 1rem; }
+    .tv .s-orders-widget ul.menu-v li.s-processing a { background: #555 !important; }
+</style>
+<div class="s-orders-widget">
+
+    <ul class="menu-v">
+        <li class="s-processing">
+            <a href="{$wa_backend_url}shop/?action=orders#/orders/state_id=new|processing|paid/">
+                [`Processing`]
+                <span class="count s-amount" title="{_w('%d order', '%d orders', $processing_count)}">{shop_currency_html($processing_amount)}</span>
+                <span class="count s-count" title="{shop_currency($processing_amount)|escape}">{$processing_count}</span>
+            </a>
+        </li>
+
+        {foreach $states as $id => $state}
+            <li>
+                <a href="{$wa_backend_url}shop/?action=orders#/orders/state_id={$id}/">
+                    <span style="{$state.style}">{$state.name|escape}</span>
+                    <span class="count s-amount" style="{$state.style}" title="{_w('%d order', '%d orders', $state.count)}">{shop_currency_html($state.amount)}</span>
+                    <span class="count s-count" title="{shop_currency($state.amount)|escape}">{$state.count}</span>
+                </a>
+            </li>
+        {/foreach}
+    </ul>
+
+</div>

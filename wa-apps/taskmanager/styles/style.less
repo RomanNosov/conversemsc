@@ -1,0 +1,186 @@
+@import "npm://bootstrap/less/bootstrap.less";
+
+@screen-lg-min: 1650px;
+@brand-info: #3498db;
+@brand-success: #2ecc71;
+@brand-brimary: #2980b9;
+@brand-warning: #f39c12;
+
+body {
+	// background: #2ecc71;
+}
+
+.modal {
+
+	label {
+		margin-bottom: 5px !important;
+	}
+
+	.form-group:not(:last-child) {
+		border-bottom: 1px solid #ccc;
+		padding-bottom: 4px;
+	}
+
+	.form-group:last-child {
+		margin-top: 18px;
+	}
+
+	select {
+		border: 0;
+		border-radius: 0;
+		background: white;
+		outline: 0;
+		width: 523px;
+	}
+
+	input {
+		border: 0;
+		border-radius: 0;
+		background: white;
+		outline: 0;
+		width: 486px;
+	}
+
+	#deadline {
+		width: 454px;
+	}
+
+	button.datepicker-caller {
+		font-size: 14px;
+		border: 0;
+		background: 0;
+	}
+
+	textarea {
+		border: 0;
+		border-top: 1px solid #ccc;
+		display: block;
+		width: 100%;
+		max-width: 100%;
+		margin-top: 4px;
+		outline: 0;
+		min-height: 200px;
+		box-sizing: border-box;
+		padding-top: 10px;
+	}
+}
+
+#wa-applist ul li a, .hint, a.hint, span.hint {
+	color: #34495e !important;
+}
+
+#wa-header {
+	z-index: 100;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: rgba(255, 255, 255, .5);
+}
+
+#wa-app {
+	padding-top: 83px;
+}
+
+[taskmanager-app] nav {
+	padding-top: 7px;
+	text-align: center;
+	position: relative;
+
+	.badge {
+		background-color: #e74c3c;
+	}
+
+	.btn, .btn:active:focus, .btn.active:hover, .btn.active:focus {
+		outline: none;
+		background: none;
+		border-color: #3498db;
+		color: #2c3e50;
+
+		&:hover {
+			color: #2980b9;
+		}
+	}
+
+	a {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 14px 36px 10px 5px;
+		color: #34495e;
+		display: block;
+		cursor: pointer;
+
+		&::before {
+			position: absolute;
+			top: 15px;
+			left: -15px;
+		}
+
+		&:hover {
+			color: #2980b9 !important;
+		}
+	}
+}
+
+[taskmanager-app] main {
+	padding: 20px;
+
+	.row > div {
+		text-align: center;
+	}
+
+	.thumbnail {
+		text-align: left;
+		display: inline-block;
+		border: none;
+		border-radius: 0;
+		width: 250px;
+		height: 230px;
+		transition: all 200ms;
+		margin-bottom: 35px;
+		position: relative;
+		border: 1px solid silver;
+		padding-top: 0;
+		padding-bottom: 0;
+
+		.caption {
+			height: 100%;
+			overflow: auto;
+		}
+
+		h2 {
+			margin-top: 4px;
+			margin-bottom: 2px;
+		}
+
+		.description {
+			margin-top: 6px;
+			font-size: 13px;
+			padding-bottom: 10px;
+		}
+
+		.actions {
+			display: none;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			padding: 8px 0;
+			margin: 0;
+			text-align: center;
+			background: white;
+		}
+
+		&:hover {
+			border: 0;
+			z-index: 50;
+			transform: scale(1.15, 1.15);
+			box-shadow: 0 5px 30px -10px black;
+
+			.actions {
+				display: block;
+			}
+		}
+	}
+}

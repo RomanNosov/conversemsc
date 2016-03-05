@@ -1,0 +1,30 @@
+
+2015-10-05 12:59:35:
+#56124a079cdd4
+data:
+array (
+  'method' => 'waPayment::callback',
+  'request' => 
+  array (
+    'transaction_result' => 'result',
+  ),
+  'ip' => '127.0.0.1',
+  'agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36',
+)
+
+2015-10-05 12:59:35:
+#56124a079cdd4
+data:
+array (
+  'method' => 'waPayment::callbackInit',
+  'app_id' => 'webasyst',
+  'merchant_id' => NULL,
+)
+
+2015-10-05 12:59:35:
+#56124a079cdd4
+data:
+array (
+  'method' => 'waPayment::callback',
+  'exception' => 'Empty payment password',
+)

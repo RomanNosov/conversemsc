@@ -1,0 +1,20 @@
+<div class="page" role="main">
+    <!-- navigation breadcrumbs -->
+    {if !empty($breadcrumbs)}
+        <div class="breadcrumbs">
+            {foreach $breadcrumbs as $breadcrumb}
+                <a href="{$breadcrumb.url}">{$breadcrumb.name|escape}</a> <span class="rarr">&rarr;</span>
+            {/foreach}
+        </div>
+    {/if}
+    <h1>{$page.name}</h1>
+    {$page.content}
+</div>
+
+{literal}
+<!-- Put this div tag to the place, where the Comments block will be -->
+<div id="vk_comments"></div>
+<script type="text/javascript">
+VK.Widgets.Comments("vk_comments", {limit: 15, width: "700", attach: "*"});
+</script>
+{/literal}

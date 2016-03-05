@@ -1,0 +1,591 @@
+{* @author Gaponov Igor <gapon2401@gmail.com> *}
+
+{function name=build_shop_categories}
+    {foreach $cats as $c}
+        <option value="{$c.id}" {if $category_id == $c.id}selected='selected'{/if}>
+            {section name='category_nbsp' loop = $level}&nbsp;&nbsp;&nbsp;&nbsp;{/section}
+            {$c.name|escape}
+        </option>
+        {if !empty($c.childs)}{build_shop_categories cats = $c.childs level=$level+1}{/if}
+    {/foreach}
+{/function}
+
+{* ColorPicker *}
+<link rel="stylesheet" media="screen" type="text/css" href="{$plugin_url}/js/colorpicker/css/colorpicker.css" />
+<script type="text/javascript" src="{$plugin_url}/js/colorpicker/js/colorpicker.js"></script>
+
+{* Switcher *}
+<link rel="stylesheet" href="{$wa_url}wa-content/js/jquery-plugins/ibutton/jquery.ibutton.min.css?v={$wa->version()}">
+<script src="{$wa_url}wa-content/js/jquery-plugins/ibutton/jquery.ibutton.min.js"></script>
+
+<link rel="stylesheet" href="{$plugin_url}css/flexdiscount.css?v={$wa->version()}" />
+<script type="text/javascript" src="{$plugin_url}js/jquery.mask.min.js"></script>
+<script type="text/javascript" src="{$plugin_url}js/flexdiscount.js"></script>
+<div class="block double-padded">
+    <h1>
+        Гибкие скидки
+    </h1>
+    <form action="?plugin=flexdiscount&module=settings" id="s-discountcount-form">
+        {include file='./SettingsReadme.html'}
+        <div class="fields form">
+            <div class="field-group">
+                <input type="hidden" name="dummy" value="1" />
+                <div class="field">
+                    <div class="name">Статус</div>
+                    <div class="value no-shift s-ibutton-checkbox">
+                        <ul class="menu-h">
+                            <li><span class="gray" id="s-discount-type-disabled-label">Отключен</span></li>
+                            <li>
+                                <input type="checkbox" id="s-discount-type-status" name="enabled" value="1"{if $enabled} checked{/if} />
+                            </li>
+                            <li><span id="s-discount-type-enabled-label">Включен</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="field-group" {if !$enabled} style="display:none"{/if}>
+                 <div class="field">
+                    <div class="name">Скидки <img src='{$plugin_url}img/flexdiscount.png'></div>
+                    <table class="zebra" id="discount-table">
+                        <thead>
+                            <tr>
+                                <th width="16"></th>
+                                <th width="20"></th>
+                                <th width="20"></th>
+                                <th width="20"></th>
+                                <th width="20"></th>
+                                <th width="90">Маска</th>
+                                <th width="70">Значение маски</th>
+                                <th width="90">Скидка</th>
+                                <th width="70">Бонус, баллы</th>
+                                <th width="80">Список</th>
+                                <th width="80">Категория</th>
+                                <th width="80">Тип товаров</th>
+                                <th width="20"></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr class="white">
+                                <td></td>
+                                <td colspan="12">
+                                    <a href="javascript:void(0)" class="inline-link">
+                                        <i class="icon16 add"></i><b><i>Добавить скидку</i></b>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            <tr class="{if !empty($discounts)}hidden {/if}gray">
+                                <td colspan="13">Не задано ни одного правила расчета скидки.</td>
+                            </tr>
+                            {$discounts[] = ['id'=> '', 'block' => '0', 'name' => '', 'contact_category_id' => 0, 'discounteachitem' => 0, 'expire_datetime' => '', 'coupon'=>[], 'coupon_id' => '0', 'mask'=> '', 'value' => '', 'discount_percentage' => '', 'discount' => '', 'category_id' => '', 'type_id' => '', 'set_id' => '', 'affiliate' => '', 'affiliate_percentage' => '', 'code' => '', 'domain_id' => '']}
+                            {foreach $discounts as $d}
+                            {$show_contact_mask = 0}
+                            <tr class="sortme{if $d@last} hidden template{/if} {if $d.mask == '-'}deny{/if}" rel="{$d.id}" {if isset($d.coupon.code)}data-coupon-code="{$d.coupon.code}"{/if}>
+                                <td>
+                                    {if $domains}
+                                        {if !empty($domains[$d.domain_id])}
+                                            <i class="icon16 favicon" title='{$domains[$d.domain_id].name|escape}' style="background-image:url(http://{$domains[$d.domain_id].name|escape}/favicon.ico)"></i>
+                                        {elseif empty($domains[$d.domain_id]) && !empty($d.domain_id)}
+                                            <i class="icon16-custom exclamation" title="Витрины не существует"></i>
+                                        {/if}
+                                    {/if}
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" class="f-up inline" title="вверх"><i class="icon16 upload"></i></a>
+                                    <a href="javascript:void(0)" class="f-down inline" title="вниз"><i class="icon16 download"></i></a>
+                                </td>
+                                <td>
+                                    <div style='position: relative;'>
+                                        {if $d.block}
+                                        <i class="icon16-custom exclamation top-left" title="Срок истек"></i>
+                                        {/if}
+                                        <div class="coupon-desk">
+                                            <a href="javascript:void(0)" onclick="$(this).parents('.coupon-desk').hide();" class="close-desk"><i class="icon16-custom close"></i></a>
+                                            <div class="code">{if isset($d.coupon.code)}{$d.coupon.code}{else}Купон отсутствует{/if}</div>
+                                            <ul class="menu-v">
+                                                <li>
+                                                    <a href="javascript:void(0)" class="coupon-discount-edit">{if $d.coupon_id}<i class="icon16-custom coupon-edit"></i> Изменить купон{else}<i class="icon16-custom coupon-add"></i> Присвоить купон{/if}</a>
+                                                    {if $coupons}
+                                                    <select class="coupon-discount small">
+                                                        <option value="0">--- Выберите купон ---</option>
+                                                        {foreach $coupons as $coupon}
+                                                        <option value="{$coupon.id}" {if $coupon.id == $d.coupon_id}selected='selected'{/if} rel='{$coupon.color}'>{$coupon.code|escape}</option>
+                                                        {/foreach}
+                                                    </select>
+                                                    {else}
+                                                    <div class="hint hidden">Создайте купон, чтобы его присвоить</div>
+                                                    {/if}
+                                                </li>
+                                                <li class='coupon-delete' {if !$d.coupon_id} style='display: none;'{/if}><a href="javascript:void(0)"><i class="icon16-custom coupon-delete"></i> Удалить купон</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <a onclick="$.flexdiscount.couponDesk(this);" title="Управление купоном" href="javascript:void(0)">
+                                        <i class="icon16-custom f-coupon coupon{if !$d.coupon_id}-off{else}-hameleon{/if}" {if $d.coupon_id && isset($coupons[$d.coupon_id])}style="background-color: #{$coupons[$d.coupon_id]['color']}"{/if}></i>
+                                    </a>
+                                    <input type="hidden" name='coupon_id[{if !empty($d.id)}update{$d.id}{/if}]' class="coupon-discount-value" value='{$d.coupon_id}' />
+                                </td>
+                                <td>
+                                    <a onclick="$.flexdiscount.advancedSettings(this);" title="Дополнительные настройки" href="javascript:void(0)">
+                                        <i class="icon16 settings"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    {if isset($contact_categories[$d.mask])}
+                                    {$wa->shop->icon16($contact_categories[$d.mask].icon)}
+                                    {else}
+                                    <i class="icon16 info"></i>
+                                    {/if}
+                                    <div style='position: relative'>
+                                        {foreach $mask as $m => $v}
+                                        <div class="mask-description tooltip" data-mask='{$m}'>{$v.description}</div>
+                                        {/foreach}
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="mask[{if !empty($d.id)}update{$d.id}{/if}]" class="mask">
+                                        {foreach $mask as $m => $v}
+                                            <option value="{$m}" {if $d.mask == $m}selected='selected'{/if}>{$m}</option>
+                                        {/foreach}
+                                        {if $contact_categories}
+                                        <optgroup label="Категория контакта">
+                                            {foreach $contact_categories as $contact_mask => $c}
+                                            <option value="{$contact_mask}" data-mask="contact" {if $d.contact_category_id == $contact_mask}{$show_contact_mask = 1}selected='selected'{/if}>{$c.name}</option>
+                                            {/foreach}
+                                        </optgroup>
+                                        {/if}
+                                    </select>
+                                    <div style="{if !$show_contact_mask}display: none;{/if}margin-top: 3px;">
+                                        <select name="contact_mask[{if !empty($d.id)}update{$d.id}{/if}]" class="contact-mask">
+                                            {foreach $mask as $m => $v}
+                                            <option value="{$m}" {if $d.mask == $m}selected='selected'{/if}>{$m}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                </td>
+                                <td><input type="text" name="value[{if !empty($d.id)}update{$d.id}{/if}]" value="{$d.value}" class="value-field width70px" /></td>
+                                <td>
+                                    <input type="text" maxlength="3" onkeypress='$.flexdiscount.isValid(event, /[\d]/);' name="discount_percentage[{if !empty($d.id)}update{$d.id}{/if}]" value="{$d.discount_percentage}" class='width30px' /> %<br />
+                                    <input type="text" onkeypress='$.flexdiscount.isValid(event, /[\d]/);' name="discount[{if !empty($d.id)}update{$d.id}{/if}]" value="{$d.discount}" class='width70px' style='margin-top: 3px;' /> {$def_cur_sym}
+                                </td>
+                                <td>
+                                    <input type="text" maxlength="3" onkeypress='$.flexdiscount.isValid(event, /[\d]/);' name="affiliate_percentage[{if !empty($d.id)}update{$d.id}{/if}]" value="{$d.affiliate_percentage}" class='width30px' /> %<br />
+                                    <input type="text" onkeypress='$.flexdiscount.isValid(event, /[\d]/);' name="affiliate[{if !empty($d.id)}update{$d.id}{/if}]" value="{$d.affiliate}" class='width70px' />
+                                </td>
+                                <td>
+                                    {if $sets}
+                                    <select name="set[{if !empty($d.id)}update{$d.id}{/if}]" class="products-sets">
+                                        <option value="0">Любой</option>
+                                        {foreach $sets as $s}
+                                        <option value="{$s.id}" {if $d.set_id == $s.id}selected='selected'{/if}>{$s.name|escape}</option>
+                                        {/foreach}
+                                    </select>
+                                    {/if}
+                                </td>
+                                <td>
+                                    {if $categories}
+                                    <select name="category[{if !empty($d.id)}update{$d.id}{/if}]" class="products-categories">
+                                        <option value="0">Любая</option>
+                                        {build_shop_categories level = 0 cats = $categories category_id = $d.category_id}
+                                    </select>
+                                    {/if}
+                                </td>
+                                <td>
+                                    {if $types}
+                                    <select name="type[{if !empty($d.id)}update{$d.id}{/if}]" class="products-types">
+                                        <option value="0">Любой</option>
+                                        {foreach $types as $t}
+                                        <option value="{$t.id}" {if $d.type_id == $t.id}selected='selected'{/if}>{$t.name|escape}</option>
+                                        {/foreach}
+                                    </select>
+                                    {/if}
+                                </td>
+                                <td><a href="javascript:void(0)"><i class="icon16 delete"></i></a></td>
+                            </tr>
+                            <tr class="table-inside {if $d@last} hidden template-advanced{/if}">
+                                <td colspan="13" class="no-padded">
+                                    <div class='f-advanced'>
+                                        <div class="fields clearfix" style="padding: 10px 0; margin: 0; float: none;">
+                                            <div class="field">
+                                                <div class="name">Название скидки</div>
+                                                <div class="value">
+                                                    <textarea maxlength="200" class="width400px" name='name[{if !empty($d.id)}update{$d.id}{/if}]'>{$d.name|escape}</textarea>
+                                                    <div class="hint">Максимальное количество символов - 200</div>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="name">Дата истечения</div>
+                                                <div class="value">
+                                                    <input type="text" style='float: left;' name='expire_datetime[{if !empty($d.id)}update{$d.id}{/if}]' value='{if $d.expire_datetime}{substr($d.expire_datetime, 0, 10)}{/if}' class="datepicker-input-advanced width70px" />
+                                                    <a href="javascript:void(0)"><i class="icon16 calendar"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="name">Символьный код</div>
+                                                <div class="value">
+                                                    <input type="text" name='code[{if !empty($d.id)}update{$d.id}{/if}]' onkeypress='$.flexdiscount.isValid(event, /[a-zA-Z0-9\-_]/);' value='{if $d.code}{$d.code|escape}{/if}' maxlength="50" />
+                                                    <div class="hint">
+                                                        Необходим для распознавания правила скидок при выводе в шаблоне. <br> 
+                                                        Допустимые символы <b>a-z A-Z 0-9 - _</b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="field discounteachitem" {if !isset($mask[$d.mask].discountEachItem)}style='display: none;'{/if}>
+                                                 <div class="name">Начислять скидку на каждый товар</div>
+                                                <div class="value">
+                                                    <input type="checkbox" name='discounteachitem[{if !empty($d.id)}update{$d.id}{/if}]' {if !empty($d.discounteachitem)}checked{/if} value='1' />
+                                                           <div class="hint">
+                                                        При установлении фиксированной скидки (не в процентах) начисление может быть как на весь заказ (то есть одна общая скидка), так и на каждый товар
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div class="name">Витрина</div>
+                                                <div class="value">
+                                                    <select name='domain_id[{if !empty($d.id)}update{$d.id}{/if}]' class='s-domains'>
+                                                        <option value="0"{if empty($d.domain_id)} selected{/if}>Любая</option>
+                                                        {if $domains}
+                                                            {foreach $domains as $domain_id => $domain}
+                                                            <option value="{$domain_id}"{if !empty($d.domain_id) && $d.domain_id == $domain_id} selected{/if}>{str_replace('www.','',$domain.name)|escape}</option>
+                                                            {/foreach}
+                                                        {/if}
+                                                    </select>
+                                                    <div class="hint">
+                                                        Выберите Витрину, на которой будет действовать данное правило скидок.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+                {if !empty($more_button)} 
+                <div class="align-center">
+                    <a href="javascript:void(0)" class="button blue f-more-discounts" data-page="2">Показать больше скидок</a>
+                </div>
+                {/if}
+            </div>
+            <div class="field-group" {if !$enabled} style="display:none"{/if}>
+                 <div class="field">
+                    <div class="name">Купоны <i class="icon16-custom coupon"></i></div>
+                    <table class="zebra" id="coupon-table">
+                        <thead><tr>
+                                <th width="20"></th>
+                                <th width="100">Код купона</th>
+                                <th width="20"></th>
+                                <th width="70">Макс. к-во использ.</th>
+                                <th width="85">Использовано</th>
+                                <th width="100">Дата истечения</th>
+                                <th>Комментарий</th>
+                                <th width="20"></th>
+                            </tr></thead>
+                        <tfoot><tr class="white">
+                                <td></td>
+                                <td colspan="7"><a href="javascript:void(0)" class="inline-link">
+                                        <i class="icon16-custom coupon-add"></i><b><i>Создать купон</i></b>
+                                    </a></td>
+                            </tr></tfoot>
+                        <tbody>
+                            <tr class="{if !empty($coupons)}hidden {/if}gray">
+                                <td colspan="8">Не создано ни одного купона.</td>
+                            </tr>
+                            {$coupons[] = ['id'=> '','block'=> '0', 'color'=>'', 'code'=>'', 'limit' => '-1', 'used'=> '0', 'create_datetime' => '', 'expire_datetime' => '', 'comment' => '', 'sort' => '']}
+                            {foreach $coupons as $c_id => $c}
+                            <tr class="{if $c@last} hidden template{/if}" rel="{$c.id}">
+                                <td>
+                                    <div style='position: relative;'>
+                                        {if $c.block}
+                                        <i class="icon16-custom exclamation top-left" title="Срок истек"></i>
+                                        {/if}
+                                        <a href="javascript:void(0)" class="color-icon">
+                                            <i class="icon16-custom coupon-hameleon" {if $c.color}style='background-color: #{$c.color}'{/if}></i>
+                                        </a>
+                                        <input type="hidden" name='coupon[color][]' class='coupon-color' value='{$c.color}' />
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" name='coupon[code][]' class='coupon-code width100px' value='{$c.code|escape}' />
+                                    <input type="hidden" name="coupon[id][]" value="{$c.id}" />
+                                </td>
+                                <td>
+                                    {if isset($c.orders)}
+                                    <a href="javascript:void(0)" onclick="$.flexdiscount.advancedSettings(this);" title="Посмотреть заказы">
+                                        <i class="icon16 ss shop"></i>
+                                    </a>
+                                    {/if}
+                                </td>
+                                <td>
+                                    <input type="text" onkeypress='$.flexdiscount.isValid(event, /[0-9]|\./);' placeholder="&#8734;" class='width70px' name="coupon[limit][]" value="{if $c.limit >= 0}{$c.limit}{/if}" />
+                                </td>
+                                <td>
+                                    <input type="text" disabled="disabled" value='{$c.used}' class='width50px' />
+                                </td>
+                                <td>
+                                    <input type="text" style='float: left;' class="datepicker-input {if $c@last}template{/if} width70px" name="coupon[expire_datetime][]" value="{if $c.expire_datetime}{substr($c.expire_datetime, 0, 10)}{/if}" />
+                                    <a href="javascript:void(0)"><i class="icon16 calendar"></i></a>
+                                </td>
+                                <td>
+                                    <textarea name="coupon[comment][]">{$c.comment|escape}</textarea>
+                                </td>
+                                <td><a href="javascript:void(0)"><i class="icon16 delete"></i></a></td>
+                            </tr>
+                            <tr class="table-inside {if $c@last} hidden template-advanced{/if}">
+                                <td colspan="8" class="no-padded">
+                                    <div class='f-advanced'>
+                                        <div class="coupon-orders">
+                                            {if isset($c.orders)}
+                                            <table>
+                                                {foreach $c.orders as $order}
+                                                <tr>
+                                                    <td>
+                                                        <a href="?action=orders#/orders/state_id={$order.state_id}&id={$order.order_id}/" style="{$order.style|escape}">
+                                                            <i class="{$order.icon}"></i>
+                                                            {$wa->shop->orderId($order.order_id)}
+                                                        </a>
+                                                    </td>
+                                                    <td>{$order.discount}</td>
+                                                    <td class="affiliate-field">{$order.affiliate} баллов</td>
+                                                    <td><span class="grey">{$order.datetime}</span></td>
+                                                </tr>
+                                                {/foreach}
+                                            </table>
+                                            {/if}
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="field-group" {if !$enabled} style="display:none"{/if}>
+                 <div class="field">
+                    <div class="name">
+                        Расчет скидок:
+                    </div>
+                    <div class="value">
+                        <div>
+                            <label>
+                                <input type="radio" name='settings[combine]' value='sum' {if isset($settings.combine) && $settings.combine == 'sum'} checked{/if} />
+                                Сумма
+                            </label>
+                        </div> 
+                        <div>
+                            <label>
+                                <input type="radio" name='settings[combine]' value='max' {if (isset($settings.combine) && $settings.combine !== 'sum') || !isset($settings.combine)} checked{/if} />
+                                Максимум
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field-group" {if !$enabled} style="display:none"{/if}>
+                 <fieldset>
+                    <legend>Дополнительные настройки</legend>
+                    <div class="fields">
+                        <div class="field">
+                            <div class="name">Подсчет количества товаров:</div>
+                            <div class="value">
+                                <label><input type="radio" name="settings[count_method]" value="sku" {if (isset($settings.count_method) && $settings.count_method == 'sku') || empty($settings.count_method)}checked='checked'{/if} /> каждый артикул является отдельной уникальной единицей</label> <br>
+                                <label><input type="radio" name="settings[count_method]" value="product" {if isset($settings.count_method) && $settings.count_method == 'product'}checked='checked'{/if} /> артикулы являются частью товара и суммируются</label>
+                            </div>
+                            <div class="value small">Данный показатель влияет на скидку по количеству товаров в заказе <b>&quot;&gt;&percnt;num&quot;</b>. Если у Вас имеется несколько артикулов у одного товара, то выберите подходящий вариант расчета скидок.</div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Знак рубля:</div>
+                            <div class="value">
+                                <label><input type="radio" name="settings[ruble]" value="html" {if (isset($settings.ruble) && $settings.ruble == 'html') || empty($settings.ruble)}checked='checked'{/if} /> <span class="ruble">Р</span></label> <br>
+                                <label><input type="radio" name="settings[ruble]" value="text" {if isset($settings.ruble) && $settings.ruble == 'text'}checked='checked'{/if} /> руб.</label>
+                            </div>
+                            <div class="value small">Если среди Ваших валют есть рубли, то Вы можете выбрать тип отображения этой валюты</div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Округление скидок:</div>
+                            <div class="value">
+                                <label><input type="radio" name="settings[round]" value="not" {if (isset($settings.round) && $settings.round == 'not') || empty($settings.round)}checked='checked'{/if} /> не округлять</label> <br>
+                                <label><input type="radio" name="settings[round]" value="ceil" {if (isset($settings.round) && $settings.round == 'ceil')}checked='checked'{/if} /> в большую сторону</label> <br>
+                                <label><input type="radio" name="settings[round]" value="floor" {if isset($settings.round) && $settings.round == 'floor'}checked='checked'{/if} /> в меньшую сторону</label> <br>
+                                <label><input type="radio" name="settings[round]" value="tens" {if isset($settings.round) && $settings.round == 'tens'}checked='checked'{/if} /> до десятков</label>
+                            </div>
+                            <div class="value small">Округление будет работать для основной валюты. Если вы используете несколько валют, то при конвертации округление может не сработать.</div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Ограничение скидки для товара</div>
+                            <div class="value">
+                                <div class="ibutton-checkbox inline-block">
+                                    <ul class="menu-h">
+                                        <li>
+                                            <span id="switcher-off-label">Нет</span>
+                                        </li>
+                                        <li>
+                                            <input class="switcher" type="checkbox" name="settings[limit_discount][value]" value="1" {if !empty($settings.limit_discount.value)}checked="checked"{/if} />
+                                        </li>
+                                        <li>
+                                            <span id="switcher-on-label">Да</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="onopen hidden">
+                                    Цена закупки + <input type="text" name='settings[limit_discount][percentage]' {if isset($settings.limit_discount.percentage)}value='{$settings.limit_discount.percentage}'{/if} maxlength="2" onkeypress='$.flexdiscount.isValid(event, /\d/);' class="width30px" />% от 
+                                    <select name="settings[limit_discount][price]">
+                                        <option value="purchase"{if isset($settings.limit_discount.price) && $settings.limit_discount.price == 'purchase'} selected{/if}>цены закупки</option>
+                                        <option value="price"{if isset($settings.limit_discount.price) && $settings.limit_discount.price == 'price'} selected{/if}>цены товара</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <div class="value small">Какая бы скидка ни была, цена товара не опустится ниже указанного значения</div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Вывести форму ввода купона:</div>
+                            <div class="value">
+                                <div class="ibutton-checkbox">
+                                    <ul class="menu-h">
+                                        <li>
+                                            <span id="switcher-off-label">Нет</span>
+                                        </li>
+                                        <li>
+                                            <input class="switcher" type="checkbox" name="settings[enable_frontend_cart_hook]" value="1" {if !empty($settings.enable_frontend_cart_hook)}checked="checked"{/if} />
+                                        </li>
+                                        <li>
+                                            <span id="switcher-on-label">Да</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="value small">
+                                Позволяет выводить или скрывать форму для ввода купона в корзине. Если хотите вставить форму в любое место шаблона, используйте конструкцию 
+                                <b>&#123;&#36;wa->block('flexdiscount.form')&#125;</b>
+                                <br> Изменить выводимые данные можете в разделе <a href="{$wa_backend_url}site/#/blocks/id=flexdiscount.form" target="_blank">Блоки <i class="icon16 new-window"></i></a>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Вывести примененные скидки:</div>
+                            <div class="value">
+                                <div class="ibutton-checkbox">
+                                    <ul class="menu-h">
+                                        <li>
+                                            <span id="switcher-off-label">Нет</span>
+                                        </li>
+                                        <li>
+                                            <input class="switcher" type="checkbox" name="settings[enable_flexdiscount_discounts]" value="1" {if !empty($settings.enable_flexdiscount_discounts)}checked="checked"{/if} />
+                                        </li>
+                                        <li>
+                                            <span id="switcher-on-label">Да</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="value small">Позволяет выводить или скрывать примененные скидки на странице корзины. 
+                                Если хотите вставить примененные скидки в любое место шаблона, используйте конструкцию <b>&#123;shopFlexdiscountPluginHelper::getUserDiscounts()&#125;</b>
+                                <br> Изменить выводимые данные можете в разделе <a href="{$wa_backend_url}site/#/blocks/id=flexdiscount.discounts" target="_blank">Блоки <i class="icon16 new-window"></i></a>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Вывести действующие скидки для товара:</div>
+                            <div class="value">
+                                <div class="ibutton-checkbox inline-block">
+                                    <ul class="menu-h">
+                                        <li>
+                                            <span id="switcher-off-label">Нет</span>
+                                        </li>
+                                        <li>
+                                            <input class="switcher" type="checkbox" name="settings[flexdiscount_product_discounts][value]" value="1" {if !empty($settings.flexdiscount_product_discounts.value)}checked="checked"{/if} />
+                                        </li>
+                                        <li>
+                                            <span id="switcher-on-label">Да</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="onopen hidden">Укажите тип отображения <input type="text" name="settings[flexdiscount_product_discounts][type]" value="{if !empty($settings.flexdiscount_product_discounts.type)}{$settings.flexdiscount_product_discounts.type|escape}{/if}" class="small" /> (доступные значения по умолчанию 1, 2, 3, 4 или 5)</span>
+                            </div>
+                            <div class="value small">Позволяет выводить или скрывать действующие скидки для товара на его странице. 
+                                Если хотите вставить действующие скидки для товара в любое место шаблона (product.html), используйте конструкцию <b>&#123;shopFlexdiscountPluginHelper::getProductDiscounts($product)&#125;</b>
+                                <br> Изменить выводимые данные можете в разделе <a href="{$wa_backend_url}site/#/blocks/id=flexdiscount.product.discounts" target="_blank">Блоки <i class="icon16 new-window"></i></a><br>
+                                Об особенностях читайте в <a href="javascript:void(0)" class="go-top">инструкции</a>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Вывести доступные скидки:</div>
+                            <div class="value">
+                                <div class="ibutton-checkbox inline-block">
+                                    <ul class="menu-h">
+                                        <li>
+                                            <span id="switcher-off-label">Нет</span>
+                                        </li>
+                                        <li>
+                                            <input class="switcher" type="checkbox" name="settings[flexdiscount_avail_discounts][value]" value="1" {if !empty($settings.flexdiscount_avail_discounts.value)}checked="checked"{/if} />
+                                        </li>
+                                        <li>
+                                            <span id="switcher-on-label">Да</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <span class="onopen hidden">Укажите тип отображения <input type="text" name="settings[flexdiscount_avail_discounts][type]" value="{if !empty($settings.flexdiscount_avail_discounts.type)}{$settings.flexdiscount_avail_discounts.type|escape}{/if}" class="small" /> (доступные значения по умолчанию 1, 2, 3 иил 4)</span>
+                            </div>
+                            <div class="value small">Позволяет выводить или скрывать доступные скидки как для товара на его странице, так и для всех товаров. Данная опция отвечает за вывод доступных скидок для товара на его странице.<br> 
+                                Если хотите вставить доступные скидки в любое место шаблона, используйте конструкцию <b>&#123;shopFlexdiscountPluginHelper::getAvailibleDiscounts($product)&#125;</b>
+                                <br> Изменить выводимые данные можете в разделе <a href="{$wa_backend_url}site/#/blocks/id=flexdiscount.available" target="_blank">Блоки <i class="icon16 new-window"></i></a><br>
+                                Об особенностях читайте в <a href="javascript:void(0)" class="go-top">инструкции</a>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="name">Вывести цену со скидкой на странице товара:</div>
+                            <div class="value">
+                                <div class="ibutton-checkbox inline-block">
+                                    <ul class="menu-h">
+                                        <li>
+                                            <span id="switcher-off-label">Нет</span>
+                                        </li>
+                                        <li>
+                                            <input class="switcher" type="checkbox" name="settings[enable_price_output]" value="1" {if !empty($settings.enable_price_output)}checked="checked"{/if} />
+                                        </li>
+                                        <li>
+                                            <span id="switcher-on-label">Да</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="value small">Выводит на странице товара цену со скидкой.<br>
+                                Если хотите вывести цену в том месте, где Вам это необходимо, используйте ручной вывод: <b>&#123;shopFlexdiscountPluginHelper::price($product)&#125;</b>.<br> 
+                                Подробнее читайте в <a href="javascript:void(0)" class="go-top">инструкции</a>
+                            </div>
+                        </div>
+                        {*
+                        <div class="field">
+                            <div class="name">Количество скидок на странице:</div>
+                            <div class="value">
+                                <select name="settings[perpage]">
+                                    <option value="10"{if !empty($settings.perpage) && $settings.perpage == '10'} selected="selected"{/if}>10</option>
+                                    <option value="30"{if (!empty($settings.perpage) && $settings.perpage == '30') || empty($settings.perpage)} selected="selected"{/if}>30</option>
+                                    <option value="50"{if !empty($settings.perpage) && $settings.perpage == '50'} selected="selected"{/if}>50</option>
+                                    <option value="100"{if !empty($settings.perpage) && $settings.perpage == '100'} selected="selected"{/if}>100</option>
+                                </select>
+                            </div>
+                            <div class="value small">Укажите, какое количество скидок хотите отображать в администраторской зоне</div>
+                        </div>
+                        *}
+                    </div>
+                </fieldset>
+            </div>
+            <div id="fixed-save-panel" {if !$enabled} style="display:none"{/if}>
+                 <div class="block bordered-top">
+                    <input type="submit" value="Сохранить" class="button green" />
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="clear-left"></div>
+</div>
+<script>
+    $(function () {
+        $.flexdiscount.init({
+            'masks': {json_encode($mask)}
+        });
+    });
+</script>
