@@ -29,10 +29,25 @@
 
                     <!-- cart item -->
                     <div class="row" data-id="{$item.id}">
-                        <div class="col w1 item-thumb"><a href="{$wa->shop->productUrl($item.product)}" title="{$item.product.name|escape}">{$wa->shop->productImgHtml($item.product, '96x96', ['default' => "`$wa_theme_url`img/dummy48.png"])}</a>&nbsp;</div><div class="col w9 item-name">
+                        <div class="col w1 item-thumb"><a href="{$wa->shop->productUrl($item.product)}" title="{$item.product.name|escape}">{$wa->shop->productImgHtml($item.product, '96x96', ['default' => "`$wa_theme_url`img/dummy48.png"])}</a>&nbsp;</div>
+                        <div class="col w8 item-name">
                             <a href="{$wa->shop->productUrl($item.product)}" class="bold">{$item.product.name|escape}</a>
-                            {if $item.sku_name && $item.sku_name != $item.product.name}{$item.sku_name|escape}{/if}
-                        </div><div class="col w2 item-qty align-center nowrap"><span class="gray">&times;</span> <input type="text" name="quantity[{$item.id}]" value="{$item.quantity}" class="qty{if !empty($item.error)} error{/if}"></div><div class="col w1 item-remove"><a class="delete" href="#" title="[`Remove from cart`]"><div class="rm">x</div></a></div><div class="col w3 item-total nowrap">{$item.full_price} руб.</div>
+                        </div>
+                        <!-- <div class="col w2 item-qty align-center nowrap"><span class="gray">&times;</span>
+                            <input type="text" name="quantity[{$item.id}]" value="{$item.quantity}" class="qty{if !empty($item.error)} error{/if}">
+                        </div> -->
+                        <div class="options w4 col">
+                            <span class="product-options">Размер: </span>
+                            <select data-feature-id="1" class="sku-feature" name="features[1]">
+                                <option value="14">38</option>
+                                <option value="12" selected="">40</option>
+                                <option value="11">41</option>
+                            </select>
+                            <a class="delete" href="#" title="[`Remove from cart`]">
+                                <div class="rm">x</div>
+                            </a>
+                        </div>
+                        <div class="col w3 item-total nowrap">{$item.full_price} руб.</div>
 
                         {if !empty($item.services)}
                         <!-- services -->
@@ -135,6 +150,17 @@
                 </div>
                 {/if}
 
+                <div class="row">
+                    <div class="col w8">
+                        <span class="crazygreen text-uppercase discount_answer_text">Ваша скидка: <span class="pink">0,5%</span> Сколько дадим за email?</span>
+                    </div>
+                    <div class="col w4 cart-total-text">
+                        <span>[`Discount`] &minus; {$discount} руб.</span>
+                    </div>
+                    <div class="col w4 cart-total-text">
+                        <span>[`Total`] {$cart.total} руб.</span>
+                    </div>
+                </div>
                 <div class="checkout checkout-content" data-step-id="shipping">
                     <h2 class="" style="border-top: none; padding-top: 0">
                         Способ доставки:
@@ -366,11 +392,6 @@
                 </div>
 
                 <div class="checkout checkout-content" data-step-id="payment">
-
-                    <table class="total-block">
-                        <tr><td>[`Discount`]</td><td>&minus;{$discount} руб.</td></tr>
-                        <tr><td>[`Total`]</td><td>{$cart.total} руб.</td></tr>
-                    </table>
 
                     <h2 class="" style="border-top: none;">
                         Способ оплаты:

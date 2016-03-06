@@ -1585,7 +1585,9 @@
 
 .main .main-blocks .cart-summary-page .col {
     vertical-align: top;
-    display: inline-block;
+    display: block;
+    position: relative;
+    float: left;
     box-sizing: border-box;
     height: 62px;
     line-height: 62px;
@@ -1599,11 +1601,25 @@
 .main .main-blocks .cart-summary-page .col button.coupon {
     font-size: 14px;
 }
-
+.discount_answer_text {
+    font-size: 20px;
+}
+.cart-total-text {
+    font-size: 22px;
+}
 .main .main-blocks .cart-summary-page .col a {
     color: #E67F69;
+    margin-left: 10px;
 }
-
+.crazygreen {
+    color: #20b924;
+}
+.pink {
+    color: #ff1931;
+}
+.text-uppercase {
+    text-transform: uppercase;
+}
 .main .main-blocks .cart-summary-page .col:not(:first-child) {
     padding-left: 20px;
 }
