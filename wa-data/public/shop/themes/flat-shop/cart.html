@@ -36,18 +36,20 @@
                         <!-- <div class="col w2 item-qty align-center nowrap"><span class="gray">&times;</span>
                             <input type="text" name="quantity[{$item.id}]" value="{$item.quantity}" class="qty{if !empty($item.error)} error{/if}">
                         </div> -->
-                        <div class="options w4 col">
-                            <span class="product-options">Размер: </span>
-                            <select data-feature-id="1" class="sku-feature" name="features[1]">
-                                <option value="14">38</option>
-                                <option value="12" selected="">40</option>
-                                <option value="11">41</option>
-                            </select>
-                            <a class="delete" href="#" title="[`Remove from cart`]">
-                                <div class="rm">x</div>
-                            </a>
+                        <div class="options w4 w8-m col">
+                            <div class="pull-right-m">
+                                <span class="product-options">Размер: </span>
+                                <select data-feature-id="1" class="sku-feature" name="features[1]">
+                                    <option value="14">38</option>
+                                    <option value="12" selected="">40</option>
+                                    <option value="11">41</option>
+                                </select>
+                                <a class="delete" href="#" title="[`Remove from cart`]">
+                                    <div class="rm">x</div>
+                                </a>
+                            </div>
                         </div>
-                        <div class="col w3 item-total nowrap">{$item.full_price} руб.</div>
+                        <div class="col w3 w8-m item-total nowrap">{$item.full_price} руб.</div>
 
                         {if !empty($item.services)}
                         <!-- services -->
@@ -150,17 +152,18 @@
                 </div>
                 {/if}
 
-                <div class="row no_border">
-                    <div class="col w8">
-                        <span class="crazygreen text-uppercase discount_answer_text">Ваша скидка: <span class="pink">0,5%</span> Сколько дадим за email?</span>
+                <div class="row no_border discount-qustion">
+                    <div class="col w8 w16-m text-center">
+                        <span class="crazygreen text-uppercase discount_question_text">Ваша скидка: <span class="pink">0,5%</span> Сколько дадим за email?</span>
                     </div>
                     <div class="col w4 cart-total-text">
                         <span>[`Discount`] &minus; {$discount} руб.</span>
                     </div>
-                    <div class="col w4 cart-total-text">
+                    <div class="col w4 cart-total-text cart-total-text-t">
                         <span>[`Total`] {$cart.total} руб.</span>
                     </div>
                 </div>
+
                 <div class="checkout checkout-content" data-step-id="shipping">
                     <h2 class="" style="border-top: none; padding-top: 0">
                         Способ доставки:

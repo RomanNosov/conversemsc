@@ -1587,9 +1587,8 @@
 
 .main .main-blocks .cart-summary-page .col {
     vertical-align: top;
-    display: block;
-    position: relative;
-    float: left;
+    display: inline-block;
+    margin-right: -5px;
     box-sizing: border-box;
     height: 62px;
     line-height: 62px;
@@ -1603,7 +1602,7 @@
 .main .main-blocks .cart-summary-page .col button.coupon {
     font-size: 14px;
 }
-.discount_answer_text {
+.discount_question_text {
     font-size: 20px;
 }
 .cart-total-text {
@@ -1612,6 +1611,7 @@
 .main .main-blocks .cart-summary-page .col a {
     color: #E67F69;
     margin-left: 10px;
+    margin-right: 10px;
 }
 .crazygreen {
     color: #20b924;
@@ -1619,8 +1619,42 @@
 .pink {
     color: #ff1931;
 }
+
+@media screen and (max-width:630px) {
+.row.discount-qustion {
+    background-color: #20b924;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+.row.discount-qustion .col {
+    height: 30px !important;
+    line-height: 30px !important;
+}
+.row.discount-qustion .discount_question_text {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+}
+.row.discount-qustion .cart-total-text {
+    color: black;
+    background-color: white;
+}
+.row.discount-qustion .cart-total-text span {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.row.discount-qustion .cart-total-text-t {
+    float: right;
+    text-align: right;
+}
+}
 .text-uppercase {
     text-transform: uppercase;
+}
+.text-center {
+    text-align: center !important;
 }
 .main .main-blocks .cart-summary-page .col:not(:first-child) {
     padding-left: 20px;
@@ -1676,6 +1710,9 @@
 .main .main-blocks .cart-summary-page .col.w4 {
     width: 40%;
 }
+.main .main-blocks .cart-summary-page .col.w8-m {
+    width: 50%;
+}
 }
 
 .main .main-blocks .cart-summary-page .col.w5 {
@@ -1685,6 +1722,9 @@
 @media screen and (max-width:630px) {
 .main .main-blocks .cart-summary-page .col.w5 {
     width: 50%;
+}
+.pull-right-m {
+    float: right;
 }
 }
 
@@ -1715,6 +1755,12 @@
 @media screen and (max-width:630px) {
 .main .main-blocks .cart-summary-page .col.w8 {
     width: 80%;
+}
+.main .main-blocks .cart-summary-page .col.w16-m {
+    width: 100%;
+}
+.hidden-m {
+    display: none;
 }
 }
 
@@ -2010,7 +2056,6 @@
 
 .main .main-blocks .checkout {
     position: relative;
-    overflow: hidden;
 }
 
 .main .main-blocks .checkout .total-block {
