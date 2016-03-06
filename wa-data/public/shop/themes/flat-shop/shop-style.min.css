@@ -463,7 +463,9 @@
     background: #eee;
     height: 1px;
 }
-
+.row.no_border {
+    border: none !important;
+}
 #cartForm {
     overflow: hidden;
 }
