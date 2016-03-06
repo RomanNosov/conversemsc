@@ -467,7 +467,13 @@
 #cartForm {
     overflow: hidden;
 }
-
+#cartForm .form-group {
+    margin-bottom: 7px;
+}
+#cartForm .form-group input {
+    width: 374px;
+    padding-left: 10px;
+}
 #swipebox-overlay {
     background: #fff !important;
 }
@@ -1882,8 +1888,8 @@
 }
 
 .main .main-blocks .product-info .product-options {
-    
-	text-transform: uppercase;
+
+    text-transform: uppercase;
 }
 
 .main .main-blocks .product-info .price-old-label {
@@ -1893,12 +1899,12 @@
 
 .main .main-blocks .product-info .price-label {
     font-size: 28px;
-	margin-right: 10px;
+    margin-right: 10px;
 }
 
 .main .main-blocks .product-info button {
-    
-    
+
+
     font-size: 20px;
 }
 
@@ -1933,14 +1939,14 @@
 
 .main .main-blocks .product-sidebar .options {
     display: inline-block;
-	float:left;
-	margin-top: 7px;
-	margin-right: 10px;
+    float:left;
+    margin-top: 7px;
+    margin-right: 10px;
 }
 
 .main .main-blocks .product-sidebar .purchase {
     display: inline-block;
-	margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 

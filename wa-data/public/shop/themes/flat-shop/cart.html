@@ -1,9 +1,9 @@
 <div>
     <script type="text/javascript" src="{$wa_theme_url}cart.js"></script>
-    
+
 
     {if !$cart.count}
-        
+
         <div class="cart your-cart-is-empty">
             <h1>[`Shopping cart`]</h1>
             <p>[`Your shopping cart is empty.`]</p>
@@ -21,14 +21,14 @@
                 </div>
             </h1>
 
-        
+
             <!-- sixteen-column cart layout -->
             <div class="cart cart-summary-page">
-                
+
                 {foreach $cart.items as $item}
-                
+
                     <!-- cart item -->
-                    <div class="row" data-id="{$item.id}">                  
+                    <div class="row" data-id="{$item.id}">
                         <div class="col w1 item-thumb"><a href="{$wa->shop->productUrl($item.product)}" title="{$item.product.name|escape}">{$wa->shop->productImgHtml($item.product, '96x96', ['default' => "`$wa_theme_url`img/dummy48.png"])}</a>&nbsp;</div><div class="col w9 item-name">
                             <a href="{$wa->shop->productUrl($item.product)}" class="bold">{$item.product.name|escape}</a>
                             {if $item.sku_name && $item.sku_name != $item.product.name}{$item.sku_name|escape}{/if}
@@ -73,7 +73,7 @@
                                 {/if}
                             {/if}
                         {/if}
-                        
+
                     </div>
                     {if !empty($item.error)}<script>alert({json_encode($item.error)});</script>{/if}
                 {/foreach}
@@ -94,7 +94,7 @@
                                 <input type="text" name="coupon_code" value="{$coupon_code|escape}"> <button class="sqr-btn coupon">[`Apply`]</button>
                             </div>
                         {/if}
-                        
+
                     </div>
                     <div class="col w2 align-center">[`Discount`]</div>
                     <div class="col w3 align-center cart-discount nowrap">&minus; {$discount} руб.</div>
@@ -116,7 +116,7 @@
                     <div class="col w1">&nbsp;</div>
                 </div>
                 {/if}
-                
+
                 <!-- TOTAL -->
                 <div class="row large no-border" style="display:none">
                     <div class="col w12 no-border">
@@ -126,7 +126,7 @@
                     <div class="col w3 cart-total align-center total bold nowrap">{$cart.total} руб.</div>
                     <div class="col w1">&nbsp;</div>
                 </div>
-                
+
                 {if shopAffiliate::isEnabled() && !empty($add_affiliate_bonus)}
                 <div class="row no-border">
                     <div class="col w16 no-border">
@@ -135,63 +135,6 @@
                 </div>
                 {/if}
 
-                <div class="checkout checkout-content" data-step-id="payment">
-
-                    <table class="total-block">
-                        <tr><td>[`Discount`]</td><td>&minus;{$discount} руб.</td></tr>
-                        <tr><td>[`Total`]</td><td>{$cart.total} руб.</td></tr>
-                    </table>
-
-                    <h2 class="" style="border-top: none;">
-                        Способ оплаты:
-                    </h2>
-
-                    <ul class="checkout-options payment">
-                        {foreach $checkout_payment_methods as $m}
-                            <li {if !empty($m.error)}class="gray"{/if}>
-                                <h3>
-                                    <label>
-                                        <input {if !empty($m.error)}disabled="disabled"{/if} type="radio" name="payment_id" value="{$m.id}" {if $m.id == $payment_id}checked{/if}>
-                                        {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
-                                        {if !empty($m.url)}
-                                            <a href="{$m.url}" target="_blank">{$m.name|escape}</a>
-                                        {else}
-                                            {$m.name|escape}
-                                        {/if}
-                                    </label>
-                        
-                                </h3>
-                                {if $m.description}<p>{$m.description}</p>{/if}
-                                {if !empty($m.error)}<p class="error"><em>{$m.error}</em></p>{/if}
-                                {if !empty($m.custom_html)}<div class="wa-form" {if $m.id != $payment_id}style="display:none"{/if}>{$m.custom_html}</div>{/if}
-                                {if !empty($m.bimg)}<img class="bimg" style="display: none" src="{$m.bimg}">{/if}
-                                <script>
-                                    if (parseInt($(".cart .cart-total.total").data("orig-price")) >= 5000 && localStorage["price" + $(".cart .cart-total.total").data("orig-price")] > 0) {
-                                        $(".payment img.bimg").show();
-                                    }
-                                </script>
-                            </li>
-                        {foreachelse}
-                            <li>
-                                <em class="error">[`Oops! We are sorry, but <strong>we can not offer any payment option for your order</strong>. Checkout can not be completed.`]</em>
-                            </li>
-                        {/foreach}
-                    </ul>
-                    <script type="text/javascript">
-                        $(".checkout-options.payment input:radio").change(function () {
-                            if ($(this).is(':checked')) {
-                                $(".checkout-options.payment .wa-form").hide();
-                                $(this).closest('li').find('.wa-form').show();
-                            }
-                        });
-                    </script>
-
-                    <!-- plugin hook: 'frontend_checkout' -->
-                    {* @event frontend_checkout.%plugin_id% *}
-                    {foreach $frontend_checkout as $_}{$_}{/foreach}
-                    
-                </div>
-                
                 <div class="checkout checkout-content" data-step-id="shipping">
                     <h2 class="" style="border-top: none; padding-top: 0">
                         Способ доставки:
@@ -237,8 +180,8 @@
                                         {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
                                         <input type="radio" name="shipping_id" value="{$m.id}" {if $m.external || !empty($m.error)}disabled{/if} {if $m.id == $shipping.id}checked{/if}>
                                         {$m.name|escape}
-                                    </label> 
-                                        
+                                    </label>
+
                                     {if empty($m.error) && !empty($m.rates)}
                                         {if count($m.rates) > 1}
                                             <select class="shipping-rates" name="rate_id[{$m.id}]">
@@ -274,7 +217,7 @@
 
                                     $("[name=payment_id]").change(function() {
                                         var params = { shipping_id: [{implode(',', $external_methods)}] };
-                                        
+
                                         if ($("[name=payment_id]:checked").val() == 2) {
                                             params.cl = true;
                                         }
@@ -421,7 +364,78 @@
                     {foreach $frontend_checkout as $_}{$_}{/foreach}
 
                 </div>
-                
+
+                <div class="checkout checkout-content" data-step-id="payment">
+
+                    <table class="total-block">
+                        <tr><td>[`Discount`]</td><td>&minus;{$discount} руб.</td></tr>
+                        <tr><td>[`Total`]</td><td>{$cart.total} руб.</td></tr>
+                    </table>
+
+                    <h2 class="" style="border-top: none;">
+                        Способ оплаты:
+                    </h2>
+
+                    <ul class="checkout-options payment">
+                        {foreach $checkout_payment_methods as $m}
+                            <li {if !empty($m.error)}class="gray"{/if}>
+                                <h3>
+                                    <label>
+                                        <input {if !empty($m.error)}disabled="disabled"{/if} type="radio" name="payment_id" value="{$m.id}" {if $m.id == $payment_id}checked{/if}>
+                                        {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
+                                        {if !empty($m.url)}
+                                            <a href="{$m.url}" target="_blank">{$m.name|escape}</a>
+                                        {else}
+                                            {$m.name|escape}
+                                        {/if}
+                                    </label>
+
+                                </h3>
+                                {if $m.description}<p>{$m.description}</p>{/if}
+                                {if !empty($m.error)}<p class="error"><em>{$m.error}</em></p>{/if}
+                                {if !empty($m.custom_html)}<div class="wa-form" {if $m.id != $payment_id}style="display:none"{/if}>{$m.custom_html}</div>{/if}
+                                {if !empty($m.bimg)}<img class="bimg" style="display: none" src="{$m.bimg}">{/if}
+                                <script>
+                                    if (parseInt($(".cart .cart-total.total").data("orig-price")) >= 5000 && localStorage["price" + $(".cart .cart-total.total").data("orig-price")] > 0) {
+                                        $(".payment img.bimg").show();
+                                    }
+                                </script>
+                            </li>
+                        {foreachelse}
+                            <li>
+                                <em class="error">[`Oops! We are sorry, but <strong>we can not offer any payment option for your order</strong>. Checkout can not be completed.`]</em>
+                            </li>
+                        {/foreach}
+                        <li>
+                            <h3>
+                                <label>
+                                    <input type="radio" name="payment_id" value="9">
+                                    <a href="#" target="_blank">ОПЛАТА КАРТОЙ ОНЛАЙН</a>
+                                    <img src="http://conversemsc.ru/wa-data/public/site/cards.png" style="margin-top:-5px" class="method-logo">
+                                </label>
+                            </h3>
+                            <script>
+                                if (parseInt($(".cart .cart-total.total").data("orig-price")) >= 5000 && localStorage["price" + $(".cart .cart-total.total").data("orig-price")] > 0) {
+                                    $(".payment img.bimg").show();
+                                }
+                            </script>
+                        </li>
+                    </ul>
+                    <script type="text/javascript">
+                        $(".checkout-options.payment input:radio").change(function () {
+                            if ($(this).is(':checked')) {
+                                $(".checkout-options.payment .wa-form").hide();
+                                $(this).closest('li').find('.wa-form').show();
+                            }
+                        });
+                    </script>
+
+                    <!-- plugin hook: 'frontend_checkout' -->
+                    {* @event frontend_checkout.%plugin_id% *}
+                    {foreach $frontend_checkout as $_}{$_}{/foreach}
+
+                </div>
+
                 <!--div class="checkout checkout-content">
                     <h2 class="" style="border-top: none;">
                         Проверка скидок:
@@ -436,7 +450,7 @@
 
                     <script>
                     $("button.coupon").click(function(e) {
-                        
+
                         $.post("/cart", { coupon_code: $("[name=coupon_code][placeholder]").val() }, function(data) {
                             location.reload();
                         });
@@ -467,7 +481,7 @@
                         <button class="sqr-btn checkout" name="checkout" type="submit" value="[`Proceed to checkout`] &rarr;">Далее &rarr;</button>
                     </div>
                 </div>
-                
+
                 {$related = $wa->shop->crossSelling($cart.items, 'product_id')}
                 {if $theme_settings.cart_crossselling == 'common' && $related}
                     <div class="row no-border">
@@ -479,12 +493,12 @@
                         </div>
                     </div>
                 {/if}
-                
+
             </div>
 
             <!-- plugin hook: 'frontend_cart' -->
             {* @event frontend_cart.%plugin_id% *}
-            {foreach $frontend_cart as $_}{$_}{/foreach}                    
+            {foreach $frontend_cart as $_}{$_}{/foreach}
 
         </form>
         <script>
@@ -516,7 +530,7 @@
             });
 
             e.preventDefault();
-            return false;        
+            return false;
         });
         </script>
     {/if}
