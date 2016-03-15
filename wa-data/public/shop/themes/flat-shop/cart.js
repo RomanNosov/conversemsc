@@ -1,5 +1,16 @@
 $(function () {
 
+    $('.change-size').change(function(){
+        var $this = $(this);
+        $.post($this.data('url'), {product_id: $this.data('product'), sku_id: $this.val(), quantity: $this.data('qtty')}, function(data){
+            if(data.status && data.status == 'ok'){
+                $.post('delete/', {id: $this.closest('div.row').data('id')}, function(){
+                    location.reload();
+                });
+            }
+        });
+    });
+
     function priceFilter(str) {
         return str.split("<")[0].replace(/ /g, "") + " руб.";
     }
@@ -24,11 +35,11 @@ $(function () {
     $(".cart a.delete").click(function () {
         var row = $(this).closest('div.row');
         $.post('delete/', {html: 1, id: row.data('id')}, function (response) {
-            if (response.data.count == 0) {
+            //if (response.data.count == 0) {
                 location.reload();
-            }
-            row.remove();
-            updateCart(response.data);
+            //}
+            //row.remove();
+            //updateCart(response.data);
         }, "json");
         return false;
     });

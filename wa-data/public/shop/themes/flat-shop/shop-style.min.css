@@ -1580,18 +1580,18 @@
 }
 
 .main .main-blocks .cart-summary-page .row {
-    min-height: 62px;
+    /*min-height: 62px;*/
     border-top: 1px solid #EEE;
     padding: 5px 0;
 }
 
 .main .main-blocks .cart-summary-page .col {
-    vertical-align: top;
+    vertical-align: middle;
     display: inline-block;
     margin-right: -5px;
     box-sizing: border-box;
-    height: 62px;
-    line-height: 62px;
+    /*height: 62px;*/
+    /*line-height: 62px;*/
 }
 
 .main .main-blocks .cart-summary-page .col button.checkout {
@@ -1620,6 +1620,12 @@
     color: #ff1931;
 }
 
+@media screen and (min-width: 630px){
+    .row.discount-qustion .cart-total-text{
+        float: right;
+        margin-top: -3px;
+    }
+}
 @media screen and (max-width:630px) {
 .row.discount-qustion {
     background-color: #20b924;
@@ -1627,23 +1633,40 @@
     top: 0;
     left: 0;
     z-index: 1000;
+    padding: 5px 5px !important;
+    width: 100%;
+    box-sizing: border-box;
 }
 .row.discount-qustion .col {
     height: 30px !important;
     line-height: 30px !important;
+    text-align: center;
 }
 .row.discount-qustion .discount_question_text {
     color: white;
     font-size: 20px;
     text-align: center;
 }
+.row.discount-qustion .discount_question_text .pink{
+    font-weight: bold;
+}
 .row.discount-qustion .cart-total-text {
     color: black;
     background-color: white;
+    margin-top: 3px;
 }
 .row.discount-qustion .cart-total-text span {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.row.discount-qustion .cart-total-text span+span {
     padding-left: 10px;
-    padding-right: 10px;
+}
+.row.discount-qustion .cart-total-text>span:first-child {
+    float: left;
+}
+.row.discount-qustion .cart-total-text>span:last-child {
+    float: right;
 }
 .row.discount-qustion .cart-total-text-t {
     float: right;
@@ -1728,6 +1751,12 @@
 }
 }
 
+.main .main-blocks .cart-summary-page .cart-checkout .hint {
+    color: #666666;
+    font-size: 20px;
+    margin-left: 10px;
+    text-transform: uppercase;
+}
 .main .main-blocks .cart-summary-page .col.w6 {
     width: 37.5%;
 }
@@ -1774,6 +1803,7 @@
 }
 
 .main .main-blocks .cart-summary-page .col {
+    line-height: 40px;
     padding: 0 !important;
 }
 
@@ -2108,7 +2138,7 @@
 }
 
 .main .main-blocks .checkout .checkout-options li {
-    padding: 0 0 15px;
+    padding: 0 0 5px;
     position: relative;
 }
 
@@ -2188,7 +2218,7 @@
 
 .main .main-blocks .checkout h2 {
     font-weight: 400;
-    padding: 15px 0 10px;
+    padding: 5px 0 10px;
     margin: 0;
     border-top: 1px solid #E4E4E4;
 }

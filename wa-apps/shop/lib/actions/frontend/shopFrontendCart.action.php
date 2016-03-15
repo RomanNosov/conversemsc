@@ -87,6 +87,25 @@ class shopFrontendCartAction extends shopFrontendAction
 
         $sku_model = new shopProductSkusModel();
         $skus = $sku_model->getByField('id', $sku_ids, 'id');
+
+        // берём все лоты для каждого из продуктов, чтобы получить все размеры
+        $product_skus = array();
+        $result = $sku_model->getByField('product_id', $product_ids, true);
+        uasort($result, function($a, $b){
+            if($a['name'] == $b['name']){
+                return 0;
+            }
+            return ($a['name'] < $b['name']) ? -1 : 1;
+        });
+        foreach($result as $res){
+            if(!isset($product_skus[$res['product_id']])){
+                $product_skus[$res['product_id']] = array();
+            }
+            $product_skus[$res['product_id']][$res['id']] = $res;
+        }
+        $this->view->assign('product_skus', $product_skus);
+        $this->view->assign('sku_ids', $sku_ids);
+
         shopRounding::roundSkus($skus, $products);
 
         $image_model = new shopProductImagesModel();

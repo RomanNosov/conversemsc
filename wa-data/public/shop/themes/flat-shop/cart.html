@@ -29,7 +29,7 @@
 
                     <!-- cart item -->
                     <div class="row" data-id="{$item.id}">
-                        <div class="col w1 item-thumb"><a href="{$wa->shop->productUrl($item.product)}" title="{$item.product.name|escape}">{$wa->shop->productImgHtml($item.product, '96x96', ['default' => "`$wa_theme_url`img/dummy48.png"])}</a>&nbsp;</div>
+                        <div class="col w1 item-thumb"><a href="{$wa->shop->productUrl($item.product)}" title="{$item.product.name|escape}">{$wa->shop->productImgHtml($item.product, '96x96', ['default' => "`$wa_theme_url`img/dummy48.png"])}</a></div>
                         <div class="col w8 item-name">
                             <a href="{$wa->shop->productUrl($item.product)}" class="bold">{$item.product.name|escape}</a>
                         </div>
@@ -39,10 +39,12 @@
                         <div class="options w4 w8-m col">
                             <div class="pull-right-m">
                                 <span class="product-options">Размер: </span>
-                                <select data-feature-id="1" class="sku-feature" name="features[1]">
-                                    <option value="14">38</option>
-                                    <option value="12" selected="">40</option>
-                                    <option value="11">41</option>
+                                <select data-feature-id="1" class="sku-feature change-size" name="features[1]" data-url="{$wa->getUrl('/frontendCart/add')}" data-product="{$item.product_id}" data-qtty="{$item.quantity}" data-selected="{$item.sku_id}">
+                                    {foreach $product_skus[$item.product_id] as $sel_sku}
+                                        {if !in_array($sel_sku.id, $sku_ids) || $sel_sku.id==$item.sku_id}
+                                            <option value="{$sel_sku.id}" {if $sel_sku.id==$item.sku_id}selected{/if}>{$sel_sku.name}</option>
+                                        {/if}
+                                    {/foreach}
                                 </select>
                                 <a class="delete" href="#" title="[`Remove from cart`]">
                                     <div class="rm">x</div>
@@ -153,14 +155,11 @@
                 {/if}
 
                 <div class="row no_border discount-qustion">
-                    <div class="col w8 w16-m text-center">
+                    <div class="col w8 w16-m">
                         <span class="crazygreen text-uppercase discount_question_text">Ваша скидка: <span class="pink">0,5%</span> Сколько дадим за email?</span>
                     </div>
-                    <div class="col w4 cart-total-text">
-                        <span>[`Discount`] &minus; {$discount} руб.</span>
-                    </div>
-                    <div class="col w4 cart-total-text cart-total-text-t">
-                        <span>[`Total`] {$cart.total} руб.</span>
+                    <div class="cart-total-text cart-total-text-t">
+                        <span>[`Total`]</span> <span>{$cart.total} руб.</span>
                     </div>
                 </div>
 
@@ -509,8 +508,9 @@
                             {/if}
                         {/foreach}
                     </div-->
-                    <div class="col w6 bold cart-checkout">
+                    <div class="col bold cart-checkout">
                         <button class="sqr-btn checkout" name="checkout" type="submit" value="[`Proceed to checkout`] &rarr;">Далее &rarr;</button>
+                        <span class="hint">Перейти на шаг 2</span>
                     </div>
                 </div>
 
