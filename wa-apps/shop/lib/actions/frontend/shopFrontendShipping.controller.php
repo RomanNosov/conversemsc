@@ -94,6 +94,7 @@ class shopFrontendShippingController extends waJsonController
                 $is_html = waRequest::request('html');
                 foreach ($rates as $r_id => &$r) {
                     $r['id'] = $r_id;
+                    $r['plugin_name'] = $plugin->getName();
                     if ($r['rate'] !== null) {
                         $r['rate_html'] = $is_html ? shop_currency_html($r['rate'], $r['currency']) : shop_currency($r['rate'], $r['currency']);
                         $r['rate'] = shop_currency($r['rate'], $r['currency']);

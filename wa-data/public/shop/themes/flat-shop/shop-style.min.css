@@ -466,13 +466,16 @@
 .row.no_border {
     border: none !important;
 }
-#cartForm {
-    overflow: hidden;
+/*#cartForm {*/
+    /*overflow: hidden;*/
+/*}*/
+/*#cartForm .form-group {*/
+    /*margin-bottom: 7px;*/
+/*}*/
+#cartForm .wa-name{
+    display: none;
 }
-#cartForm .form-group {
-    margin-bottom: 7px;
-}
-#cartForm .form-group input {
+#cartForm .wa-value input {
     width: 374px;
     padding-left: 10px;
 }
@@ -1604,6 +1607,8 @@
 }
 .discount_question_text {
     font-size: 20px;
+    height: 20px;
+    display: inline-block;
 }
 .cart-total-text {
     font-size: 22px;

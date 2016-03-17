@@ -34,14 +34,18 @@ class shopFrontendCartAction extends shopFrontendAction
         $cart_model = new shopCartItemsModel();
         $items = $cart_model->where('code= ?', $code)->order('parent_id')->fetchAll('id');
 
+        $contactInfo = new shopCheckoutContactinfo();
+        $result = $contactInfo->execute();
+
         if (waRequest::post('checkout')) {
-            $saved_quantity = $cart_model->select('id,quantity')->where("type='product' AND code = s:code", array('code' => $code))->fetchAll('id');
-            $quantity = waRequest::post('quantity');
-            foreach ($quantity as $id => $q) {
-                if (isset($saved_quantity[$id]) && ($q != $saved_quantity[$id])) {
-                    $cart->setQuantity($id, $q);
-                }
-            }
+//            убрал количество из-за того, что сейчас его изменить нельзя
+//            $saved_quantity = $cart_model->select('id,quantity')->where("type='product' AND code = s:code", array('code' => $code))->fetchAll('id');
+//            $quantity = waRequest::post('quantity');
+//            foreach ($quantity as $id => $q) {
+//                if (isset($saved_quantity[$id]) && ($q != $saved_quantity[$id])) {
+//                    $cart->setQuantity($id, $q);
+//                }
+//            }
             $not_available_items = $cart_model->getNotAvailableProducts($code, !wa()->getSetting('ignore_stock_count'));
             foreach ($not_available_items as $row) {
                 if ($row['sku_name']) {
@@ -61,8 +65,12 @@ class shopFrontendCartAction extends shopFrontendAction
                     $errors[$row['id']] = null;
                 }
             }
-            if (!$errors) {
-                $this->redirect(wa()->getRouteUrl('/frontend/checkout'));
+            if (!$errors && $result) {
+//                $this->redirect(wa()->getRouteUrl('/frontend/checkout'));
+                $_GET['step'] = shopCheckout::getStepNumber('success');
+                (new shopFrontendCheckoutAction())->execute();
+//                $action = new shopFrontendCheckoutAction();
+//                $action->execute();
             }
         }
 
@@ -323,6 +331,8 @@ class shopFrontendCartAction extends shopFrontendAction
             'total' => $total,
             'count' => $cart->count()
         ));
+
+        $contactInfo->display();
         
         $checkoutPayment = new shopCheckoutPayment();
         $checkoutPayment->display();

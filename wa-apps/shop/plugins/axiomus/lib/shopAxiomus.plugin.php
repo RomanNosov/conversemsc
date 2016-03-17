@@ -98,6 +98,7 @@ class shopAxiomusPlugin extends shopPlugin {
 
         $contact = $order['contact'];
 
+        die(var_dump($orderInfo));
         $waCountryModel = new waCountryModel();
         $region = $waCountryModel->name($orderInfo['shipping_address.country']);
         $waRegionModel = new waRegionModel();

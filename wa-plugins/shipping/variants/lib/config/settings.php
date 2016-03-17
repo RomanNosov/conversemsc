@@ -67,30 +67,30 @@ return array(
         'description' => 'Стоимость доставки безналичным расчетом',
         'control_type' => waHtmlControl::INPUT
     ),
-    'spb1' => array(
-        'value' => 300,
-        'title' => 'СПб - курьер',
-        'description' => 'Стоимость доставки наличным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
-    'spb1cl' => array(
-        'value' => 300,
-        'title' => 'СПб - курьер',
-        'description' => 'Стоимость доставки безналичным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
-    'spb2' => array(
-        'value' => 200,
-        'title' => 'СПб - самовывоз',
-        'description' => 'Стоимость доставки наличным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
-    'spb2cl' => array(
-        'value' => 200,
-        'title' => 'СПб - самовывоз',
-        'description' => 'Стоимость доставки безналичным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
+//    'spb1' => array(
+//        'value' => 300,
+//        'title' => 'СПб - курьер',
+//        'description' => 'Стоимость доставки наличным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
+//    'spb1cl' => array(
+//        'value' => 300,
+//        'title' => 'СПб - курьер',
+//        'description' => 'Стоимость доставки безналичным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
+//    'spb2' => array(
+//        'value' => 200,
+//        'title' => 'СПб - самовывоз',
+//        'description' => 'Стоимость доставки наличным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
+//    'spb2cl' => array(
+//        'value' => 200,
+//        'title' => 'СПб - самовывоз',
+//        'description' => 'Стоимость доставки безналичным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
     'post' => array(
         'value' => 400,
         'title' => 'Почта',
@@ -103,30 +103,30 @@ return array(
         'description' => 'Стоимость доставки безналичным расчетом',
         'control_type' => waHtmlControl::INPUT
     ),
-    'regpick' => array(
-        'value' => 300,
-        'title' => 'Регионы - самовывоз',
-        'description' => 'Стоимость доставки наличным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
-    'regpickcl' => array(
-        'value' => 300,
-        'title' => 'Регионы - самовывоз',
-        'description' => 'Стоимость доставки безналичным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
-    'regcour' => array(
-        'value' => 300,
-        'title' => 'Регионы - курьер',
-        'description' => 'Стоимость доставки наличным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
-    'regcourcl' => array(
-        'value' => 300,
-        'title' => 'Регионы - курьер',
-        'description' => 'Стоимость доставки безналичным расчетом',
-        'control_type' => waHtmlControl::INPUT
-    ),
+//    'regpick' => array(
+//        'value' => 300,
+//        'title' => 'Регионы - самовывоз',
+//        'description' => 'Стоимость доставки наличным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
+//    'regpickcl' => array(
+//        'value' => 300,
+//        'title' => 'Регионы - самовывоз',
+//        'description' => 'Стоимость доставки безналичным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
+//    'regcour' => array(
+//        'value' => 300,
+//        'title' => 'Регионы - курьер',
+//        'description' => 'Стоимость доставки наличным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
+//    'regcourcl' => array(
+//        'value' => 300,
+//        'title' => 'Регионы - курьер',
+//        'description' => 'Стоимость доставки безналичным расчетом',
+//        'control_type' => waHtmlControl::INPUT
+//    ),
     
 );
 //EOF
