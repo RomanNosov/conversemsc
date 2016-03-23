@@ -31,6 +31,12 @@ class shopShippingDescriptionPlugin extends shopPlugin{
      */
     public static function getControl(array $shippingMethods = array()){
         $settings = (new self(static::$selfInfo))->getSettings();
+        $settings['shippingOrder'] = [
+            ['id' => '4', 'rate' => 'msc3'],
+            ['id' => '13', 'rate' => 'delivery'],
+            ['id' => '4', 'rate' => 'msc1'],
+            ['id' => '4', 'rate' => 'msc2'],
+            ['id' => '4', 'rate' => 'post']];
         $settings['shippingData'] = [
             4 => [
                 'msc1' => [
@@ -110,9 +116,9 @@ class shopShippingDescriptionPlugin extends shopPlugin{
         foreach ($shippingMethods as $id => $m) {
             $shippingMethods[$id]['rates'] = shopShipping::getPlugin(null, $id)->getRates($items, $address, (new shopCart())->total());
         }
-
         $view = wa()->getView();
         $view->assign('data', $settings['shippingData']);
+        $view->assign('shippingOrder', $settings['shippingOrder']);
         $view->assign('payData', json_encode($settings['payData']));
         $view->assign('emailData', json_encode($settings['email']));
         $view->assign('phoneData', json_encode($settings['phone']));

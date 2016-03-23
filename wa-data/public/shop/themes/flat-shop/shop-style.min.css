@@ -479,6 +479,14 @@
     width: 374px;
     padding-left: 10px;
 }
+.font-size-anim{
+    animation: heartbeat 2s;
+    -webkit-animation: heartbeat 2s;
+    -moz-animation: heartbeat 2s;
+}
+@keyframes heartbeat{ 20%{font-size: 25px;} 40%{font-size: 22px;} }
+@-moz-keyframes heartbeat { 20% { font-size: 25px; } 40%{font-size: 22px;} }
+@-webkit-keyframes heartbeat { 20% {font-size: 25px; } 40%{font-size: 22px;} }
 #swipebox-overlay {
     background: #fff !important;
 }

@@ -159,7 +159,8 @@
                         <span class="crazygreen text-uppercase discount_question_text"></span>
                     </div>
                     <div class="cart-total-text cart-total-text-t">
-                        <span>[`Total`]</span> <span>{$cart.total} руб.</span>
+                        <input type="hidden" name="discount" value="0">
+                        <span>[`Total`]</span> <span id="total" data-total="{$cart.total}">{$cart.total} руб.</span>
                     </div>
                 </div>
                 <hr>
@@ -404,7 +405,7 @@
                             <li {if !empty($m.error)}class="gray"{/if}>
                                 <h3>
                                     <label>
-                                        <input {if !empty($m.error)}disabled="disabled"{/if} type="radio" name="payment_id" value="{$m.id}" {if $m.id == $payment_id}checked{/if}>
+                                        <input {if !empty($m.error)}disabled="disabled"{/if} type="radio" name="payment_id" value="{$m.id}" {* {if $m.id == $payment_id}checked{/if} *}>
                                         {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
                                         {if !empty($m.url)}
                                             <a href="{$m.url}" target="_blank">{$m.name|escape}</a>
@@ -432,7 +433,7 @@
                         <li>
                             <h3>
                                 <label>
-                                    <input type="radio" name="payment_id" value="9" checked>
+                                    <input type="radio" name="payment_id" value="9">
                                     Оплата картой онлайн
                                     <img src="http://conversemsc.ru/wa-data/public/site/cards.png" style="margin-top:-5px" class="method-logo">
                                 </label>
