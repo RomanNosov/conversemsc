@@ -8,7 +8,7 @@ $(function () {
                     location.reload();
                 });
             }
-        });
+        }, "json");
     });
 
     function priceFilter(str) {

@@ -101,9 +101,9 @@ class shopFrontendCheckoutAction extends waViewAction
                 : $current_step;
         }
 
-        if (!$current_step) {
-            $current_step = key($steps);
-        } 
+//        if (!$current_step) {
+//            $current_step = key($steps);
+//        }
 
         $title = _w('Checkout');
         if ($current_step == 'success') {
@@ -382,6 +382,10 @@ class shopFrontendCheckoutAction extends waViewAction
 
         $order['discount_description'] = null;
         $order['discount'] = shopDiscounts::apply($order, $order['discount_description']);
+        
+        if(waRequest::post('discount') && is_numeric(waRequest::post('discount'))){
+            $order['discount'] = ($order['total'] - $order['shipping']) * waRequest::post('discount') / 100;
+        }
 
         if (isset($checkout_data['shipping'])) {
             $order['params']['shipping_id'] = $checkout_data['shipping']['id'];

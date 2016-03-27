@@ -258,10 +258,11 @@
                                             var selectedRate = $('[name="rate_id['+selectedShipping+']"]').val();
                                             var shippingDescriptionHtml = '';
                                             $.each(response.data, responseCallback);
-                                            $('[name=shipping_id][value="'+selectedShipping+'"]').click().change();
+                                            $(document).trigger('deliveryUpdated', 'payment');
+//                                            $('[name=shipping_id][value="'+selectedShipping+'"]').click().change();
                                         }, "json");
 
-                                    }).change();
+                                    });
 
                                     function responseCallback(shipping_id, data) {
                                         var name = 'rate_id[' + shipping_id + ']';
@@ -293,7 +294,7 @@
                                                 if (selected) {
                                                     select.val(selected);
                                                 }
-                                                select.trigger('change', 1);
+//                                                select.trigger('change', 1);
                                                 $(".shipping-" + shipping_id).find('.rate').removeClass('error').find('.price').show();
                                                 $(".shipping-" + shipping_id).find('.rate em.shipping-error').remove();
                                             } else {
@@ -406,12 +407,12 @@
                                 <h3>
                                     <label>
                                         <input {if !empty($m.error)}disabled="disabled"{/if} type="radio" name="payment_id" value="{$m.id}" {* {if $m.id == $payment_id}checked{/if} *}>
-                                        {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
                                         {if !empty($m.url)}
-                                            <a href="{$m.url}" target="_blank">{$m.name|escape}</a>
+                                        <a href="{$m.url}" target="_blank">{$m.name|escape}</a>
                                         {else}
-                                            {$m.name|escape}
+                                        {$m.name|escape}
                                         {/if}
+                                        {if !empty($m.logo)}<img src="{$m.logo}" class="method-logo">{/if}
                                     </label>
 
                                 </h3>

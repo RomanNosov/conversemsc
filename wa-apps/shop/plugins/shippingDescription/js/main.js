@@ -12,20 +12,27 @@ $(document).ready(function(){
     var emailInput = $('[name="customer[email]"]');
 
     deliverySelector.change(function(){
-        var $this = $(this);
-        var shipping = $this.find('option:selected').data('shipping');
-        $('[name=shipping_id][value='+shipping+']').click().change();
-        $('.shippingDescription .description').html(deliverySelector.val() === 'msc3' ? '' : $this.find('option:selected').data('description'));
-        changeDiscount($this.find('option:selected').data('discount-text'));
-        setTimeout(function () {
-            $('[name="rate_id[' + shipping + ']"]').val($this.val());
-        }, 200);
+        $(document).trigger('deliveryUpdated', 'shipping');
     });
-    deliverySelector.change();
 
-    $('.payment [name=payment_id]').click(function(){
-        changeDiscount(payData[$('.payment [name=payment_id]:checked').val()].discount_text);
+    $(document).on('deliveryUpdated', function(e, target){
+        target = target || 'shipping';
+        var selectedOption = deliverySelector.find('option:selected');
+        var shipping = selectedOption.data('shipping');
+        var shippingVal = deliverySelector.val();
+        $('[name=shipping_id][value='+shipping+']').click().change();
+        $('.shippingDescription .description').html(shippingVal === 'msc3' ? '' : selectedOption.data('description'));
+        $('[name="rate_id[' + shipping + ']"]').val(shippingVal);
+        if(target == 'shipping') {
+            changeDiscount(selectedOption.data('discount-text'));
+        } else {
+            changeDiscount(payData[$('.payment [name=payment_id]:checked').val()].discount_text);
+        }
     });
+
+    // $('.payment [name=payment_id]').click(function(){
+    //     changeDiscount(payData[$(this).val()].discount_text);
+    // });
 
     phoneInput.keypress(function(){
         if($(this).val().trim().length >= 3){
@@ -43,25 +50,24 @@ $(document).ready(function(){
 
     function changeDiscount(text){
         var discount = 0;
-        console.log(deliverySelector.val());
         if(deliverySelector.val() !== 'msc3') {
-            discount += deliverySelector.find('option:selected').data('discount');
+            discount += parseFloat(deliverySelector.find('option:selected').data('discount').replace(',','.'));
             var payment = $('.payment [name=payment_id]:checked');
             if(payment.length > 0) {
-                discount += payData[payment.val()].discount;
+                discount += parseFloat(payData[payment.val()].discount);
             }
             if (phoneInput.length && phoneInput.val().trim().length >= 3) {
-                discount += phoneData.discount;
+                discount += parseFloat(phoneData.discount);
             }
             if (emailInput.length && emailExpr.test(emailInput.val().trim())) {
-                discount += emailData.discount;
+                discount += parseFloat(emailData.discount);
             }
             text = text.replace('{discount}', '<span class="pink">' + discount + '%</span>');
         } else {
             text = '';
         }
         var $total = $('#total');
-        $total.html(($total.data('total') * (1 - discount/100)) + ' руб.');
+        $total.html(Math.round(($total.data('total') * (1 - discount/100))) + ' руб.');
         $('#cartForm').find('[name=discount]').val(discount);
         $('.discount_question_text').html(text);
         animate();

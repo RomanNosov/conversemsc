@@ -26,5 +26,6 @@ return array (
   'instantorder' => true,
   'convead' => true,
   'cartsreport' => true,
+    'shippingDescription' => true
 );
 //EOF

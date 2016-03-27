@@ -67,7 +67,7 @@ class shopFrontendCartAction extends shopFrontendAction
             }
             if (!$errors && $result) {
 //                $this->redirect(wa()->getRouteUrl('/frontend/checkout'));
-                $_GET['step'] = shopCheckout::getStepNumber('success');
+                $_GET['step'] = 'contactinfo';
                 (new shopFrontendCheckoutAction())->execute();
 //                $action = new shopFrontendCheckoutAction();
 //                $action->execute();
